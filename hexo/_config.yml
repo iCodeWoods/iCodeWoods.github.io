@@ -73,7 +73,7 @@ pagination_dir: page
 ## Plugins: https://hexo.io/plugins/
 plugins: hexo-generate-feed
 ## Themes: https://hexo.io/themes/
-theme: next
+theme: landscape
 
 # Deployment
 ## Docs: https://hexo.io/docs/deployment.html
