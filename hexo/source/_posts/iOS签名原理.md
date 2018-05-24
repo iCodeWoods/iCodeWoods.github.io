@@ -5,7 +5,9 @@ categories:
 date: 2017-09-22 16:06:21
 tags: 签名
 ---
-*本文转载自：[bang's blog](http://blog.cnbang.net/tech/3386/)*
+**本文转载自：[bang's blog](http://blog.cnbang.net/tech/3386/)**
+
+&nbsp;
 
 iOS 签名机制挺复杂，各种证书，Provisioning Profile，entitlements，CertificateSigningRequest，p12，AppID，概念一堆，也很容易出错，本文尝试从原理出发，一步步推出为什么会有这么多概念，希望能有助于理解 iOS App 签名的原理和流程。
 
