@@ -1,5 +1,5 @@
 ---
-title: 【Bash】Bash学习之——变量、read、array、declare
+title: Bash学习之——变量、read、array、declare
 categories:
   - 脚本
 date: 2018-01-26 11:33:26

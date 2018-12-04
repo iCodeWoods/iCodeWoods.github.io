@@ -1,5 +1,5 @@
 ---
-title: 【Bash】Bash学习之——数据流重导向
+title: Bash学习之——数据流重导向
 categories:
   - 脚本
 date: 2018-03-08 15:16:05

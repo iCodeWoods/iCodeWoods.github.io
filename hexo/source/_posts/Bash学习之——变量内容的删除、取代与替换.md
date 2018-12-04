@@ -1,5 +1,5 @@
 ---
-title: 【Bash】Bash学习之——变量内容的删除、取代与替换
+title: Bash学习之——变量内容的删除、取代与替换
 categories:
   - 脚本
 date: 2018-01-31 10:21:44
