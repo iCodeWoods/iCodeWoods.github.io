@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+  <title>《Refactoring》读书笔记（一） | iCodeWoods的小站</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="[TOC] 第一章 重构，第一个案例 如果你发现自己需要为程序添加一个特效，而代码结构使你无法很方便地达成目的，那就先重构那个程序，使特性的添加比较容易进行，然后再添加特性。   重构前，先检查自己是否有一套可靠的测试机制。这些测试必须有自我检验能力。   任何一个傻瓜都能写出计算机可以理解的代码。唯有写出人类容易理解的代码，才是优秀的程序员。  重构时最好小步前进，如此一来犯错的几率最小。 （我">
+<meta name="keywords" content="Books">
+<meta property="og:type" content="article">
+<meta property="og:title" content="《Refactoring》读书笔记（一）">
+<meta property="og:url" content="https://iCodeWoods.github.io/2018/11/21/《Refactoring》读书笔记（一）/index.html">
+<meta property="og:site_name" content="iCodeWoods的小站">
+<meta property="og:description" content="[TOC] 第一章 重构，第一个案例 如果你发现自己需要为程序添加一个特效，而代码结构使你无法很方便地达成目的，那就先重构那个程序，使特性的添加比较容易进行，然后再添加特性。   重构前，先检查自己是否有一套可靠的测试机制。这些测试必须有自我检验能力。   任何一个傻瓜都能写出计算机可以理解的代码。唯有写出人类容易理解的代码，才是优秀的程序员。  重构时最好小步前进，如此一来犯错的几率最小。 （我">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2019-03-12T05:36:32.024Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="《Refactoring》读书笔记（一）">
+<meta name="twitter:description" content="[TOC] 第一章 重构，第一个案例 如果你发现自己需要为程序添加一个特效，而代码结构使你无法很方便地达成目的，那就先重构那个程序，使特性的添加比较容易进行，然后再添加特性。   重构前，先检查自己是否有一套可靠的测试机制。这些测试必须有自我检验能力。   任何一个傻瓜都能写出计算机可以理解的代码。唯有写出人类容易理解的代码，才是优秀的程序员。  重构时最好小步前进，如此一来犯错的几率最小。 （我">
+  
+    <link rel="alternate" href="/atom.xml" title="iCodeWoods的小站" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  
+
+</head>
+</html>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">iCodeWoods的小站</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">片刻之欢愉，不如须臾之宁静</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="搜索"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://iCodeWoods.github.io"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-《Refactoring》读书笔记（一）" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/11/21/《Refactoring》读书笔记（一）/" class="article-date">
+  <time datetime="2018-11-21T05:20:26.000Z" itemprop="datePublished">2018-11-21</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/读书笔记/">读书笔记</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      《Refactoring》读书笔记（一）
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>[TOC]</p>
+<h1 id="第一章-重构，第一个案例"><a href="#第一章-重构，第一个案例" class="headerlink" title="第一章 重构，第一个案例"></a>第一章 重构，第一个案例</h1><blockquote>
+<p>如果你发现自己需要为程序添加一个特效，而代码结构使你无法很方便地达成目的，那就先重构那个程序，使特性的添加比较容易进行，然后再添加特性。</p>
+</blockquote>
+<blockquote>
+<p>重构前，先检查自己是否有一套可靠的测试机制。这些测试必须有自我检验能力。</p>
+</blockquote>
+<blockquote>
+<p>任何一个傻瓜都能写出计算机可以理解的代码。唯有写出人类容易理解的代码，才是优秀的程序员。</p>
+</blockquote>
+<p><strong>重构时最好小步前进，如此一来犯错的几率最小。</strong></p>
+<p>（我司的重构一般都是对一个模块使用另一种模式如VIPER/MVP去写，所以都是直接重新写一个模块，然后两者做ABTest以确保无误。。。这种情况真是太难测试了。。。)</p>
+<blockquote>
+<p>这个例子给我们最大的启发是重构的节奏：测试、小修改、测试、小修改、测试、小修改。。。。。。正是这种节奏让重构得以快速而安全地前进。</p>
+</blockquote>
+<p>（Emmm。。。我司的方式好像不应该叫重构，而应该叫“重写”。。。）</p>
+<h1 id="第二章-重构原则"><a href="#第二章-重构原则" class="headerlink" title="第二章 重构原则"></a>第二章 重构原则</h1><h2 id="何谓重构-what"><a href="#何谓重构-what" class="headerlink" title="何谓重构 what"></a>何谓重构 what</h2><blockquote>
+<ul>
+<li>重构（名词）：对软件内部结构的一种调整，目的是在不改变软件可观察行为的前提下，提高其可理解性，降低其修改成本</li>
+<li>重构（动词）：使用一系列重构手法，在不改变软件可观察行为的前提下，调整其结构</li>
+</ul>
+</blockquote>
+<h3 id="两顶帽子"><a href="#两顶帽子" class="headerlink" title="两顶帽子"></a>两顶帽子</h3><p>使用重构技术开发软件时，你把自己的时间分配给两种截然不同的行为：添加新功能，以及重构。</p>
+<ul>
+<li>添加新功能时，你不应该修改既有代码，只管添加新功能。通过测试（并让测试正常运行），你可以衡量自己的工作进度。</li>
+<li>重构时你就不能再添加功能，只管改进程序结构。此时你不应该添加任何测试（除非发现有先前遗漏的东西），只在绝对必要（用以处理接口变化）时才修改测试。</li>
+</ul>
+<p>无论何时你都应该清楚自己戴的是哪一顶帽子。</p>
+<h2 id="为何重构-why"><a href="#为何重构-why" class="headerlink" title="为何重构 why"></a>为何重构 why</h2><ul>
+<li>重构改进软件设计。如果消除重复代码，就可以确定所有事物和行为在代码中只表述一次，这正是优秀设计的根本。</li>
+<li>重构使软件更容易理解。早期重构是“擦掉窗户上的污垢，使你看得更远”。</li>
+<li>重构帮助找到 bug。搞清楚程序结构的同时，也清楚了自己所做的一些假设，于是想不把 bug 揪出来都难。</li>
+<li>重构提高编程速度。良好设计是维持软件开发速度的根本。</li>
+</ul>
+<h2 id="何时重构-when"><a href="#何时重构-when" class="headerlink" title="何时重构 when"></a>何时重构 when</h2><p>反对专门拨出时间进行重构。重构应该随时随地进行，不应该为重构而重构，之所以重构，是因为你想做别的什么事，而重构可以帮助你把那些事做好。</p>
+<h3 id="三次法则"><a href="#三次法则" class="headerlink" title="三次法则"></a>三次法则</h3><p>第一次做某件事时只管去做；第二次做类似的事时会产生反感，但无论如何还是可以去做；第三次再做类似的事，你就应该重构。</p>
+<blockquote>
+<p>事不过三，三则重构。</p>
+</blockquote>
+<ul>
+<li>添加功能时重构。</li>
+<li>修补错误时重构。</li>
+<li>复审代码时重构。</li>
+</ul>
+<p>间接层的价值：</p>
+<ul>
+<li>允许逻辑共享</li>
+<li>分开解释意图和实现</li>
+<li>隔离变化</li>
+<li>封装条件逻辑</li>
+</ul>
+<h2 id="重构的难题"><a href="#重构的难题" class="headerlink" title="重构的难题"></a>重构的难题</h2><ul>
+<li>数据库</li>
+<li>修改接口</li>
+<li>难以通过重构手法完成的设计改动</li>
+<li>何时不该重构</li>
+</ul>
+<h2 id="重构与设计"><a href="#重构与设计" class="headerlink" title="重构与设计"></a>重构与设计</h2><p>重构肩负一项特殊使命：它和设计彼此互补。</p>
+<p>重构可以带来更简单的设计，同时又不损失灵活性，这也降低了设计过程的难度。</p>
+<blockquote>
+<p>哪怕你完全了解系统，也请实际度量它的性能，不要臆测。臆测会让你学到一些东西，但十有八九你是错的。</p>
+</blockquote>
+<h2 id="重构与性能"><a href="#重构与性能" class="headerlink" title="重构与性能"></a>重构与性能</h2><p>除了对性能有严格要求的实时系统，其他任何情况下“编写快速软件”的秘诀就是：首先写出可调的软件，然后调整它以求获得足够速度。</p>
+<h2 id="重构起源何处"><a href="#重构起源何处" class="headerlink" title="重构起源何处"></a>重构起源何处</h2><h1 id="第三章-代码的坏味道"><a href="#第三章-代码的坏味道" class="headerlink" title="第三章 代码的坏味道"></a>第三章 代码的坏味道</h1><blockquote>
+<p>P.S. 第三章内容比较多，将单独拎出来一节</p>
+</blockquote>
+<h1 id="第四章-构筑测试体系"><a href="#第四章-构筑测试体系" class="headerlink" title="第四章 构筑测试体系"></a>第四章 构筑测试体系</h1><h2 id="4-1-自测试代码的价值"><a href="#4-1-自测试代码的价值" class="headerlink" title="4.1 自测试代码的价值"></a>4.1 自测试代码的价值</h2><blockquote>
+<p>确保所有测试都完全自动化，让它们检查自己的测试结果。</p>
+<p>一套测试就是一个强大的bug侦测器，能够大大缩减查找bug所需要的时间。</p>
+</blockquote>
+<h2 id="4-2-JUnit-测试框架"><a href="#4-2-JUnit-测试框架" class="headerlink" title="4.2 JUnit 测试框架"></a>4.2 JUnit 测试框架</h2><blockquote>
+<p>频繁地运行测试。每次编译请把测试也考虑进去——每天至少执行每个测试一次。</p>
+</blockquote>
+<h3 id="单元测试（Unit-Test）和功能测试（Functional-Test）"><a href="#单元测试（Unit-Test）和功能测试（Functional-Test）" class="headerlink" title="单元测试（Unit Test）和功能测试（Functional Test）"></a>单元测试（Unit Test）和功能测试（Functional Test）</h3><blockquote>
+<p>每当你收到bug报告，请先写一个单元测试来暴露这个bug。</p>
+</blockquote>
+<h2 id="4-3-添加更多测试"><a href="#4-3-添加更多测试" class="headerlink" title="4.3 添加更多测试"></a>4.3 添加更多测试</h2><blockquote>
+<p>编写未臻完善的测试并实际运行，好过对完美测试的无尽等待。</p>
+<p>考虑可能出错的边界条件，把测试火力集中在那儿。</p>
+<p>当事情被认为应该会出错时，别忘了检查是否抛出了预期的异常。</p>
+<p>不要因为测试无法捕捉到所有 bug 就不写测试，因为测试的确可以捕捉到大多数 bug。</p>
+</blockquote>
+<h1 id="第五章-重构列表"><a href="#第五章-重构列表" class="headerlink" title="第五章 重构列表"></a>第五章 重构列表</h1><h2 id="5-1-重构的记录格式"><a href="#5-1-重构的记录格式" class="headerlink" title="5.1 重构的记录格式"></a>5.1 重构的记录格式</h2><ul>
+<li>名称（name）</li>
+<li>概要（summary）：适用场景，以及它所做的事情。</li>
+<li>动机（motivation）：为什么需要这个重构，以及什么情况下不该使用这个重构。</li>
+<li>做法（mechanics）</li>
+<li>范例（examples）</li>
+</ul>
+<h2 id="5-2-寻找引用点"><a href="#5-2-寻找引用点" class="headerlink" title="5.2 寻找引用点"></a>5.2 寻找引用点</h2><h2 id="5-3-这些重构手法有多成熟"><a href="#5-3-这些重构手法有多成熟" class="headerlink" title="5.3 这些重构手法有多成熟"></a>5.3 这些重构手法有多成熟</h2><p>设计模式为重构行为提供了目标。设计模式和重构之间有着一种与生俱来的关系。模式是你希望到达的目标，重构则是到达之路。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://iCodeWoods.github.io/2018/11/21/《Refactoring》读书笔记（一）/" data-id="cjt5cp7jw00082b99ftfmpm59" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Books/">Books</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2018/11/28/《Refactoring》读书笔记（二）重新组织函数/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          《Refactoring》读书笔记（二）重新组织函数
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2018/10/30/《浪潮之巅》读书笔记（二）/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">《浪潮之巅》读书笔记（二）</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">分类</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/iOS/">iOS</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/杂/">杂</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/脚本/">脚本</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/读书笔记/">读书笔记</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">标签</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Bash/">Bash</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Books/">Books</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JSPatch/">JSPatch</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/New-Features/">New Features</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/React-Native/">React Native</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Swift/">Swift</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/unowned/">unowned</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/动态化/">动态化</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/杂/">杂</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/签名/">签名</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/脚本/">脚本</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/译文/">译文</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/隐式解析可选类型/">隐式解析可选类型</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">标签云</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/Bash/" style="font-size: 16.67px;">Bash</a> <a href="/tags/Books/" style="font-size: 20px;">Books</a> <a href="/tags/JSPatch/" style="font-size: 10px;">JSPatch</a> <a href="/tags/New-Features/" style="font-size: 10px;">New Features</a> <a href="/tags/React-Native/" style="font-size: 10px;">React Native</a> <a href="/tags/Swift/" style="font-size: 13.33px;">Swift</a> <a href="/tags/unowned/" style="font-size: 10px;">unowned</a> <a href="/tags/动态化/" style="font-size: 10px;">动态化</a> <a href="/tags/杂/" style="font-size: 13.33px;">杂</a> <a href="/tags/签名/" style="font-size: 10px;">签名</a> <a href="/tags/脚本/" style="font-size: 16.67px;">脚本</a> <a href="/tags/译文/" style="font-size: 10px;">译文</a> <a href="/tags/隐式解析可选类型/" style="font-size: 10px;">隐式解析可选类型</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">三月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/01/">一月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">十二月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/11/">十一月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/10/">十月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/05/">五月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/03/">三月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/01/">一月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/11/">十一月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/09/">九月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/08/">八月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/07/">七月 2017</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2019/03/12/《1984》读书笔记/">《1984》读书笔记</a>
+          </li>
+        
+          <li>
+            <a href="/2019/01/03/2018年总结/">2018年总结</a>
+          </li>
+        
+          <li>
+            <a href="/2018/12/10/《Refactoring》读书笔记（四）重新组织数据/">《Refactoring》读书笔记（四）重新组织数据</a>
+          </li>
+        
+          <li>
+            <a href="/2018/12/04/《Refactoring》读书笔记（三）在对象之间搬移特性/">《Refactoring》读书笔记（三）在对象之间搬移特性</a>
+          </li>
+        
+          <li>
+            <a href="/2018/11/28/《Refactoring》读书笔记（二）重新组织函数/">《Refactoring》读书笔记（二）重新组织函数</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2019 iCodeWoods<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+  </div>
+</body>
+</html>

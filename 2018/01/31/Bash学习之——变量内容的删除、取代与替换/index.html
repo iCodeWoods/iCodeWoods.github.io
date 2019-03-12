@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+  <title>Bash学习之——变量内容的删除、取代与替换 | iCodeWoods的小站</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="删除从左到右：  ‘#’ ：符合取代文字的『最短的』那一个； ‘##’：符合取代文字的『最长的』那一个  从右到左：  % ：符合取代文字的『最短的』那一个； %%：符合取代文字的『最长的』那一个   取代 ${变量/旧字符串/新字符串}     若变量内容符合『旧字符串』则『第一个旧字符串会被新字符串取代』 ${变量//旧字符串/新字符串}    若变量内容符合『旧字符串』则『全部的旧字符串会被">
+<meta name="keywords" content="脚本,Bash">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Bash学习之——变量内容的删除、取代与替换">
+<meta property="og:url" content="https://iCodeWoods.github.io/2018/01/31/Bash学习之——变量内容的删除、取代与替换/index.html">
+<meta property="og:site_name" content="iCodeWoods的小站">
+<meta property="og:description" content="删除从左到右：  ‘#’ ：符合取代文字的『最短的』那一个； ‘##’：符合取代文字的『最长的』那一个  从右到左：  % ：符合取代文字的『最短的』那一个； %%：符合取代文字的『最长的』那一个   取代 ${变量/旧字符串/新字符串}     若变量内容符合『旧字符串』则『第一个旧字符串会被新字符串取代』 ${变量//旧字符串/新字符串}    若变量内容符合『旧字符串』则『全部的旧字符串会被">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="https://icodewoods.github.io/2018/01/31/Bash学习之——变量内容的删除、取代与替换/bash1.png">
+<meta property="og:image" content="https://icodewoods.github.io/2018/01/31/Bash学习之——变量内容的删除、取代与替换/bash2.png">
+<meta property="og:image" content="https://icodewoods.github.io/2018/01/31/Bash学习之——变量内容的删除、取代与替换/bash3.png">
+<meta property="og:updated_time" content="2019-03-12T05:36:32.015Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Bash学习之——变量内容的删除、取代与替换">
+<meta name="twitter:description" content="删除从左到右：  ‘#’ ：符合取代文字的『最短的』那一个； ‘##’：符合取代文字的『最长的』那一个  从右到左：  % ：符合取代文字的『最短的』那一个； %%：符合取代文字的『最长的』那一个   取代 ${变量/旧字符串/新字符串}     若变量内容符合『旧字符串』则『第一个旧字符串会被新字符串取代』 ${变量//旧字符串/新字符串}    若变量内容符合『旧字符串』则『全部的旧字符串会被">
+<meta name="twitter:image" content="https://icodewoods.github.io/2018/01/31/Bash学习之——变量内容的删除、取代与替换/bash1.png">
+  
+    <link rel="alternate" href="/atom.xml" title="iCodeWoods的小站" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  
+
+</head>
+</html>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">iCodeWoods的小站</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">片刻之欢愉，不如须臾之宁静</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="搜索"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://iCodeWoods.github.io"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-Bash学习之——变量内容的删除、取代与替换" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/01/31/Bash学习之——变量内容的删除、取代与替换/" class="article-date">
+  <time datetime="2018-01-31T02:21:44.000Z" itemprop="datePublished">2018-01-31</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/脚本/">脚本</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Bash学习之——变量内容的删除、取代与替换
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="删除"><a href="#删除" class="headerlink" title="删除"></a>删除</h2><p>从左到右：</p>
+<ul>
+<li>‘#’ ：符合取代文字的『最短的』那一个；</li>
+<li>‘##’：符合取代文字的『最长的』那一个</li>
+</ul>
+<p>从右到左：</p>
+<ul>
+<li>% ：符合取代文字的『最短的』那一个；</li>
+<li>%%：符合取代文字的『最长的』那一个</li>
+</ul>
+<p><img src="/2018/01/31/Bash学习之——变量内容的删除、取代与替换/bash1.png" alt="变量内容的删除"></p>
+<h2 id="取代"><a href="#取代" class="headerlink" title="取代"></a>取代</h2><ul>
+<li>${变量/旧字符串/新字符串}     若变量内容符合『旧字符串』则『第一个旧字符串会被新字符串取代』</li>
+<li>${变量//旧字符串/新字符串}    若变量内容符合『旧字符串』则『全部的旧字符串会被新字符串取代』</li>
+</ul>
+<p><img src="/2018/01/31/Bash学习之——变量内容的删除、取代与替换/bash2.png" alt="变量内容的取代"></p>
+<h2 id="变量的测试与内容替换"><a href="#变量的测试与内容替换" class="headerlink" title="变量的测试与内容替换"></a>变量的测试与内容替换</h2><p><img src="/2018/01/31/Bash学习之——变量内容的删除、取代与替换/bash3.png" alt="变量的测试与内容替换"></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">范例一：测试一下是否存在 username 这个变量，若不存在则给予 username 内容为 root</span><br><span class="line">[root@www ~]<span class="comment"># echo $username</span></span><br><span class="line">           &lt;==由于出现空白，所以 username 可能不存在，也可能是空字符串</span><br><span class="line">[root@www ~]<span class="comment"># username=$&#123;username-root&#125;</span></span><br><span class="line">[root@www ~]<span class="comment"># echo $username</span></span><br><span class="line">root       &lt;==因为 username 没有配置，所以主动给予名为 root 的内容。</span><br><span class="line">[root@www ~]<span class="comment"># username="vbird tsai" &lt;==主动配置 username 的内容</span></span><br><span class="line">[root@www ~]<span class="comment"># username=$&#123;username-root&#125;</span></span><br><span class="line">[root@www ~]<span class="comment"># echo $username</span></span><br><span class="line">vbird tsai &lt;==因为 username 已经配置了，所以使用旧有的配置而不以 root 取代</span><br><span class="line"></span><br><span class="line">范例二：若 username 未配置或为空字符串，则将 username 内容配置为 root</span><br><span class="line">[root@www ~]<span class="comment"># username=""</span></span><br><span class="line">[root@www ~]<span class="comment"># username=$&#123;username-root&#125;</span></span><br><span class="line">[root@www ~]<span class="comment"># echo $username</span></span><br><span class="line">      &lt;==因为 username 被配置为空字符串了！所以当然还是保留为空字符串！</span><br><span class="line">[root@www ~]<span class="comment"># username=$&#123;username:-root&#125;</span></span><br><span class="line">[root@www ~]<span class="comment"># echo $username</span></span><br><span class="line">root  &lt;==加上『 : 』后若变量内容为空或者是未配置，都能够以后面的内容替换！</span><br><span class="line"></span><br><span class="line">测试：若 str 不存在时，则 var 的测试结果直接显示 <span class="string">"无此变量"</span></span><br><span class="line">[root@www ~]<span class="comment"># unset str; var=$&#123;str?无此变量&#125;</span></span><br><span class="line">-bash: str: 无此变量    &lt;==因为 str 不存在，所以输出错误信息 </span><br><span class="line"></span><br><span class="line">测试：若 str 存在时，则 var 的内容会与 str 相同！</span><br><span class="line">[root@www ~]<span class="comment"># str="oldvar"; var=$&#123;str?novar&#125;</span></span><br><span class="line">[root@www ~]<span class="comment"># echo var="$var", str="$str"</span></span><br><span class="line">var=oldvar, str=oldvar  &lt;==因为 str 存在，所以 var 等于 str 的内容</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://iCodeWoods.github.io/2018/01/31/Bash学习之——变量内容的删除、取代与替换/" data-id="cjt5cp7jl00022b99kwyh0ebp" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Bash/">Bash</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/脚本/">脚本</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2018/03/08/Bash学习之——数据流重导向/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          Bash学习之——数据流重导向
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2018/01/26/Bash学习之——变量、read、array、declare/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">Bash学习之——变量、read、array、declare</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">分类</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/iOS/">iOS</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/杂/">杂</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/脚本/">脚本</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/读书笔记/">读书笔记</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">标签</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Bash/">Bash</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Books/">Books</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JSPatch/">JSPatch</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/New-Features/">New Features</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/React-Native/">React Native</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Swift/">Swift</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/unowned/">unowned</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/动态化/">动态化</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/杂/">杂</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/签名/">签名</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/脚本/">脚本</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/译文/">译文</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/隐式解析可选类型/">隐式解析可选类型</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">标签云</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/Bash/" style="font-size: 16.67px;">Bash</a> <a href="/tags/Books/" style="font-size: 20px;">Books</a> <a href="/tags/JSPatch/" style="font-size: 10px;">JSPatch</a> <a href="/tags/New-Features/" style="font-size: 10px;">New Features</a> <a href="/tags/React-Native/" style="font-size: 10px;">React Native</a> <a href="/tags/Swift/" style="font-size: 13.33px;">Swift</a> <a href="/tags/unowned/" style="font-size: 10px;">unowned</a> <a href="/tags/动态化/" style="font-size: 10px;">动态化</a> <a href="/tags/杂/" style="font-size: 13.33px;">杂</a> <a href="/tags/签名/" style="font-size: 10px;">签名</a> <a href="/tags/脚本/" style="font-size: 16.67px;">脚本</a> <a href="/tags/译文/" style="font-size: 10px;">译文</a> <a href="/tags/隐式解析可选类型/" style="font-size: 10px;">隐式解析可选类型</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">三月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/01/">一月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">十二月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/11/">十一月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/10/">十月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/05/">五月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/03/">三月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/01/">一月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/11/">十一月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/09/">九月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/08/">八月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/07/">七月 2017</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2019/03/12/《1984》读书笔记/">《1984》读书笔记</a>
+          </li>
+        
+          <li>
+            <a href="/2019/01/03/2018年总结/">2018年总结</a>
+          </li>
+        
+          <li>
+            <a href="/2018/12/10/《Refactoring》读书笔记（四）重新组织数据/">《Refactoring》读书笔记（四）重新组织数据</a>
+          </li>
+        
+          <li>
+            <a href="/2018/12/04/《Refactoring》读书笔记（三）在对象之间搬移特性/">《Refactoring》读书笔记（三）在对象之间搬移特性</a>
+          </li>
+        
+          <li>
+            <a href="/2018/11/28/《Refactoring》读书笔记（二）重新组织函数/">《Refactoring》读书笔记（二）重新组织函数</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2019 iCodeWoods<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+  </div>
+</body>
+</html>

@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+  <title>《Refactoring》读书笔记（三）在对象之间搬移特性 | iCodeWoods的小站</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="[TOC] 第七章 在对象之间搬移特性7.1 Move Method（搬移函数）概要你的程序中，有个函数与其所驻类之外的另一个类进行更多交流：调用后者，或者被后者调用。 在该函数最常引用的类中建立一个有着类似行为的新函数。将旧函数变成一个单纯的委托函数，或是将旧函数完全移除。 动机“搬移函数”是重构理论的支柱。通过这种手段，可以使系统中的类更简单，这些类最终也将更干净利落地实现系统交付的任务。 7">
+<meta name="keywords" content="Books">
+<meta property="og:type" content="article">
+<meta property="og:title" content="《Refactoring》读书笔记（三）在对象之间搬移特性">
+<meta property="og:url" content="https://iCodeWoods.github.io/2018/12/04/《Refactoring》读书笔记（三）在对象之间搬移特性/index.html">
+<meta property="og:site_name" content="iCodeWoods的小站">
+<meta property="og:description" content="[TOC] 第七章 在对象之间搬移特性7.1 Move Method（搬移函数）概要你的程序中，有个函数与其所驻类之外的另一个类进行更多交流：调用后者，或者被后者调用。 在该函数最常引用的类中建立一个有着类似行为的新函数。将旧函数变成一个单纯的委托函数，或是将旧函数完全移除。 动机“搬移函数”是重构理论的支柱。通过这种手段，可以使系统中的类更简单，这些类最终也将更干净利落地实现系统交付的任务。 7">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2019-03-12T05:36:32.024Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="《Refactoring》读书笔记（三）在对象之间搬移特性">
+<meta name="twitter:description" content="[TOC] 第七章 在对象之间搬移特性7.1 Move Method（搬移函数）概要你的程序中，有个函数与其所驻类之外的另一个类进行更多交流：调用后者，或者被后者调用。 在该函数最常引用的类中建立一个有着类似行为的新函数。将旧函数变成一个单纯的委托函数，或是将旧函数完全移除。 动机“搬移函数”是重构理论的支柱。通过这种手段，可以使系统中的类更简单，这些类最终也将更干净利落地实现系统交付的任务。 7">
+  
+    <link rel="alternate" href="/atom.xml" title="iCodeWoods的小站" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  
+
+</head>
+</html>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">iCodeWoods的小站</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">片刻之欢愉，不如须臾之宁静</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="搜索"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://iCodeWoods.github.io"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-《Refactoring》读书笔记（三）在对象之间搬移特性" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/12/04/《Refactoring》读书笔记（三）在对象之间搬移特性/" class="article-date">
+  <time datetime="2018-12-04T05:39:35.000Z" itemprop="datePublished">2018-12-04</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/读书笔记/">读书笔记</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      《Refactoring》读书笔记（三）在对象之间搬移特性
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>[TOC]</p>
+<h1 id="第七章-在对象之间搬移特性"><a href="#第七章-在对象之间搬移特性" class="headerlink" title="第七章 在对象之间搬移特性"></a>第七章 在对象之间搬移特性</h1><h2 id="7-1-Move-Method（搬移函数）"><a href="#7-1-Move-Method（搬移函数）" class="headerlink" title="7.1 Move Method（搬移函数）"></a>7.1 Move Method（搬移函数）</h2><h3 id="概要"><a href="#概要" class="headerlink" title="概要"></a>概要</h3><p>你的程序中，有个函数与其所驻类之外的另一个类进行更多交流：调用后者，或者被后者调用。</p>
+<p><strong>在该函数最常引用的类中建立一个有着类似行为的新函数。将旧函数变成一个单纯的委托函数，或是将旧函数完全移除。</strong></p>
+<h3 id="动机"><a href="#动机" class="headerlink" title="动机"></a>动机</h3><p>“搬移函数”是重构理论的支柱。通过这种手段，可以使系统中的类更简单，这些类最终也将更干净利落地实现系统交付的任务。</p>
+<h2 id="7-2-Move-Field（搬移字段）"><a href="#7-2-Move-Field（搬移字段）" class="headerlink" title="7.2 Move Field（搬移字段）"></a>7.2 Move Field（搬移字段）</h2><h3 id="概要-1"><a href="#概要-1" class="headerlink" title="概要"></a>概要</h3><p>在你的程序中，某个字段被其所驻类之外的另一个类更多地用到。</p>
+<p><strong>在目标类新建一个字段，修改源字段的所有用户，令它们改用新字段。</strong></p>
+<h2 id="7-3-Extract-Class（提炼类）"><a href="#7-3-Extract-Class（提炼类）" class="headerlink" title="7.3 Extract Class（提炼类）"></a>7.3 Extract Class（提炼类）</h2><h3 id="概要-2"><a href="#概要-2" class="headerlink" title="概要"></a>概要</h3><p>某个类做了应该由两个类做的事。</p>
+<p><strong>建立一个新类，将相关的字段和函数从旧类搬移到新类。</strong></p>
+<h2 id="7-4-Inline-Class（将类内联化）"><a href="#7-4-Inline-Class（将类内联化）" class="headerlink" title="7.4 Inline Class（将类内联化）"></a>7.4 Inline Class（将类内联化）</h2><p>某个类没有做太多事情。</p>
+<p><strong>将这个类的所有特性搬移到另一个类中，然后移除原类。</strong></p>
+<h2 id="7-5-Hide-Delegate（隐藏“委托关系”）"><a href="#7-5-Hide-Delegate（隐藏“委托关系”）" class="headerlink" title="7.5 Hide Delegate（隐藏“委托关系”）"></a>7.5 Hide Delegate（隐藏“委托关系”）</h2><h3 id="概要-3"><a href="#概要-3" class="headerlink" title="概要"></a>概要</h3><p>客户通过一个委托类来调用另一个对象。</p>
+<p><strong>在服务类上建立客户所需的所有函数，用以隐藏委托关系。</strong></p>
+<h3 id="动机-1"><a href="#动机-1" class="headerlink" title="动机"></a>动机</h3><p>即便将来发生委托关系上的变化，变化也将被限制在服务对象中，不会波及客户。</p>
+<h2 id="7-6-Remove-Middle-Man（移除中间人）"><a href="#7-6-Remove-Middle-Man（移除中间人）" class="headerlink" title="7.6 Remove Middle Man（移除中间人）"></a>7.6 Remove Middle Man（移除中间人）</h2><h3 id="概要-4"><a href="#概要-4" class="headerlink" title="概要"></a>概要</h3><p>某个类做了过多的简单委托动作。</p>
+<p><strong>让客户直接调用委托类。</strong></p>
+<h3 id="动机-2"><a href="#动机-2" class="headerlink" title="动机"></a>动机</h3><p>6个月前恰如其分的封装，现今可能就显得笨拙。重构的意义就在于：你永远不必说对不起——只要把出问题的地方修补好就行了。</p>
+<h2 id="7-7-Introduce-Foreign-Method（引入外加函数）"><a href="#7-7-Introduce-Foreign-Method（引入外加函数）" class="headerlink" title="7.7 Introduce Foreign Method（引入外加函数）"></a>7.7 Introduce Foreign Method（引入外加函数）</h2><h3 id="概要-5"><a href="#概要-5" class="headerlink" title="概要"></a>概要</h3><p>你需要为提供服务的类增加一个函数，但你无法修改这个类。</p>
+<p><strong>在客户类中建立一个函数，并以第一参数形式传入一个服务类实例。</strong></p>
+<h2 id="7-8-Introduce-Local-Extension（引入本地扩展）"><a href="#7-8-Introduce-Local-Extension（引入本地扩展）" class="headerlink" title="7.8 Introduce Local Extension（引入本地扩展）"></a>7.8 Introduce Local Extension（引入本地扩展）</h2><h3 id="概要-6"><a href="#概要-6" class="headerlink" title="概要"></a>概要</h3><p>你需要为服务类提供一些额外函数，但你无法修改这个类。</p>
+<p><strong>建立一个新类，使它包含这些额外函数。让这个扩展品成为源类的子类或包装类。</strong></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://iCodeWoods.github.io/2018/12/04/《Refactoring》读书笔记（三）在对象之间搬移特性/" data-id="cjt5cp7jz000b2b99t430xv0l" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Books/">Books</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2018/12/10/《Refactoring》读书笔记（四）重新组织数据/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          《Refactoring》读书笔记（四）重新组织数据
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2018/11/28/《Refactoring》读书笔记（二）重新组织函数/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">《Refactoring》读书笔记（二）重新组织函数</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">分类</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/iOS/">iOS</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/杂/">杂</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/脚本/">脚本</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/读书笔记/">读书笔记</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">标签</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Bash/">Bash</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Books/">Books</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JSPatch/">JSPatch</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/New-Features/">New Features</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/React-Native/">React Native</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Swift/">Swift</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/unowned/">unowned</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/动态化/">动态化</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/杂/">杂</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/签名/">签名</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/脚本/">脚本</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/译文/">译文</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/隐式解析可选类型/">隐式解析可选类型</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">标签云</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/Bash/" style="font-size: 16.67px;">Bash</a> <a href="/tags/Books/" style="font-size: 20px;">Books</a> <a href="/tags/JSPatch/" style="font-size: 10px;">JSPatch</a> <a href="/tags/New-Features/" style="font-size: 10px;">New Features</a> <a href="/tags/React-Native/" style="font-size: 10px;">React Native</a> <a href="/tags/Swift/" style="font-size: 13.33px;">Swift</a> <a href="/tags/unowned/" style="font-size: 10px;">unowned</a> <a href="/tags/动态化/" style="font-size: 10px;">动态化</a> <a href="/tags/杂/" style="font-size: 13.33px;">杂</a> <a href="/tags/签名/" style="font-size: 10px;">签名</a> <a href="/tags/脚本/" style="font-size: 16.67px;">脚本</a> <a href="/tags/译文/" style="font-size: 10px;">译文</a> <a href="/tags/隐式解析可选类型/" style="font-size: 10px;">隐式解析可选类型</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">三月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/01/">一月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">十二月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/11/">十一月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/10/">十月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/05/">五月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/03/">三月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/01/">一月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/11/">十一月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/09/">九月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/08/">八月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/07/">七月 2017</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2019/03/12/《1984》读书笔记/">《1984》读书笔记</a>
+          </li>
+        
+          <li>
+            <a href="/2019/01/03/2018年总结/">2018年总结</a>
+          </li>
+        
+          <li>
+            <a href="/2018/12/10/《Refactoring》读书笔记（四）重新组织数据/">《Refactoring》读书笔记（四）重新组织数据</a>
+          </li>
+        
+          <li>
+            <a href="/2018/12/04/《Refactoring》读书笔记（三）在对象之间搬移特性/">《Refactoring》读书笔记（三）在对象之间搬移特性</a>
+          </li>
+        
+          <li>
+            <a href="/2018/11/28/《Refactoring》读书笔记（二）重新组织函数/">《Refactoring》读书笔记（二）重新组织函数</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2019 iCodeWoods<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+  </div>
+</body>
+</html>

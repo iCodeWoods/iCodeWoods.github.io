@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+  <title>《Refactoring》读书笔记（四）重新组织数据 | iCodeWoods的小站</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="[TOC] 第八章 重新组织数据8.1 Self Encapsulate Field（自封装字段）概要你直接访问一个字段，但与字段之间的耦合关系逐渐变得笨拙。 为这个字段建立取值/设值函数，并且只以这些函数来访问字段。 （文中提到的两种观点，有点类似于我们 iOS 开发中的 “self.xxx 与 _xxx”） 8.2 Replace Data Value with Object（以对象取代数据值">
+<meta name="keywords" content="Books">
+<meta property="og:type" content="article">
+<meta property="og:title" content="《Refactoring》读书笔记（四）重新组织数据">
+<meta property="og:url" content="https://iCodeWoods.github.io/2018/12/10/《Refactoring》读书笔记（四）重新组织数据/index.html">
+<meta property="og:site_name" content="iCodeWoods的小站">
+<meta property="og:description" content="[TOC] 第八章 重新组织数据8.1 Self Encapsulate Field（自封装字段）概要你直接访问一个字段，但与字段之间的耦合关系逐渐变得笨拙。 为这个字段建立取值/设值函数，并且只以这些函数来访问字段。 （文中提到的两种观点，有点类似于我们 iOS 开发中的 “self.xxx 与 _xxx”） 8.2 Replace Data Value with Object（以对象取代数据值">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2019-03-12T05:36:32.025Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="《Refactoring》读书笔记（四）重新组织数据">
+<meta name="twitter:description" content="[TOC] 第八章 重新组织数据8.1 Self Encapsulate Field（自封装字段）概要你直接访问一个字段，但与字段之间的耦合关系逐渐变得笨拙。 为这个字段建立取值/设值函数，并且只以这些函数来访问字段。 （文中提到的两种观点，有点类似于我们 iOS 开发中的 “self.xxx 与 _xxx”） 8.2 Replace Data Value with Object（以对象取代数据值">
+  
+    <link rel="alternate" href="/atom.xml" title="iCodeWoods的小站" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  
+
+</head>
+</html>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">iCodeWoods的小站</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">片刻之欢愉，不如须臾之宁静</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="搜索"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://iCodeWoods.github.io"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-《Refactoring》读书笔记（四）重新组织数据" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/12/10/《Refactoring》读书笔记（四）重新组织数据/" class="article-date">
+  <time datetime="2018-12-10T05:37:18.000Z" itemprop="datePublished">2018-12-10</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/读书笔记/">读书笔记</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      《Refactoring》读书笔记（四）重新组织数据
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>[TOC]</p>
+<h1 id="第八章-重新组织数据"><a href="#第八章-重新组织数据" class="headerlink" title="第八章 重新组织数据"></a>第八章 重新组织数据</h1><h2 id="8-1-Self-Encapsulate-Field（自封装字段）"><a href="#8-1-Self-Encapsulate-Field（自封装字段）" class="headerlink" title="8.1 Self Encapsulate Field（自封装字段）"></a>8.1 Self Encapsulate Field（自封装字段）</h2><h3 id="概要"><a href="#概要" class="headerlink" title="概要"></a>概要</h3><p>你直接访问一个字段，但与字段之间的耦合关系逐渐变得笨拙。</p>
+<p><strong>为这个字段建立取值/设值函数，并且只以这些函数来访问字段。</strong></p>
+<p>（文中提到的两种观点，有点类似于我们 iOS 开发中的 “self.xxx 与 _xxx”）</p>
+<h2 id="8-2-Replace-Data-Value-with-Object（以对象取代数据值）"><a href="#8-2-Replace-Data-Value-with-Object（以对象取代数据值）" class="headerlink" title="8.2 Replace Data Value with Object（以对象取代数据值）"></a>8.2 Replace Data Value with Object（以对象取代数据值）</h2><h3 id="概要-1"><a href="#概要-1" class="headerlink" title="概要"></a>概要</h3><p>你有一个数据项，需要与其他数据和行为一起使用才有意义。</p>
+<p><strong>将数据项变成对象。</strong></p>
+<h2 id="8-3-Change-Value-to-Reference（将值对象改为引用对象）"><a href="#8-3-Change-Value-to-Reference（将值对象改为引用对象）" class="headerlink" title="8.3 Change Value to Reference（将值对象改为引用对象）"></a>8.3 Change Value to Reference（将值对象改为引用对象）</h2><h3 id="概要-2"><a href="#概要-2" class="headerlink" title="概要"></a>概要</h3><p>你从一个类衍生出许多彼此相等的实例，希望将它们替换为同一个对象。</p>
+<p><strong>将这个值对象变成引用对象。</strong></p>
+<h2 id="8-4-Change-Reference-to-Value（将引用对象改为值对象）"><a href="#8-4-Change-Reference-to-Value（将引用对象改为值对象）" class="headerlink" title="8.4 Change Reference to Value（将引用对象改为值对象）"></a>8.4 Change Reference to Value（将引用对象改为值对象）</h2><h3 id="概要-3"><a href="#概要-3" class="headerlink" title="概要"></a>概要</h3><p>你有一个引用对象，很小且不可变，而且不易管理。</p>
+<p><strong>将它变成一个值对象。</strong></p>
+<h2 id="8-5-Replace-Array-with-Object（以对象取代数组）"><a href="#8-5-Replace-Array-with-Object（以对象取代数组）" class="headerlink" title="8.5 Replace Array with Object（以对象取代数组）"></a>8.5 Replace Array with Object（以对象取代数组）</h2><h3 id="概要-4"><a href="#概要-4" class="headerlink" title="概要"></a>概要</h3><p>你有一个数组，其中的元素各自代表不同的东西。</p>
+<p><strong>以对象替换数组。对于数组中的每个元素，以一个字段来表示。</strong></p>
+<h2 id="8-6-Duplicate-Observed-Data（复制“被监视数据”）"><a href="#8-6-Duplicate-Observed-Data（复制“被监视数据”）" class="headerlink" title="8.6 Duplicate Observed Data（复制“被监视数据”）"></a>8.6 Duplicate Observed Data（复制“被监视数据”）</h2><h3 id="概要-5"><a href="#概要-5" class="headerlink" title="概要"></a>概要</h3><p>你有一些领域数据置身于GUI控件中，而领域函数需要访问这些数据。</p>
+<p><strong>将该数据复制到一个领域对象中。建立一个Observer模式，用以同步领域对象和GUI对象内的重复数据。</strong></p>
+<h2 id="8-7-Change-Unidirectional-Association-to-Bidirectional（将单向关联改为双向关联）"><a href="#8-7-Change-Unidirectional-Association-to-Bidirectional（将单向关联改为双向关联）" class="headerlink" title="8.7 Change Unidirectional Association to Bidirectional（将单向关联改为双向关联）"></a>8.7 Change Unidirectional Association to Bidirectional（将单向关联改为双向关联）</h2><h3 id="概要-6"><a href="#概要-6" class="headerlink" title="概要"></a>概要</h3><p>两个类都需要使用对方特性，但其间只有一条单向连接。</p>
+<p><strong>添加一个反向指针，并使修改函数能够同时更新两条连接。</strong></p>
+<h2 id="8-8-Change-Bidirectional-Association-to-Unidirectional（将双向关联改为单向关联）"><a href="#8-8-Change-Bidirectional-Association-to-Unidirectional（将双向关联改为单向关联）" class="headerlink" title="8.8 Change Bidirectional Association to Unidirectional（将双向关联改为单向关联）"></a>8.8 Change Bidirectional Association to Unidirectional（将双向关联改为单向关联）</h2><h3 id="概要-7"><a href="#概要-7" class="headerlink" title="概要"></a>概要</h3><p>两个类之间有双向关联，但其中一个类如今不再需要另一个类的特性。</p>
+<p><strong>去除不必要的关联。</strong></p>
+<h2 id="8-9-Replace-Magic-Number-with-Symbolic-Constant（以字面常量取代魔法数）"><a href="#8-9-Replace-Magic-Number-with-Symbolic-Constant（以字面常量取代魔法数）" class="headerlink" title="8.9 Replace Magic Number with Symbolic Constant（以字面常量取代魔法数）"></a>8.9 Replace Magic Number with Symbolic Constant（以字面常量取代魔法数）</h2><h3 id="概要-8"><a href="#概要-8" class="headerlink" title="概要"></a>概要</h3><p>你有一个字面数值，常有特别含义。</p>
+<p><strong>创造一个常量，根据其意义为它命名，并将上述的字面数值替换为这个常量。</strong></p>
+<h2 id="8-10-Encapsulate-Field（封装字段）"><a href="#8-10-Encapsulate-Field（封装字段）" class="headerlink" title="8.10 Encapsulate Field（封装字段）"></a>8.10 Encapsulate Field（封装字段）</h2><h3 id="概要-9"><a href="#概要-9" class="headerlink" title="概要"></a>概要</h3><p>你的类中存在一个public字段。</p>
+<p><strong>将它声明为private，并提供相应的访问函数。</strong></p>
+<h2 id="8-11-Encapsulate-Collection（封装集合）"><a href="#8-11-Encapsulate-Collection（封装集合）" class="headerlink" title="8.11 Encapsulate Collection（封装集合）"></a>8.11 Encapsulate Collection（封装集合）</h2><h3 id="概要-10"><a href="#概要-10" class="headerlink" title="概要"></a>概要</h3><p>有个函数返回一个集合。</p>
+<p><strong>让这个函数返回该集合的一个只读副本，并在这个类中提供添加/移除集合元素的函数。</strong></p>
+<h2 id="8-12-Replace-Record-with-Data-Class（以数据类取代记录）"><a href="#8-12-Replace-Record-with-Data-Class（以数据类取代记录）" class="headerlink" title="8.12 Replace Record with Data Class（以数据类取代记录）"></a>8.12 Replace Record with Data Class（以数据类取代记录）</h2><h3 id="概要-11"><a href="#概要-11" class="headerlink" title="概要"></a>概要</h3><p>你需要面对传统编程环境中的记录结构。</p>
+<p><strong>为该记录创建一个“哑”数据对象。</strong></p>
+<h2 id="8-13-Replace-Type-Code-with-Class（以类取代类型码）"><a href="#8-13-Replace-Type-Code-with-Class（以类取代类型码）" class="headerlink" title="8.13 Replace Type Code with Class（以类取代类型码）"></a>8.13 Replace Type Code with Class（以类取代类型码）</h2><h3 id="概要-12"><a href="#概要-12" class="headerlink" title="概要"></a>概要</h3><p>类之中有一个数值类型码，但它并不影响类的行为。</p>
+<p><strong>以一个新的类替换该数值类型码。</strong></p>
+<h2 id="8-14-Replace-Type-Code-with-Subclasses（以子类取代类型码）"><a href="#8-14-Replace-Type-Code-with-Subclasses（以子类取代类型码）" class="headerlink" title="8.14 Replace Type Code with Subclasses（以子类取代类型码）"></a>8.14 Replace Type Code with Subclasses（以子类取代类型码）</h2><h3 id="概要-13"><a href="#概要-13" class="headerlink" title="概要"></a>概要</h3><p>你有一个不可变的类型码，它会影响类的行为。</p>
+<p><strong>以子类取代这个类型码。</strong></p>
+<h2 id="8-15-Replace-Type-Code-with-State-Strategy（以-state-strategy-取代类型码）"><a href="#8-15-Replace-Type-Code-with-State-Strategy（以-state-strategy-取代类型码）" class="headerlink" title="8.15 Replace Type Code with State/Strategy（以 state/strategy 取代类型码）"></a>8.15 Replace Type Code with State/Strategy（以 state/strategy 取代类型码）</h2><h3 id="概要-14"><a href="#概要-14" class="headerlink" title="概要"></a>概要</h3><p>你有一个类型码，它会影响类的行为，但你无法通过继承手法消除它。</p>
+<p><strong>以状态对象取代类型码。</strong></p>
+<h3 id="动机"><a href="#动机" class="headerlink" title="动机"></a>动机</h3><p>本项重构和 Replace Type Code with Subclasses（223）很相似，但如果“类型码的值在对象生命周期中发生变化”或“其它原因使得宿主类不能被继承”，你也可以使用本重构。</p>
+<p>State模式和Strategy模式非常相似，重构过程是相同的，选择哪个模式并非问题关键所在。如果你打算在完成本项重构后再以 Replace Conditional with Polymorphism（255）简化一个算法，那么选择 Strategy 模式比较合适；如果你打算搬移与状态相关的数据，而且你把新建对象视为一种变迁状态，就应该选择使用 State 模式。</p>
+<h2 id="8-16-Replace-Subclass-with-Fields（以字段取代子类）"><a href="#8-16-Replace-Subclass-with-Fields（以字段取代子类）" class="headerlink" title="8.16 Replace Subclass with Fields（以字段取代子类）"></a>8.16 Replace Subclass with Fields（以字段取代子类）</h2><h3 id="概要-15"><a href="#概要-15" class="headerlink" title="概要"></a>概要</h3><p>你的各个子类的唯一差别只在“返回常量数据”的函数身上。</p>
+<p><strong>修改这些函数，使他们返回超类中的某个（新增）字段，然后销毁子类。</strong></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://iCodeWoods.github.io/2018/12/10/《Refactoring》读书笔记（四）重新组织数据/" data-id="cjt5cp7k4000g2b991jbx3tcx" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Books/">Books</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2019/01/03/2018年总结/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          2018年总结
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2018/12/04/《Refactoring》读书笔记（三）在对象之间搬移特性/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">《Refactoring》读书笔记（三）在对象之间搬移特性</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">分类</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/iOS/">iOS</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/杂/">杂</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/脚本/">脚本</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/读书笔记/">读书笔记</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">标签</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Bash/">Bash</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Books/">Books</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JSPatch/">JSPatch</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/New-Features/">New Features</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/React-Native/">React Native</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Swift/">Swift</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/unowned/">unowned</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/动态化/">动态化</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/杂/">杂</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/签名/">签名</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/脚本/">脚本</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/译文/">译文</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/隐式解析可选类型/">隐式解析可选类型</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">标签云</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/Bash/" style="font-size: 16.67px;">Bash</a> <a href="/tags/Books/" style="font-size: 20px;">Books</a> <a href="/tags/JSPatch/" style="font-size: 10px;">JSPatch</a> <a href="/tags/New-Features/" style="font-size: 10px;">New Features</a> <a href="/tags/React-Native/" style="font-size: 10px;">React Native</a> <a href="/tags/Swift/" style="font-size: 13.33px;">Swift</a> <a href="/tags/unowned/" style="font-size: 10px;">unowned</a> <a href="/tags/动态化/" style="font-size: 10px;">动态化</a> <a href="/tags/杂/" style="font-size: 13.33px;">杂</a> <a href="/tags/签名/" style="font-size: 10px;">签名</a> <a href="/tags/脚本/" style="font-size: 16.67px;">脚本</a> <a href="/tags/译文/" style="font-size: 10px;">译文</a> <a href="/tags/隐式解析可选类型/" style="font-size: 10px;">隐式解析可选类型</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">三月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/01/">一月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">十二月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/11/">十一月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/10/">十月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/05/">五月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/03/">三月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/01/">一月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/11/">十一月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/09/">九月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/08/">八月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/07/">七月 2017</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2019/03/12/《1984》读书笔记/">《1984》读书笔记</a>
+          </li>
+        
+          <li>
+            <a href="/2019/01/03/2018年总结/">2018年总结</a>
+          </li>
+        
+          <li>
+            <a href="/2018/12/10/《Refactoring》读书笔记（四）重新组织数据/">《Refactoring》读书笔记（四）重新组织数据</a>
+          </li>
+        
+          <li>
+            <a href="/2018/12/04/《Refactoring》读书笔记（三）在对象之间搬移特性/">《Refactoring》读书笔记（三）在对象之间搬移特性</a>
+          </li>
+        
+          <li>
+            <a href="/2018/11/28/《Refactoring》读书笔记（二）重新组织函数/">《Refactoring》读书笔记（二）重新组织函数</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2019 iCodeWoods<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+  </div>
+</body>
+</html>

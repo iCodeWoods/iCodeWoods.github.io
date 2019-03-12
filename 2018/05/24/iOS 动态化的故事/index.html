@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+  <title>iOS 动态化的故事 | iCodeWoods的小站</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="本文转载自：bang’s blog &amp;nbsp; 今天聊聊 iOS 动态化的故事。 问题在开发模式上，web 的方式是比较先进的，有各种优点，包括跨平台/UI开发效率高，最重要的是可以时刻保证用户看到的程序是最新的，没有版本概念，整个系统时刻保持在掌握之中，而客户端开发模式相对 web 开发是一种倒退，客户端做不到这样的动态化，无法随时更新，目前一个客户端程序要更新成本是很高的，需要发布版本，也无">
+<meta name="keywords" content="动态化,JSPatch,React Native">
+<meta property="og:type" content="article">
+<meta property="og:title" content="iOS 动态化的故事">
+<meta property="og:url" content="https://iCodeWoods.github.io/2018/05/24/iOS 动态化的故事/index.html">
+<meta property="og:site_name" content="iCodeWoods的小站">
+<meta property="og:description" content="本文转载自：bang’s blog &amp;nbsp; 今天聊聊 iOS 动态化的故事。 问题在开发模式上，web 的方式是比较先进的，有各种优点，包括跨平台/UI开发效率高，最重要的是可以时刻保证用户看到的程序是最新的，没有版本概念，整个系统时刻保持在掌握之中，而客户端开发模式相对 web 开发是一种倒退，客户端做不到这样的动态化，无法随时更新，目前一个客户端程序要更新成本是很高的，需要发布版本，也无">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2019-03-12T05:36:32.018Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="iOS 动态化的故事">
+<meta name="twitter:description" content="本文转载自：bang’s blog &amp;nbsp; 今天聊聊 iOS 动态化的故事。 问题在开发模式上，web 的方式是比较先进的，有各种优点，包括跨平台/UI开发效率高，最重要的是可以时刻保证用户看到的程序是最新的，没有版本概念，整个系统时刻保持在掌握之中，而客户端开发模式相对 web 开发是一种倒退，客户端做不到这样的动态化，无法随时更新，目前一个客户端程序要更新成本是很高的，需要发布版本，也无">
+  
+    <link rel="alternate" href="/atom.xml" title="iCodeWoods的小站" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  
+
+</head>
+</html>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">iCodeWoods的小站</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">片刻之欢愉，不如须臾之宁静</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="搜索"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://iCodeWoods.github.io"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-iOS 动态化的故事" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/05/24/iOS 动态化的故事/" class="article-date">
+  <time datetime="2018-05-24T02:46:50.000Z" itemprop="datePublished">2018-05-24</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/iOS/">iOS</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      iOS 动态化的故事
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p><strong>本文转载自：<a href="http://blog.cnbang.net/tech/3286/" target="_blank" rel="noopener">bang’s blog</a></strong></p>
+<p>&nbsp;</p>
+<p>今天聊聊 iOS 动态化的故事。</p>
+<h1 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h1><p>在开发模式上，web 的方式是比较先进的，有各种优点，包括跨平台/UI开发效率高，最重要的是可以时刻保证用户看到的程序是最新的，没有版本概念，整个系统时刻保持在掌握之中，而客户端开发模式相对 web 开发是一种倒退，客户端做不到这样的动态化，无法随时更新，目前一个客户端程序要更新成本是很高的，需要发布版本，也无法保证所有人都能更新到这个版本，这是最大的弱点，也是非常大的一块需求。</p>
+<h1 id="原因"><a href="#原因" class="headerlink" title="原因"></a>原因</h1><p>为什么会有这种倒退，最主要原因是：苹果引领的体验优先规则。</p>
+<p>在 iPhone 出现之前大家并不太在意一个软件的动画体验，一个 web 应用是很少有动画的，点一个按钮，一整块内容直接刷新，再点个链接整个页面变白刷新，PC上网页滚动都是一格格滚动的，而不是现在手机上那种顺滑流畅的滚动，PC客户端软件也一样，大家都觉得没什么问题，用得挺好，但苹果改变了这种情况，iPhone 刚推出时页面间切换的动画，60fps 的丝滑滚动，点击的即时响应，微软的人都惊呼是黑魔法，让人用了就上瘾，再也回不去，而 web 的方式还不足以像原生客户端那样支持这样的流畅性，做不到好的体验，无法被人接受，开发上优势再多也无法干过客户端，参考 facebook 初期用 web 技术构建 app 的惨状，没办法，服了苹果，大家只能按照苹果的方式干，做原生客户端。</p>
+<p>当然这里还有手机环境网络不稳定，流量费贵的原因，但这些都可以在技术上通过缓存解决，最主要还是体验问题。</p>
+<p>那发展到今天，这个体验问题解决了没有呢？没有，即使发展到今天手机性能已上天，但 web 做出来的东西体验仍然跟客户端有差别，大家也已经习惯了 APP 的方式，也被流畅的 APP 惯坏。现在 APP 里也有不少功能是 web实现，但大家都知道这是牺牲了一些性能体验去换取开发和发布效率，只是一种权衡。</p>
+<h1 id="解决方案"><a href="#解决方案" class="headerlink" title="解决方案"></a>解决方案</h1><p>那这个问题怎么解决呢，现在业界有两种方案。</p>
+<h2 id="1-优化-web-性能"><a href="#1-优化-web-性能" class="headerlink" title="1.优化 web 性能"></a>1.优化 web 性能</h2><p>既然用 web 方式开发的劣势只是性能体验跟不上，那就优化性能吧。web 性能瓶颈在哪里？在那个有悠久历史的 webkit 引擎，它有各种历史问题，要改进它并不容易。我们要的是 web 的开发和发布方式，不需要 web 的全部，那能不能重新实现一个渲染引擎呢，这个引擎可以针对原生客户端优化，不需要兼容繁杂的 web 标准，不跟 web 那些历史问题扯上关系，于是就有了 React Native 和 Weex 这种方案，web 的方式开发，原生的方式渲染，拥有 web 优秀的开发和发布方式，又有不错的性能体验，看起来很完美，很有前途的方案。</p>
+<p>一个方案能不能推广开让大家都使用，主要看成本和收益。目前 React Native 和 Weex 等这些方案的接入成本是很高的，一是它们本身就是大型框架，学习成本高，后期维护成本以及团队学习成本同样高。二是它们还不够成熟，还在继续填坑中，使用的过程可能要一起去填坑。收益上也不够理想，就目前状况它们能代替的是那些本来用 H5 实现的模块，换成这种方式实现后性能体验会更好，但也不能保证像原生那样好，很多场景需要深入框架进行优化。整个 APP 都使用这种方案构建还不靠谱，部分使用又无法使整个 APP 保持动态化，总体上来说收益也没有达到有绝对优势的程度，成本高收益低，推广起来会比较困难，还需期待其继续发展。</p>
+<h2 id="2-原生动态化"><a href="#2-原生动态化" class="headerlink" title="2.原生动态化"></a>2.原生动态化</h2><p>另一种是方案是，我可以放弃用 web 的开发方式，放弃 web 跨平台/UI开发简单的优越性，我想继续用原生的方式开发这个APP，但又希望这个 APP 随时可以更新，让程序时刻在自己掌握中，出了问题可以快速修复，还想要可以随时更新版本快速迭代，可以不？完全可以，用动态库就行了。</p>
+<h3 id="动态库"><a href="#动态库" class="headerlink" title="动态库"></a>动态库</h3><p>技术上要在 iOS 上做到原生动态化比 Android 更容易，iOS 开发语言 Objective-C 天生动态，运行时都能随意替换方法，运行时加载动态库又是项很老的技术，只要我把增量的代码和资源打包到一个 framework 里，动态下发运行时加载，修 bug，加功能都不在话下，性能完全无损，这件事就结束了。</p>
+<p>但是呢。苹果把加载动态库的功能给封了，动态库必须跟随安装包一起签名才能被加载，无法通过别的途径签名后再下发。</p>
+<p>为什么这么做呢，这又涉及到苹果另一个创举：审核模式（苹果的创举之多令人发指）。一个软件，要在一个平台上发布，需要先通过这个平台的人工审核，这个好像在苹果之前没见过有别人这样做过，windows 不用，mac 不用，各种 unix 不用，web 也不用，苹果为了对自己的平台有绝对控制权，搞了这样一个东西，审核模式就跟动态化冲突了，如果我一个 APP 可以不经过审核不断下发 framework 添加修改功能， 还需要苹果审核做什么？</p>
+<p>因为这种限制，没法用最方便的方式进行动态更新了，整个 APP 发出去后就不受控制，有什么严重 bug，需要添加什么功能，都乖乖打个包提交给苹果审核，再等用户慢慢更新，对于急性子的中国人来说，这种事难以容忍。</p>
+<h3 id="绕道"><a href="#绕道" class="headerlink" title="绕道"></a>绕道</h3><p>苹果把动态库这扇门关了，我们可以绕个道从另一个门进，动态加功能可以缓缓，大家需求还不那么迫切，但修 bug 的需求就很急，很多公司 APP 的 crash 率是 KPI 来着，看着线上 crash 不断增多又毫无办法是很不爽的事，于是有了 waxPatch 和 JSPatch 这种方案，曲线救国。</p>
+<p>JSPatch 把 OC 手动翻译成 JS，在运行时通过 OC 的动态特性去调用和替换 OC 方法，实时修复 bug。修 bug 这个需求基本是满足了，虽然小绕了下道，但成本还是很低的，引擎本身也很小很轻量，接入对 APP 不会有任何负面影响，在关键时刻又可以帮大忙，成本低收益高，于是很容易推广开。</p>
+<p>人欲望是无穷的，技术宅的折腾是无止境的，JSPatch 满足了修 bug 的需求，但还是无法满足动态化的全部需求，最大的缺点在于需要手写 JS，虽然已经有转换器辅助，但还没做到100%准确，用来修 bug 还好，用来添加功能的话学习成本和开发效率还不够。</p>
+<p>于是有了滴滴的 DynamicCocoa 这种方案，绕了一个更大的道，从编译阶段入手，通过 clang 把 OC 代码编译成自己定制的 JS 格式，再动态下发去执行，做到原生开发，动态运行，主打动态添加功能，当然顺便把修 bug 也给支持了。手机 QQ 内部也有一个类似的方案，不过更进一步，他们通过 clang 把 OC 代码编译成自己定制的字节码动态下发，然后开发一个虚拟机去执行（惊呆了），同样实现了原生开发，动态运行，都是 NB 得很的方案。只要底层处理做得足够好，也是个成本低收益高的方案，不过目前都还没开源，还没能看到实际效果和 NB 的源码，挺期待。</p>
+<h3 id="审核"><a href="#审核" class="headerlink" title="审核"></a>审核</h3><p>这种方案有没有什么问题呢，问题在对于苹果审核比较尴尬。这种方案做到极致后(所有OC/C语法都支持)，实际上是绕道实现了动态加载 framework 的全部功能，开发体验还是一致的，如果苹果同意这种方案，那相当于允许加载动态库，那还不如直接把门开了，让大家直接用动态库去做这个事情，用动态库还能在签名时禁止使用私有 API，用这种编译成脚本/字节码下发的方案可就禁止不了了。</p>
+<p>这跟 JSPatch 还不太一样，JSPatch 虽然我也想推广动态添加功能的用法，但因为开发体验问题大部分还是用于修 bug，苹果审核对 JSPatch 开始也是有一些拒绝案例，后来估计看到大家只是用它来修 bug 和 crash，提升 APP 的质量，就默许了。但 DynamicCocoa 和手Q的方案一开始目标和效果就是跟加载动态库对齐，大规模推广后苹果会怎么看就不知道了。</p>
+<p>我觉得苹果现在的审核方式挺有问题的，有多少APP是审核时用一套，审核通过后又通过后台一些开关把不符合规则的一些功能开放出来？只要能连上网，就有N种方式修改 APP 里的功能，苹果完全拦不住。个人认为审核方式应该改为只在发布新 APP 时审核，发布后允许动态下发代码更新，版本更新也不需要重新审核，而是通过举报和抽查的方式去审核已上线的 APP，这样既能顾及开发效率，方便开发者快速迭代做出更好的 APP，也更能确保审核效果，只是实施起来没有现在简单粗暴。</p>
+<h1 id="最后"><a href="#最后" class="headerlink" title="最后"></a>最后</h1><p>故事讲到这里已经差不多了，再多说一点，有个让我觉得很奇怪的问题，就是国外开发者只热衷于使用第一种方案解决问题，也就是使用web技术，用 React Native / NativeScript 的方式去做这个事情，对第二种方案很冷淡，包括 iOS Android 都是，原生热更新只在国内火，国外根本不感冒，国外有个 rollout 热更新平台也不温不火，为什么呢？是国外用户更守规则，或是用户对线上 bug 容忍度高，开发者对线上 bug 并不那么着急？还是 Android 被 Google Play 卡死断了这念想，iOS JSPatch 之类的方案推广不利？缺少国外一线开发者的支持，让系统原生支持动态化就比较困难了。</p>
+<p>个人认为由系统支持动态化（允许加载动态库）在当前环境下是最好的，兼顾开发效率和 APP 体验，虽然不能跨平台，但也还能接受，可惜这个主动权掌握在苹果手上，开发者无能为力，才会出现这么多强行绕道突破的方案。web 的方式可能是未来，但目前适用范围有限，接下来怎么发展，拭目以待吧。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://iCodeWoods.github.io/2018/05/24/iOS 动态化的故事/" data-id="cjt5cp7kt001v2b99axpphjl9" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JSPatch/">JSPatch</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/React-Native/">React Native</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/动态化/">动态化</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2018/10/15/《浪潮之巅》读书笔记（一）/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          《浪潮之巅》读书笔记（一）
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2018/03/08/Bash学习之——数据流重导向/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">Bash学习之——数据流重导向</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">分类</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/iOS/">iOS</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/杂/">杂</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/脚本/">脚本</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/读书笔记/">读书笔记</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">标签</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Bash/">Bash</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Books/">Books</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JSPatch/">JSPatch</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/New-Features/">New Features</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/React-Native/">React Native</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Swift/">Swift</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/unowned/">unowned</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/动态化/">动态化</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/杂/">杂</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/签名/">签名</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/脚本/">脚本</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/译文/">译文</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/隐式解析可选类型/">隐式解析可选类型</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">标签云</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/Bash/" style="font-size: 16.67px;">Bash</a> <a href="/tags/Books/" style="font-size: 20px;">Books</a> <a href="/tags/JSPatch/" style="font-size: 10px;">JSPatch</a> <a href="/tags/New-Features/" style="font-size: 10px;">New Features</a> <a href="/tags/React-Native/" style="font-size: 10px;">React Native</a> <a href="/tags/Swift/" style="font-size: 13.33px;">Swift</a> <a href="/tags/unowned/" style="font-size: 10px;">unowned</a> <a href="/tags/动态化/" style="font-size: 10px;">动态化</a> <a href="/tags/杂/" style="font-size: 13.33px;">杂</a> <a href="/tags/签名/" style="font-size: 10px;">签名</a> <a href="/tags/脚本/" style="font-size: 16.67px;">脚本</a> <a href="/tags/译文/" style="font-size: 10px;">译文</a> <a href="/tags/隐式解析可选类型/" style="font-size: 10px;">隐式解析可选类型</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">三月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/01/">一月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">十二月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/11/">十一月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/10/">十月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/05/">五月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/03/">三月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/01/">一月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/11/">十一月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/09/">九月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/08/">八月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/07/">七月 2017</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2019/03/12/《1984》读书笔记/">《1984》读书笔记</a>
+          </li>
+        
+          <li>
+            <a href="/2019/01/03/2018年总结/">2018年总结</a>
+          </li>
+        
+          <li>
+            <a href="/2018/12/10/《Refactoring》读书笔记（四）重新组织数据/">《Refactoring》读书笔记（四）重新组织数据</a>
+          </li>
+        
+          <li>
+            <a href="/2018/12/04/《Refactoring》读书笔记（三）在对象之间搬移特性/">《Refactoring》读书笔记（三）在对象之间搬移特性</a>
+          </li>
+        
+          <li>
+            <a href="/2018/11/28/《Refactoring》读书笔记（二）重新组织函数/">《Refactoring》读书笔记（二）重新组织函数</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2019 iCodeWoods<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+  </div>
+</body>
+</html>

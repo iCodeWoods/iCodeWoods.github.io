@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+  <title>《Refactoring》读书笔记（二）重新组织函数 | iCodeWoods的小站</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="[TOC] 第六章 重新组织函数6.1 Extract Method（提炼函数）概要你有一段代码可以被组织在一起并独立出来。 将这段代码放进一个独立函数中，并让函数名称解释该函数的用途。 动机复用机会大，覆写更容易，使高层函数读起来就像一系列注释。 函数长度不是问题，关键在于函数名称和函数本体之间的语义距离。如果提炼可以强化代码的清晰度，那就去做，就算函数名称比提炼出来的代码还长也无所谓。 难点在">
+<meta name="keywords" content="Books">
+<meta property="og:type" content="article">
+<meta property="og:title" content="《Refactoring》读书笔记（二）重新组织函数">
+<meta property="og:url" content="https://iCodeWoods.github.io/2018/11/28/《Refactoring》读书笔记（二）重新组织函数/index.html">
+<meta property="og:site_name" content="iCodeWoods的小站">
+<meta property="og:description" content="[TOC] 第六章 重新组织函数6.1 Extract Method（提炼函数）概要你有一段代码可以被组织在一起并独立出来。 将这段代码放进一个独立函数中，并让函数名称解释该函数的用途。 动机复用机会大，覆写更容易，使高层函数读起来就像一系列注释。 函数长度不是问题，关键在于函数名称和函数本体之间的语义距离。如果提炼可以强化代码的清晰度，那就去做，就算函数名称比提炼出来的代码还长也无所谓。 难点在">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2019-03-12T05:36:32.025Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="《Refactoring》读书笔记（二）重新组织函数">
+<meta name="twitter:description" content="[TOC] 第六章 重新组织函数6.1 Extract Method（提炼函数）概要你有一段代码可以被组织在一起并独立出来。 将这段代码放进一个独立函数中，并让函数名称解释该函数的用途。 动机复用机会大，覆写更容易，使高层函数读起来就像一系列注释。 函数长度不是问题，关键在于函数名称和函数本体之间的语义距离。如果提炼可以强化代码的清晰度，那就去做，就算函数名称比提炼出来的代码还长也无所谓。 难点在">
+  
+    <link rel="alternate" href="/atom.xml" title="iCodeWoods的小站" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  
+
+</head>
+</html>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">iCodeWoods的小站</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">片刻之欢愉，不如须臾之宁静</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="搜索"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://iCodeWoods.github.io"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-《Refactoring》读书笔记（二）重新组织函数" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/11/28/《Refactoring》读书笔记（二）重新组织函数/" class="article-date">
+  <time datetime="2018-11-28T05:34:38.000Z" itemprop="datePublished">2018-11-28</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/读书笔记/">读书笔记</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      《Refactoring》读书笔记（二）重新组织函数
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>[TOC]</p>
+<h1 id="第六章-重新组织函数"><a href="#第六章-重新组织函数" class="headerlink" title="第六章 重新组织函数"></a>第六章 重新组织函数</h1><h2 id="6-1-Extract-Method（提炼函数）"><a href="#6-1-Extract-Method（提炼函数）" class="headerlink" title="6.1 Extract Method（提炼函数）"></a>6.1 Extract Method（提炼函数）</h2><h3 id="概要"><a href="#概要" class="headerlink" title="概要"></a>概要</h3><p>你有一段代码可以被组织在一起并独立出来。</p>
+<p><strong>将这段代码放进一个独立函数中，并让函数名称解释该函数的用途。</strong></p>
+<h3 id="动机"><a href="#动机" class="headerlink" title="动机"></a>动机</h3><p>复用机会大，覆写更容易，使高层函数读起来就像一系列注释。</p>
+<p>函数长度不是问题，关键在于函数名称和函数本体之间的语义距离。如果提炼可以强化代码的清晰度，那就去做，就算函数名称比提炼出来的代码还长也无所谓。</p>
+<p>难点在于局部变量，包括传进源函数的参数和源函数所声明的临时变量。</p>
+<p>可以先尝试运用 Replace Temp with Query（120）减少临时变量。如果仍困难重重，我就会动用 Replace Method with Method Object（135），这个重构手法不在乎代码中有多少临时变量，也不在乎你如何使用它们。</p>
+<h2 id="6-2-Inline-Method（内联函数）"><a href="#6-2-Inline-Method（内联函数）" class="headerlink" title="6.2 Inline Method（内联函数）"></a>6.2 Inline Method（内联函数）</h2><h3 id="概要-1"><a href="#概要-1" class="headerlink" title="概要"></a>概要</h3><p>一个函数的本体与名称同样清楚易懂。</p>
+<p><strong>在函数调用点插入函数本体，然后移除该函数。</strong></p>
+<h3 id="动机-1"><a href="#动机-1" class="headerlink" title="动机"></a>动机</h3><p>间接层有其价值，但不是所有间接层都有价值。</p>
+<p>另一种需要使用 Inline Method（117）的情况是，你手上有一群组织不甚合理的函数。你可以将它们都内联到一个大型函数中，再从中提炼出组织合理的小型函数。Kent Beck 发现，实施 Replace Method with Method Object（135）之前先这么做， 往往可以获得不错的效果。</p>
+<h3 id="做法"><a href="#做法" class="headerlink" title="做法"></a>做法</h3><ul>
+<li>检查函数，确定它不具多态性（如果子类继承了这个函数，就不要将此函数内联，因为子类无法覆写一个根本不存在的函数。）</li>
+<li>略</li>
+</ul>
+<p>难点：对于递归调用、多返回点、内联至另一个对象中而该对象并无提供访问函数……等等。如果遇到了这样的复杂情况，那么就不应该使用这个重构手法。</p>
+<h2 id="6-3-Inline-Temp（内联临时变量）"><a href="#6-3-Inline-Temp（内联临时变量）" class="headerlink" title="6.3 Inline Temp（内联临时变量）"></a>6.3 Inline Temp（内联临时变量）</h2><h3 id="概要-2"><a href="#概要-2" class="headerlink" title="概要"></a>概要</h3><p>你有一个临时变量，只被一个简单表达式赋值一次，而它妨碍了其它重构手法。</p>
+<p><strong>将所有对该变量的引用动作，替换为对它赋值的那个表达式本身。</strong></p>
+<h3 id="动机-2"><a href="#动机-2" class="headerlink" title="动机"></a>动机</h3><p>Inline Temp（119）多半是作为 Replace Temp with Query（120）的一部分使用的，所以真正的动机出现在后者那儿。</p>
+<h2 id="6-4-Replace-Temp-with-Query"><a href="#6-4-Replace-Temp-with-Query" class="headerlink" title="6.4 Replace Temp with Query"></a>6.4 Replace Temp with Query</h2><h3 id="概要-3"><a href="#概要-3" class="headerlink" title="概要"></a>概要</h3><p>你的程序以一个临时变量保存某一表达式的运算结果。</p>
+<p><strong>将这个表达式提炼到一个独立函数中。将这个临时变量的所有引用点替换为对新函数的调用。此后，新函数就可以被其它函数使用。</strong></p>
+<h3 id="动机-3"><a href="#动机-3" class="headerlink" title="动机"></a>动机</h3><p>由于临时变量只在所属函数内可见，所以它们会<strong>驱使你写出更长的函数，因为只有这样你才能访问到需要的临时变量。</strong></p>
+<h2 id="6-5-Introduce-Explaining-Variable（引入解释性变量）"><a href="#6-5-Introduce-Explaining-Variable（引入解释性变量）" class="headerlink" title="6.5 Introduce Explaining Variable（引入解释性变量）"></a>6.5 Introduce Explaining Variable（引入解释性变量）</h2><h3 id="概要-4"><a href="#概要-4" class="headerlink" title="概要"></a>概要</h3><p>你有一个复杂的表达式。</p>
+<p><strong>将该复杂表达式（或其中一部分）的结果放进一个临时变量，以此变量名称来解释表达式用途。</strong></p>
+<h2 id="6-6-Split-Temporary-Varibale（分解临时变量）"><a href="#6-6-Split-Temporary-Varibale（分解临时变量）" class="headerlink" title="6.6 Split Temporary Varibale（分解临时变量）"></a>6.6 Split Temporary Varibale（分解临时变量）</h2><h3 id="概要-5"><a href="#概要-5" class="headerlink" title="概要"></a>概要</h3><p>你的程序有某个临时变量被赋值超过一次，它既不是循环变量，也不被用于收集计算结果。</p>
+<p><strong>针对每次赋值，创造一个独立、对应的临时变量。</strong></p>
+<h3 id="动机-4"><a href="#动机-4" class="headerlink" title="动机"></a>动机</h3><p>同一个临时变量承担两件不同的事情，会令代码阅读者糊涂。</p>
+<blockquote>
+<p>我敢保证，这比吃苏格兰布丁强多了——你知道他们都在里面放了些什么东西吗？</p>
+<p>（苏格兰布丁：haggis，一种苏格兰菜，把羊心等内脏装在羊胃里煮成。由于它被羊胃包成一个球体，因此可以像球一样踢来踢去。）</p>
+</blockquote>
+<h2 id="6-7-Rmove-Assignments-to-Prarmeters（移除对参数的赋值）"><a href="#6-7-Rmove-Assignments-to-Prarmeters（移除对参数的赋值）" class="headerlink" title="6.7 Rmove Assignments to Prarmeters（移除对参数的赋值）"></a>6.7 Rmove Assignments to Prarmeters（移除对参数的赋值）</h2><h3 id="概要-6"><a href="#概要-6" class="headerlink" title="概要"></a>概要</h3><p>代码对一个参数进行赋值。</p>
+<p><strong>以一个临时变量取代该参数的位置。</strong></p>
+<h2 id="6-8-Replace-Method-with-Method-Object（以函数对象取代函数）"><a href="#6-8-Replace-Method-with-Method-Object（以函数对象取代函数）" class="headerlink" title="6.8 Replace Method with Method Object（以函数对象取代函数）"></a>6.8 Replace Method with Method Object（以函数对象取代函数）</h2><h3 id="概要-7"><a href="#概要-7" class="headerlink" title="概要"></a>概要</h3><p>你有一个大型函数，其中对局部变量的使用使你无法采用 Extract Method（110）。</p>
+<p><strong>将这个函数放进一个单独对象中，如此一来局部变量就成了对象内的字段。然后你可以在同一个对象中将这个大型函数分解为多个小型函数。</strong></p>
+<h2 id="6-9-Substitute-Algorithm（替换算法）"><a href="#6-9-Substitute-Algorithm（替换算法）" class="headerlink" title="6.9 Substitute Algorithm（替换算法）"></a>6.9 Substitute Algorithm（替换算法）</h2><h3 id="概要-8"><a href="#概要-8" class="headerlink" title="概要"></a>概要</h3><p>你想要把某个算法替换为另一个更清晰的算法。</p>
+<p><strong>将函数本体替换为另一个算法。</strong></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://iCodeWoods.github.io/2018/11/28/《Refactoring》读书笔记（二）重新组织函数/" data-id="cjt5cp7k2000c2b99eimea22p" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Books/">Books</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2018/12/04/《Refactoring》读书笔记（三）在对象之间搬移特性/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          《Refactoring》读书笔记（三）在对象之间搬移特性
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2018/11/21/《Refactoring》读书笔记（一）/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">《Refactoring》读书笔记（一）</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">分类</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/iOS/">iOS</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/杂/">杂</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/脚本/">脚本</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/读书笔记/">读书笔记</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">标签</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Bash/">Bash</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Books/">Books</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JSPatch/">JSPatch</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/New-Features/">New Features</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/React-Native/">React Native</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Swift/">Swift</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/unowned/">unowned</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/动态化/">动态化</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/杂/">杂</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/签名/">签名</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/脚本/">脚本</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/译文/">译文</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/隐式解析可选类型/">隐式解析可选类型</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">标签云</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/Bash/" style="font-size: 16.67px;">Bash</a> <a href="/tags/Books/" style="font-size: 20px;">Books</a> <a href="/tags/JSPatch/" style="font-size: 10px;">JSPatch</a> <a href="/tags/New-Features/" style="font-size: 10px;">New Features</a> <a href="/tags/React-Native/" style="font-size: 10px;">React Native</a> <a href="/tags/Swift/" style="font-size: 13.33px;">Swift</a> <a href="/tags/unowned/" style="font-size: 10px;">unowned</a> <a href="/tags/动态化/" style="font-size: 10px;">动态化</a> <a href="/tags/杂/" style="font-size: 13.33px;">杂</a> <a href="/tags/签名/" style="font-size: 10px;">签名</a> <a href="/tags/脚本/" style="font-size: 16.67px;">脚本</a> <a href="/tags/译文/" style="font-size: 10px;">译文</a> <a href="/tags/隐式解析可选类型/" style="font-size: 10px;">隐式解析可选类型</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">三月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/01/">一月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">十二月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/11/">十一月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/10/">十月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/05/">五月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/03/">三月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/01/">一月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/11/">十一月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/09/">九月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/08/">八月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/07/">七月 2017</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2019/03/12/《1984》读书笔记/">《1984》读书笔记</a>
+          </li>
+        
+          <li>
+            <a href="/2019/01/03/2018年总结/">2018年总结</a>
+          </li>
+        
+          <li>
+            <a href="/2018/12/10/《Refactoring》读书笔记（四）重新组织数据/">《Refactoring》读书笔记（四）重新组织数据</a>
+          </li>
+        
+          <li>
+            <a href="/2018/12/04/《Refactoring》读书笔记（三）在对象之间搬移特性/">《Refactoring》读书笔记（三）在对象之间搬移特性</a>
+          </li>
+        
+          <li>
+            <a href="/2018/11/28/《Refactoring》读书笔记（二）重新组织函数/">《Refactoring》读书笔记（二）重新组织函数</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2019 iCodeWoods<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+  </div>
+</body>
+</html>

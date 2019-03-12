@@ -1,0 +1,741 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+  <title>iCodeWoods的小站</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta property="og:type" content="website">
+<meta property="og:title" content="iCodeWoods的小站">
+<meta property="og:url" content="https://iCodeWoods.github.io/page/2/index.html">
+<meta property="og:site_name" content="iCodeWoods的小站">
+<meta property="og:locale" content="zh-CN">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="iCodeWoods的小站">
+  
+    <link rel="alternate" href="/atom.xml" title="iCodeWoods的小站" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  
+
+</head>
+</html>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">iCodeWoods的小站</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">片刻之欢愉，不如须臾之宁静</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="搜索"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://iCodeWoods.github.io"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main">
+  
+    <article id="post-Bash学习之——变量内容的删除、取代与替换" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/01/31/Bash学习之——变量内容的删除、取代与替换/" class="article-date">
+  <time datetime="2018-01-31T02:21:44.000Z" itemprop="datePublished">2018-01-31</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/脚本/">脚本</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/01/31/Bash学习之——变量内容的删除、取代与替换/">Bash学习之——变量内容的删除、取代与替换</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="删除"><a href="#删除" class="headerlink" title="删除"></a>删除</h2><p>从左到右：</p>
+<ul>
+<li>‘#’ ：符合取代文字的『最短的』那一个；</li>
+<li>‘##’：符合取代文字的『最长的』那一个</li>
+</ul>
+<p>从右到左：</p>
+<ul>
+<li>% ：符合取代文字的『最短的』那一个；</li>
+<li>%%：符合取代文字的『最长的』那一个</li>
+</ul>
+<p><img src="/2018/01/31/Bash学习之——变量内容的删除、取代与替换/bash1.png" alt="变量内容的删除"></p>
+<h2 id="取代"><a href="#取代" class="headerlink" title="取代"></a>取代</h2><ul>
+<li>${变量/旧字符串/新字符串}     若变量内容符合『旧字符串』则『第一个旧字符串会被新字符串取代』</li>
+<li>${变量//旧字符串/新字符串}    若变量内容符合『旧字符串』则『全部的旧字符串会被新字符串取代』</li>
+</ul>
+<p><img src="/2018/01/31/Bash学习之——变量内容的删除、取代与替换/bash2.png" alt="变量内容的取代"></p>
+<h2 id="变量的测试与内容替换"><a href="#变量的测试与内容替换" class="headerlink" title="变量的测试与内容替换"></a>变量的测试与内容替换</h2><p><img src="/2018/01/31/Bash学习之——变量内容的删除、取代与替换/bash3.png" alt="变量的测试与内容替换"></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">范例一：测试一下是否存在 username 这个变量，若不存在则给予 username 内容为 root</span><br><span class="line">[root@www ~]<span class="comment"># echo $username</span></span><br><span class="line">           &lt;==由于出现空白，所以 username 可能不存在，也可能是空字符串</span><br><span class="line">[root@www ~]<span class="comment"># username=$&#123;username-root&#125;</span></span><br><span class="line">[root@www ~]<span class="comment"># echo $username</span></span><br><span class="line">root       &lt;==因为 username 没有配置，所以主动给予名为 root 的内容。</span><br><span class="line">[root@www ~]<span class="comment"># username="vbird tsai" &lt;==主动配置 username 的内容</span></span><br><span class="line">[root@www ~]<span class="comment"># username=$&#123;username-root&#125;</span></span><br><span class="line">[root@www ~]<span class="comment"># echo $username</span></span><br><span class="line">vbird tsai &lt;==因为 username 已经配置了，所以使用旧有的配置而不以 root 取代</span><br><span class="line"></span><br><span class="line">范例二：若 username 未配置或为空字符串，则将 username 内容配置为 root</span><br><span class="line">[root@www ~]<span class="comment"># username=""</span></span><br><span class="line">[root@www ~]<span class="comment"># username=$&#123;username-root&#125;</span></span><br><span class="line">[root@www ~]<span class="comment"># echo $username</span></span><br><span class="line">      &lt;==因为 username 被配置为空字符串了！所以当然还是保留为空字符串！</span><br><span class="line">[root@www ~]<span class="comment"># username=$&#123;username:-root&#125;</span></span><br><span class="line">[root@www ~]<span class="comment"># echo $username</span></span><br><span class="line">root  &lt;==加上『 : 』后若变量内容为空或者是未配置，都能够以后面的内容替换！</span><br><span class="line"></span><br><span class="line">测试：若 str 不存在时，则 var 的测试结果直接显示 <span class="string">"无此变量"</span></span><br><span class="line">[root@www ~]<span class="comment"># unset str; var=$&#123;str?无此变量&#125;</span></span><br><span class="line">-bash: str: 无此变量    &lt;==因为 str 不存在，所以输出错误信息 </span><br><span class="line"></span><br><span class="line">测试：若 str 存在时，则 var 的内容会与 str 相同！</span><br><span class="line">[root@www ~]<span class="comment"># str="oldvar"; var=$&#123;str?novar&#125;</span></span><br><span class="line">[root@www ~]<span class="comment"># echo var="$var", str="$str"</span></span><br><span class="line">var=oldvar, str=oldvar  &lt;==因为 str 存在，所以 var 等于 str 的内容</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://iCodeWoods.github.io/2018/01/31/Bash学习之——变量内容的删除、取代与替换/" data-id="cjt5cp7jl00022b99kwyh0ebp" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Bash/">Bash</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/脚本/">脚本</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-Bash学习之——变量、read、array、declare" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/01/26/Bash学习之——变量、read、array、declare/" class="article-date">
+  <time datetime="2018-01-26T03:33:26.000Z" itemprop="datePublished">2018-01-26</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/脚本/">脚本</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/01/26/Bash学习之——变量、read、array、declare/">Bash学习之——变量、read、array、declare</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="变量的配置守则"><a href="#变量的配置守则" class="headerlink" title="变量的配置守则"></a>变量的配置守则</h2><ul>
+<li>双引号内的特殊字符如 $ 等，可以保有原本的特性，如： “var=”lang is $LANG””则“echo $var”可得“lang is zh_TW.UTF-8”</li>
+<li>单引号内的特殊字符则仅为一般字符 （纯文本），如： “var=’lang is $LANG’”则“echo $var”可得“lang is $LANG”</li>
+<li>在一串指令的执行中，还需要借由其他额外的指令所提供的信息时，可以使用反单引号 <code>指令</code> 或 “$（指令）”</li>
+<li>若该变量为扩增变量内容时，则可用 “$变量名称” 或 ${变量} 累加内容，如： “PATH=”$PATH”:/home/bin”或“PATH=${PATH}:/home/bin”</li>
+<li>若该变量需要在其他子程序执行，则需要以 export 来使变量变成环境变量： “export PATH”</li>
+<li>通常大写字符为系统默认变量，自行设置变量可以使用小写字符，方便判断 （纯粹依照使用者兴趣与嗜好）</li>
+<li>取消变量的方法为使用 unset：“unset 变量名称”。例如取消 myname 的设置：“unset myname”</li>
+</ul>
+<h2 id="环境变量"><a href="#环境变量" class="headerlink" title="环境变量"></a>环境变量</h2><ul>
+<li>$：目前这个 Shell 的线程代号，亦即是所谓的 PID</li>
+<li>?：上一个执行的指令所回传的值</li>
+<li>RANDOM：产生随机数。目前大多数的 distributions 都会有随机数生成器，那就是 /dev/random 这个文件。 我们可以通过这个随机数文件相关的变量 ($RANDOM) 来随机取得随机数值。在 BASH 的环境下，这个 RANDOM 变量的内容，介于 0~32767 之间，所以，你只要 echo $RANDOM 时，系统就会主动的随机取出一个介于 0~32767 的数值。如果想要使用 0~9 之间的数值呢？利用 declare 宣告数值类型，然后这样做就可以了：<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">bash-3.2$ <span class="built_in">declare</span> -i number=<span class="variable">$RANDOM</span>%10; <span class="built_in">echo</span> <span class="variable">$number</span></span><br><span class="line">8   &lt;== 此时会随机取出 0~9 之间的数值喔！</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h2 id="变量键盘读取、数组与宣告：-read-array-declare"><a href="#变量键盘读取、数组与宣告：-read-array-declare" class="headerlink" title="变量键盘读取、数组与宣告： read, array, declare"></a>变量键盘读取、数组与宣告： read, array, declare</h2><h3 id="read"><a href="#read" class="headerlink" title="read"></a>read</h3><p>读取来自键盘输入的变量。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">[root@www ~]<span class="comment"># read [-pt] variable</span></span><br><span class="line">选项与参数：</span><br><span class="line">-p ：后面可以接提示字符</span><br><span class="line">-t ：后面可以接等待的秒数</span><br><span class="line"></span><br><span class="line">例：提示使用者 30 秒内输入自己的大名，将该输入字符串作为名为 named 的变量内容</span><br><span class="line">[root@www ~]<span class="comment"># read -p "Please keyin your name: " -t 30 named</span></span><br><span class="line">Please keyin your name: VBird Tsai   &lt;==注意看，会有提示字符喔！</span><br><span class="line">[root@www ~]<span class="comment"># echo $named</span></span><br><span class="line">VBird Tsai        &lt;==输入的数据又变成一个变量的内容了！</span><br></pre></td></tr></table></figure></p>
+<h3 id="declare-typeset"><a href="#declare-typeset" class="headerlink" title="declare / typeset"></a>declare / typeset</h3><p>declare 或 typeset 是一样的功能，就是在“宣告变量的类型”。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">[root@www ~]<span class="comment"># declare [-aixr] variable</span></span><br><span class="line">选项与参数：</span><br><span class="line">-a ：将后面名为 variable 的变量定义成为数组 (array) 类型</span><br><span class="line">-i ：将后面名为 variable 的变量定义成为整数数字 (<span class="built_in">integer</span>) 类型</span><br><span class="line">-x ：用法与 <span class="built_in">export</span> 一样，就是将后面的 variable 变成环境变量；</span><br><span class="line">-r ：将变量配置成为 <span class="built_in">readonly</span> 类型，该变量不可被更改内容，也不能 <span class="built_in">unset</span></span><br><span class="line"></span><br><span class="line">范例一：让变量 sum 进行 100+300+50 的加总结果</span><br><span class="line">[root@www ~]<span class="comment"># sum=100+300+50</span></span><br><span class="line">[root@www ~]<span class="comment"># echo $sum</span></span><br><span class="line">100+300+50  &lt;==咦！怎么没有计算加和？因为这是文字型态的变量属性啊！</span><br><span class="line">[root@www ~]<span class="comment"># declare -i sum=100+300+50</span></span><br><span class="line">[root@www ~]<span class="comment"># echo $sum</span></span><br><span class="line">450</span><br></pre></td></tr></table></figure></p>
+<p>默认的情况下， bash 对于变量有几个基本的定义：</p>
+<ul>
+<li>变量类型默认为“字串”，所以若不指定变量类型，则 1+2 为一个“字串”而不是“计算式”。</li>
+<li>bash 环境中的数值运算，默认最多仅能到达整数形态，所以 1/3 结果是 0；</li>
+</ul>
+<h3 id="array"><a href="#array" class="headerlink" title="array"></a>array</h3><p>在 bash 里数组的配置方式是：var[index]=content<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">范例：配置上面提到的 var[1] ～ var[3] 的变量。</span><br><span class="line">[root@www ~]<span class="comment"># var[1]="small min"</span></span><br><span class="line">[root@www ~]<span class="comment"># var[2]="big min"</span></span><br><span class="line">[root@www ~]<span class="comment"># var[3]="nice min"</span></span><br><span class="line">[root@www ~]<span class="comment"># echo "$&#123;var[1]&#125;, $&#123;var[2]&#125;, $&#123;var[3]&#125;"</span></span><br><span class="line">small min, big min, nice min</span><br></pre></td></tr></table></figure></p>
+<p><em>参考文章：<a href="http://cn.linux.vbird.org/linux_basic/0320bash.php#variable" target="_blank" rel="noopener">鸟哥的私房菜</a></em></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://iCodeWoods.github.io/2018/01/26/Bash学习之——变量、read、array、declare/" data-id="cjt5cp7jd00002b9995me5wjq" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Bash/">Bash</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/脚本/">脚本</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-【译】The Best New Features in Swift 4" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/01/23/【译】The Best New Features in Swift 4/" class="article-date">
+  <time datetime="2018-01-23T08:20:03.000Z" itemprop="datePublished">2018-01-23</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/iOS/">iOS</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/01/23/【译】The Best New Features in Swift 4/">【译】The Best New Features in Swift 4</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p><em>本文翻译自：<a href="https://plausible.coop/blog/2017/09/13/best-new-features-in-swift-4" target="_blank" rel="noopener">Mike Ash’s Blog</a>，略有修改</em></p>
+<p><em>译者：<a href="https://icodewoods.github.io/">iCodeWoods</a></em></p>
+<p>Swift 4 来了，并且发生了很多不错的改变。Swift 4 既没有像去年的 Swift 3 那样几乎完全修改了语法，也没有像 Swift 2 那样创建了很多新功能。但是 Swift 4 有一些很不错的改善代码的地方，我们来看一看吧！</p>
+<h2 id="多行字符串文字（Multi-Line-String-Literals）"><a href="#多行字符串文字（Multi-Line-String-Literals）" class="headerlink" title="多行字符串文字（Multi-Line String Literals）"></a>多行字符串文字（Multi-Line String Literals）</h2><p>有时你的代码中需要使用很长的、多行的字符串，它可能是一个HTML模板，可能是XML的一个块，或者是一个很长的用户信息。无论是哪一种，在 Swift 3 中写起来都很痛苦。</p>
+<p>你可以把它们全部写在一行中，但是代码很快就会变得很丑：<br><figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> message = <span class="string">"Please disable your Frobnitz before proceeding.\n\nTo do this, visit Settings -&gt; Frobnitz, then toggle the switch to \"off\".\n\nIf you need the Frobnitz to remain enabled, tap \"Proceed Anyway\" below."</span></span><br></pre></td></tr></table></figure></p>
+<p>你可以通过连接字符串将它分成多行：<br><figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> message =</span><br><span class="line">    <span class="string">"Please disable your Frobnitz before proceeding.\n\n"</span></span><br><span class="line">  + <span class="string">"To do this, visit Settings -&gt; Frobnitz, then toggle the switch to \"off\".\n\n"</span></span><br><span class="line">  + <span class="string">"If you need the Frobnitz to remain enabled, tap \"Proceed Anyway\" below."</span></span><br></pre></td></tr></table></figure></p>
+<p>还有很多其它方法，但是这些方法全都不好。</p>
+<p>Swift 4 用多行字符串文字解决了这个问题。 要编写多行字符串文字，请在开头和结尾使用三个引号：<br><figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> message = <span class="string">"""</span></span><br><span class="line"><span class="string">    Please disable your Frobnitz before proceeding.</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">    To do this, visit Settings -&gt; Frobnitz, then toggle the switch to "off".</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">    If you need the Frobnitz to remain enabled, tap "Proceed Anyway" below.</span></span><br><span class="line"><span class="string">    """</span></span><br></pre></td></tr></table></figure></p>
+<p>如果你写过 Python 的话，一定很熟悉这种语法。不过它们不完全一样。在 Swift 中这个语法有一些有趣的限制和特性。</p>
+<p>这个三引号语法不能写在一行中，像下面这样写编译会不通过：<br><figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Will not compile</span></span><br><span class="line">label.text = <span class="string">"""Put your text in "quotes" to make them look quoted."""</span></span><br></pre></td></tr></table></figure></p>
+<p>可以在代码中缩进多行字符串，而不缩进最终结果。上面的多行字符串会缩进代码中的每一行，但字符串没有前导空格。这真的很棒，但是如果你想要缩进呢？ 这个特性是基于结尾的”””标记的缩进，所有其他行的缩进都将除去和它一样的缩进，如果由于某种原因你需要缩进内容的话，你可以缩进文本，让它们离结尾的”””标记更远：<br><figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> message = <span class="string">"""</span></span><br><span class="line"><span class="string">        Please disable your Frobnitz before proceeding.</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">        To do this, visit Settings -&gt; Frobnitz, then toggle the switch to "off".</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">        If you need the Frobnitz to remain enabled, tap "Proceed Anyway" below.</span></span><br><span class="line"><span class="string">    """</span></span><br></pre></td></tr></table></figure></p>
+<p>为避免混淆，每行文本的缩进至少要和结尾的”””标记一样多，缩进比它还少的行会报错。</p>
+<p>如果你想在写的时候将文本分成多行，但是输出时还是一行，那么你可以在末尾加上’\’：<br><figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> message = <span class="string">"""</span></span><br><span class="line"><span class="string">    Please disable your Frobnitz before proceeding. \</span></span><br><span class="line"><span class="string">    To do this, visit Settings -&gt; Frobnitz, then toggle the switch to "off". \</span></span><br><span class="line"><span class="string">    If you need the Frobnitz to remain enabled, tap "Proceed Anyway" below.</span></span><br><span class="line"><span class="string">    """</span></span><br></pre></td></tr></table></figure></p>
+<h2 id="单侧范围（One-Sided-Ranges）"><a href="#单侧范围（One-Sided-Ranges）" class="headerlink" title="单侧范围（One-Sided Ranges）"></a>单侧范围（One-Sided Ranges）</h2><p>这是一个很好的、很小的变化。Ranges 现在可以只有一侧，而空的那一侧则会被自动推断出，代表相应的最小值或最大值。</p>
+<p>当为一个容器进行 subscripting 时，这意味着你可以忽略 string.endIndex 或 array.count 之类的东西。</p>
+<p>例如，如果你想将一个数组分成两半：<br><figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> middle = array.<span class="built_in">count</span> / <span class="number">2</span></span><br><span class="line"><span class="keyword">let</span> firstHalf = array[..&lt;middle]</span><br><span class="line"><span class="keyword">let</span> secondHalf = array[middle...]</span><br></pre></td></tr></table></figure></p>
+<p>或者你想得到一个从0至某个index的子串：<br><figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> index = string.index(of: <span class="string">"e"</span>)!</span><br><span class="line">string[..&lt;index]</span><br></pre></td></tr></table></figure></p>
+<p>它也可以在 switch 语句中使用：<br><figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">switch</span> x &#123;</span><br><span class="line"><span class="keyword">case</span> ..&lt;<span class="number">0</span>:</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">"That's a negative."</span>)</span><br><span class="line"><span class="keyword">case</span> <span class="number">0</span>:</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">"Nothing!"</span>)</span><br><span class="line"><span class="keyword">case</span> <span class="number">1</span>..&lt;<span class="number">10</span>:</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">"Pretty small."</span>)</span><br><span class="line"><span class="keyword">case</span> <span class="number">10</span>..&lt;<span class="number">100</span>:</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">"Bigger."</span>)</span><br><span class="line"><span class="keyword">case</span> <span class="number">100</span>...:</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">"Huge!"</span>)</span><br><span class="line"><span class="keyword">default</span>:</span><br><span class="line">    <span class="comment">// 遗憾的是编译器并不知道上面的 cases 其实已经包含了所有情况，所以还是要写 default</span></span><br><span class="line">    <span class="keyword">break</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>对于一个从0开始到指定index的单侧范围来说，’..&lt;’和’…’都可以使用。比如 array[..&lt;3]、array[…5]</p>
+<p>而对于一个从指定index到结尾的单侧范围来说，只能使用’…’，比如 array[2…]，因为在这种情况下’..&lt;’是没有意义的。</p>
+<h2 id="组合的类和协议类型（Combined-Class-and-Protocol-Types）"><a href="#组合的类和协议类型（Combined-Class-and-Protocol-Types）" class="headerlink" title="组合的类和协议类型（Combined Class and Protocol Types）"></a>组合的类和协议类型（Combined Class and Protocol Types）</h2><p>有时你需要这样一个对象，它既是一个类的子类，又遵守一个协议。 </p>
+<p>例如，你可能需要一个遵守KittenProvider协议的UITableViewController对象。 Swift 3需要各种丑陋的解决方法才能表示这个对象。有趣的是，Objective-C却能够表示：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">UITableViewController&lt;KittenProvider&gt; *object;</span><br></pre></td></tr></table></figure></p>
+<p>Swift 4 现在通过使用 ‘&amp;’ 符号也能表达这个概念了。这个符号可能已经被用来将多个协议组合成一个单一的类型，现在它也可以被用来将协议与一个类相结合：<br><figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> object: <span class="type">UITableViewController</span> &amp; <span class="type">KittenProvider</span></span><br></pre></td></tr></table></figure></p>
+<p>注意，在这种 type 中只能有一个 class，因为你不能同时生成多个子类：）</p>
+<h2 id="范型下标（Generic-Subscripts）"><a href="#范型下标（Generic-Subscripts）" class="headerlink" title="范型下标（Generic Subscripts）"></a>范型下标（Generic Subscripts）</h2><p>Swift 早就支持了范型方法，但是却不支持范型下标。你可以通过实现多个不同类型的下标来重载它，但是不能使用范型。现在可以了！<br><figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">subscript</span>&lt;<span class="type">T</span>: <span class="type">Hashable</span>&gt;(key: <span class="type">T</span>) -&gt; <span class="type">Value?</span></span><br></pre></td></tr></table></figure></p>
+<p>范型是全方面支持的，所以你也可以在 where 子句中使用它：<br><figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">subscript</span>&lt;<span class="type">S</span>: <span class="type">Sequence</span>&gt;(key: <span class="type">S</span>) -&gt; [<span class="type">Value</span>] <span class="keyword">where</span> <span class="type">S</span>.<span class="type">Element</span> == <span class="type">Key</span></span><br></pre></td></tr></table></figure></p>
+<p>就像方法一样，范型也可以被用作返回值：<br><figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">subscript</span>&lt;<span class="type">T</span>&gt;(key: <span class="type">Key</span>) -&gt; <span class="type">T?</span></span><br></pre></td></tr></table></figure></p>
+<p>这对于处理动态类型的容器而言非常方便，比如在处理JSON对象时。</p>
+<p><em>译者注：增加一个demo</em><br><figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">GenericDictionary</span>&lt;<span class="title">Key</span>: <span class="title">Hashable</span>, <span class="title">Value</span>&gt; </span>&#123;</span><br><span class="line">  <span class="keyword">private</span> <span class="keyword">var</span> data: [<span class="type">Key</span>: <span class="type">Value</span>]</span><br><span class="line"></span><br><span class="line">  <span class="keyword">init</span>(data: [<span class="type">Key</span>: <span class="type">Value</span>]) &#123;</span><br><span class="line">    <span class="keyword">self</span>.data = data</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">subscript</span>&lt;<span class="type">T</span>&gt;(key: <span class="type">Key</span>) -&gt; <span class="type">T?</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> data[key] <span class="keyword">as</span>? <span class="type">T</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// Dictionary of type: [String: Any]</span></span><br><span class="line"><span class="keyword">var</span> earthData = <span class="type">GenericDictionary</span>(data: [<span class="string">"name"</span>: <span class="string">"Earth"</span>, <span class="string">"population"</span>: <span class="number">7500000000</span>, <span class="string">"moons"</span>: <span class="number">1</span>])</span><br><span class="line"></span><br><span class="line"><span class="comment">// 自动推断出返回类型，而不用写 "as? String"</span></span><br><span class="line"><span class="keyword">let</span> name: <span class="type">String?</span> = earthData[<span class="string">"name"</span>]</span><br><span class="line"></span><br><span class="line"><span class="comment">// 自动推断出返回类型，而不用写 "as? Int"</span></span><br><span class="line"><span class="keyword">let</span> population: <span class="type">Int?</span> = earthData[<span class="string">"population"</span>]</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">extension</span> <span class="title">GenericDictionary</span> </span>&#123;</span><br><span class="line">  <span class="keyword">subscript</span>&lt;<span class="type">Keys</span>: <span class="type">Sequence</span>&gt;(keys: <span class="type">Keys</span>) -&gt; [<span class="type">Value</span>] <span class="keyword">where</span> <span class="type">Keys</span>.<span class="type">Iterator</span>.<span class="type">Element</span> == <span class="type">Key</span> &#123;</span><br><span class="line">    <span class="keyword">var</span> values: [<span class="type">Value</span>] = []</span><br><span class="line">    <span class="keyword">for</span> key <span class="keyword">in</span> keys &#123;</span><br><span class="line">      <span class="keyword">if</span> <span class="keyword">let</span> value = data[key] &#123;</span><br><span class="line">        values.append(value)</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> values</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// Array subscript value</span></span><br><span class="line"><span class="keyword">let</span> nameAndMoons = earthData[[<span class="string">"moons"</span>, <span class="string">"name"</span>]]        <span class="comment">// [1, "Earth"]</span></span><br><span class="line"><span class="comment">// Set subscript value</span></span><br><span class="line"><span class="keyword">let</span> nameAndMoons2 = earthData[<span class="type">Set</span>([<span class="string">"moons"</span>, <span class="string">"name"</span>])]  <span class="comment">// [1, "Earth"]</span></span><br></pre></td></tr></table></figure></p>
+<p><em>译者注：这个例子中，你可以看到传入两个不同序列类型作为下标（Array和Set），会得到他们各自的值。</em></p>
+<h2 id="可编码（Codable）"><a href="#可编码（Codable）" class="headerlink" title="可编码（Codable）"></a>可编码（Codable）</h2><p>说到JSON，也许Swift 4中最大的新功能就是Codable协议。<br>编译器现在会为你的类型自动生成序列化和反序列化代码，你所要做的就是声明遵守了Codable协议。</p>
+<p>想象一下你有一个Person类型：<br><figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">Person</span> </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> name: <span class="type">String</span></span><br><span class="line">    <span class="keyword">var</span> age: <span class="type">Int</span></span><br><span class="line">    <span class="keyword">var</span> quest: <span class="type">String</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>以前如果你想从JSON中读取Person类的值或将它们写入JSON中，不得不写一堆烦人的重复代码来这样做（<em>译者注：一堆encode和decode</em>）。</p>
+<p>而在 Swift 4 中，你只需要半行代码就能做到：<br><figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">Person</span>: <span class="title">Codable</span> </span>&#123;</span><br></pre></td></tr></table></figure></p>
+<p>如果由于某种原因你只想要支持编码或解码中的一个，而不是同时支持，则可以分别声明遵守Encodable或Decocable：<br><figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">EncodablePerson</span>: <span class="title">Encodable</span> </span>&#123; ... &#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">DecodablePerson</span>: <span class="title">Decodable</span> </span>&#123; ... &#125;</span><br></pre></td></tr></table></figure></p>
+<p>遵守 Codable 协议只是对遵守它们俩的一个简写而已。</p>
+<p>使用 Codable 类型需要一个编码器或解码器，它决定了序列化格式以及如何将 Swift 值转换为序列化值。Swift 为 JSON 和 property list 提供了编码器和解码器，Foundation 的 archive 也支持 Codable 类型。</p>
+<p>如果想将某个东西编码为 JSON，可以创建一个 JSONEncoder 并调用它的 encode 方法：<br><figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> jsonEncoder = <span class="type">JSONEncoder</span>()</span><br><span class="line"><span class="keyword">let</span> data = <span class="keyword">try</span> jsonEncoder.encode(person)</span><br></pre></td></tr></table></figure></p>
+<p>要解码时，创建一个 JSONDecoder 并调用它的 decode 方法，传入你想解码成的类型，和要解码的数据源：<br><figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> jsonDecoder = <span class="type">JSONDecoder</span>()</span><br><span class="line"><span class="keyword">let</span> decodedPerson = <span class="keyword">try</span> jsonDecoder.decode(<span class="type">Person</span>.<span class="keyword">self</span>, from: data)</span><br></pre></td></tr></table></figure></p>
+<p>注意编码和解码方法被标记为 <em>throws</em> 的，因为在处理的过程中可能会发生很多错误，比如类型不匹配或者数据不完整等。所以你需要在这些调用中加上 <em>try</em>，并 <em>catch</em> 它们抛出的错误。</p>
+<p>由于JSON本身不支持日期或二进制数据，因此需要将这些值转换为其他JSON表示。 例如，对二进制数据使用base64编码是很常见的。 JSONEncoder和JSONDecoder可以用不同的策略来定制以处理这些值。 例如，如果要将日期编码为ISO-8601，并将数据编码为base64：<br><figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> jsonEncoder = <span class="type">JSONEncoder</span>()</span><br><span class="line">jsonEncoder.dateEncodingStrategy = .iso8601</span><br><span class="line">jsonEncoder.dataEncodingStrategy = .base64</span><br><span class="line"><span class="keyword">let</span> data = <span class="keyword">try</span> jsonEncoder.encode(person)</span><br><span class="line"></span><br><span class="line"><span class="comment">// 反之亦然</span></span><br><span class="line"><span class="keyword">let</span> jsonDecoder = <span class="type">JSONDecoder</span>()</span><br><span class="line">jsonDecoder.dateDecodingStrategy = .iso8601</span><br><span class="line">jsonDecoder.dataDecodingStrategy = .base64</span><br><span class="line"><span class="keyword">let</span> decodedPerson = <span class="keyword">try</span> jsonDecoder.decode(<span class="type">Person</span>.<span class="keyword">self</span>, from: data)</span><br></pre></td></tr></table></figure></p>
+<p>他们还提供了通过编写自己的代码来提供完全自定义策略的选项。</p>
+<p>属性列表（Property list）编码是相似的。使用 PropertyListEncoder 和 PropertyListDecoder 来代替 JSON 编码器。由于属性列表本身可以表示日期和二进制数据，属性列表编码器不提供​​这些选项。</p>
+<p>如果你已经在使用 NSCoding 了，那么你可以将它与 Codable 混合搭配使用，不用马上就全部改掉。NSKeyedArchiver 提供了一个新的 encodeEncodable 方法，它可以在指定的 key 下对任何可编码的类型进行编码。NSKeyedUnarchiver 提供了相应的 decodeDecodable，可以解码任何可解码的类型。</p>
+<p>Codable 是一个灵活的协议，有很多自定义行为的空间。编译器提供了一个默认实现，但如果你需要不同的行为，则可以提供自己的实现。这使得编写将旧数据迁移到新类型、在序列化表示中使用与源代码中不同的名称或进行其他自定义的实现变得非常简单。</p>
+<p>对 Codable 的所有可能性的全面讨论超出了本文的范围，但是你可以在我写的 <a href="https://mikeash.com/pyblog/friday-qa-2017-07-14-swiftcodable.html" target="_blank" rel="noopener">Friday Q&amp;A post about Swift.Codable</a> 中阅读更多内容。</p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>Swift 4 并没有像前几年那样发生巨大的变化，但却是一次实打实的进步。Codable 将使一些常见的任务变得非常容易，这可能是我最喜欢的功能之一。像多行字符串和范型下标等其他功能不会有这么大的影响，但它们应该会使我们写的代码有很好的改善。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://iCodeWoods.github.io/2018/01/23/【译】The Best New Features in Swift 4/" data-id="cjt5cp7ky00202b99ice57xhz" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/New-Features/">New Features</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Swift/">Swift</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/译文/">译文</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-《长安十二时辰》读书笔记" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017/11/11/《长安十二时辰》读书笔记/" class="article-date">
+  <time datetime="2017-11-11T04:00:00.000Z" itemprop="datePublished">2017-11-11</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/读书笔记/">读书笔记</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/11/11/《长安十二时辰》读书笔记/">《长安十二时辰》读书笔记</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>使用望楼传递消息，感觉对于古代来说应该算是很先进的了。联想到之前看《风声》，吴志国唱空城计，变了音调，把消息传给了护士；还有之前看《让子弹飞》，麻匪们使用口哨声来传递消息，感觉都很厉害😄（可能是因为我太五音不全了）</p>
+<p>小说本身写得就很精彩，当我查完历史资料后更觉精彩！</p>
+<p>我说一下几位非主角人物吧。</p>
+<p>之前我就不明白为什么作者要花不少笔墨写元载这个令人讨厌的角色，元载在书中就是一个不起眼的小官，需要依附这个势力依附那个势力的，但是却很有自己的想法，很会把握机会想往上爬，当我查完资料以后才知道元载后来竟然真的娶到了王忠嗣的女儿王韫秀，而且还当上了宰相，地位比李泌还高。</p>
+<p>再说贺知章，在此之前他在我的脑海中就是一个写诗的。。。没想到他官还不小，再联想到他告老还乡后所作的诗“回乡偶书”，并在此后不久就病死了，难道他的养子贺东真的作了一些惊人却又不曾为历史所记载的事吗？</p>
+<p>再说李基隆，原本看着好似处变不惊，却在紧要关头因为杨贵妃而。。。看来马嵬坡之变于国是件好事啊。。。</p>
+<p>最后，这一切难道真的是因为什么忠诚与孝顺吗？五万百姓的性命难道就？？我们能看到的历史只是记载在书面上的部分，不为人知的部分真是不敢想象。。。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://iCodeWoods.github.io/2017/11/11/《长安十二时辰》读书笔记/" data-id="cjt5cp7k9000o2b99oyijh1px" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Books/">Books</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-iOS签名原理" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017/09/22/iOS签名原理/" class="article-date">
+  <time datetime="2017-09-22T08:06:21.000Z" itemprop="datePublished">2017-09-22</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/iOS/">iOS</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/09/22/iOS签名原理/">iOS签名原理</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p><strong>本文转载自：<a href="http://blog.cnbang.net/tech/3386/" target="_blank" rel="noopener">bang’s blog</a></strong></p>
+<p>&nbsp;</p>
+<p>iOS 签名机制挺复杂，各种证书，Provisioning Profile，entitlements，CertificateSigningRequest，p12，AppID，概念一堆，也很容易出错，本文尝试从原理出发，一步步推出为什么会有这么多概念，希望能有助于理解 iOS App 签名的原理和流程。</p>
+<h3 id="目的"><a href="#目的" class="headerlink" title="目的"></a>目的</h3><p>先来看看苹果的签名机制是为了做什么。在 iOS 出来之前，在主流操作系统(Mac/Windows/Linux)上开发和运行软件是不需要签名的，软件随便从哪里下载都能运行，导致平台对第三方软件难以控制，盗版流行。苹果希望解决这样的问题，在 iOS 平台对第三方 APP 有绝对的控制权，一定要保证每一个安装到 iOS 上的 APP 都是经过苹果官方允许的，怎样保证呢？就是通过签名机制。</p>
+<h3 id="非对称加密"><a href="#非对称加密" class="headerlink" title="非对称加密"></a>非对称加密</h3><p>通常我们说的签名就是数字签名，它是基于非对称加密算法实现的。对称加密是通过同一份密钥加密和解密数据，而非对称加密则有两份密钥，分别是公钥和私钥，用公钥加密的数据，要用私钥才能解密，用私钥加密的数据，要用公钥才能解密。</p>
+<p>简单说一下常用的非对称加密算法 RSA 的数学原理，理解简单的数学原理，就可以理解非对称加密是怎么做到的，为什么会是安全的：</p>
+<ol>
+<li>选两个质数 p 和 q，相乘得出一个大整数n，例如 p = 61，q = 53，n = pq = 3233</li>
+<li>选 1-n 间的随便一个质数e，例如 e = 17</li>
+<li>经过一系列数学公式，算出一个数字 d，满足：<ul>
+<li>通过 n 和 e 这两个数据一组数据进行数学运算后，可以通过 n 和 d 去反解运算，反过来也可以。</li>
+<li>如果只知道 n 和 e，要推导出 d，需要知道 p 和 q，也就是要需要把 n 因数分解。</li>
+</ul>
+</li>
+</ol>
+<p>上述的 (n,e) 这两个数据在一起就是公钥，(n,d) 这两个数据就是私钥，满足用私钥加密，公钥解密，或反过来公钥加密，私钥解密，也满足在只暴露公钥 (只知道 n 和 e)的情况下，要推导出私钥 (n,d)，需要把大整数 n 因数分解。目前因数分解只能靠暴力穷举，而 n 数字越大，越难以用穷举计算出因数 p 和 q，也就越安全，当 n 大到二进制 1024 位或 2048 位时，以目前技术要破解几乎不可能，所以非常安全。</p>
+<p>若对数字 d 是怎样计算出来的感兴趣，可以详读这两篇文章：<a href="http://www.ruanyifeng.com/blog/2013/06/rsa_algorithm_part_one.html" target="_blank" rel="noopener">RSA算法原理一</a>、<a href="http://www.ruanyifeng.com/blog/2013/07/rsa_algorithm_part_two.html" target="_blank" rel="noopener">二</a></p>
+<h3 id="数字签名"><a href="#数字签名" class="headerlink" title="数字签名"></a>数字签名</h3><p>现在知道了有非对称加密这东西，那数字签名是怎么回事呢？<br>数字签名的作用是我对某一份数据打个标记，表示我认可了这份数据（签了个名），然后我发送给其他人，其他人可以知道这份数据是经过我认证的，数据没有被篡改过。<br>有了上述非对称加密算法，就可以实现这个需求：</p>
+<p><img src="/2017/09/22/iOS签名原理/1.png" alt></p>
+<ol>
+<li>首先用一种算法，算出原始数据的摘要。需满足：<ul>
+<li>若原始数据有任何变化，计算出来的摘要值都会变化。 </li>
+<li>摘要要够短。这里最常用的算法是MD5。</li>
+</ul>
+</li>
+<li>生成一份非对称加密的公钥和私钥，私钥我自己拿着，公钥公布出去。</li>
+<li>对一份数据，算出摘要后，用私钥加密这个摘要，得到一份加密后的数据，称为原始数据的签名。把它跟原始数据一起发送给用户。</li>
+<li>用户收到数据和签名后，用公钥解密得到摘要。同时用户用同样的算法计算原始数据的摘要，对比这里计算出来的摘要和用公钥解密签名得到的摘要是否相等，若相等则表示这份数据中途没有被篡改过，因为如果篡改过，摘要会变化。</li>
+</ol>
+<p>之所以要有第一步计算摘要，是因为非对称加密的原理限制可加密的内容不能太大（不能大于上述 n 的位数，也就是一般不能大于 1024 位 / 2048 位），于是若要对任意大的数据签名，就需要改成对它的特征值签名，效果是一样的。</p>
+<p>好了，有了非对称加密的基础，知道了数字签名是什么，怎样可以保证一份数据是经过某个地方认证的，来看看怎样通过数字签名的机制保证每一个安装到 iOS 上的 APP 都是经过苹果认证允许的。</p>
+<h3 id="最简单的签名"><a href="#最简单的签名" class="headerlink" title="最简单的签名"></a>最简单的签名</h3><p>要实现这个需求很简单，最直接的方式，苹果官方生成一对公私钥，在 iOS 里内置一个公钥，私钥由苹果后台保存，我们传 App 上 AppStore 时，苹果后台用私钥对 APP 数据进行签名，iOS 系统下载这个 APP 后，用公钥验证这个签名，若签名正确，这个 APP 肯定是由苹果后台认证的，并且没有被修改过，也就达到了苹果的需求：保证安装的每一个 APP 都是经过苹果官方允许的。</p>
+<p><img src="/2017/09/22/iOS签名原理/2.png" alt></p>
+<p>如果我们 iOS 设备安装 APP 只有从 AppStore 下载这一种方式的话，这件事就结束了，没有任何复杂的东西，只有一个数字签名，非常简单地解决问题。</p>
+<p>但实际上因为除了从 AppStore 下载，我们还可以有三种方式安装一个 App：</p>
+<ol>
+<li>开发 App 时可以直接把开发中的应用安装进手机进行调试。</li>
+<li>In-House 企业内部分发，可以直接安装企业证书签名后的 APP。</li>
+<li>AD-Hoc 相当于企业分发的限制版，限制安装设备数量，较少用。</li>
+</ol>
+<p>苹果要对用这三种方式安装的 App 进行控制，就有了新的需求，无法像上面这样简单了。</p>
+<h3 id="新的需求"><a href="#新的需求" class="headerlink" title="新的需求"></a>新的需求</h3><p>我们先来看第一个，开发时安装APP，它有两个个需求：</p>
+<ol>
+<li>安装包不需要传到苹果服务器，可以直接安装到手机上。如果你编译一个 APP 到手机前要先传到苹果服务器签名，这显然是不能接受的。</li>
+<li>苹果必须对这里的安装有控制权，包括<ul>
+<li>经过苹果允许才可以这样安装。</li>
+<li>不能被滥用导致非开发app也能被安装。</li>
+</ul>
+</li>
+</ol>
+<p>为了实现这些需求，iOS 签名的复杂度也就开始增加了。</p>
+<p>苹果这里给出的方案是使用了双层签名，会比较绕，流程大概是这样的：</p>
+<p><img src="/2017/09/22/iOS签名原理/3.png" alt></p>
+<ol>
+<li>在你的 Mac 开发机器生成一对公私钥，这里称为公钥L，私钥L。L:Local</li>
+<li>苹果自己有固定的一对公私钥，跟上面 AppStore 例子一样，私钥在苹果后台，公钥在每个 iOS 设备上。这里称为公钥A，私钥A。A:Apple</li>
+<li>把公钥 L 传到苹果后台，用苹果后台里的私钥 A 去签名公钥 L。得到一份数据包含了公钥 L 以及其签名，把这份数据称为证书。</li>
+<li>在开发时，编译完一个 APP 后，用本地的私钥 L 对这个 APP 进行签名，同时把第三步得到的证书一起打包进 APP 里，安装到手机上。</li>
+<li>在安装时，iOS 系统取得证书，通过系统内置的公钥 A，去验证证书的数字签名是否正确。</li>
+<li>验证证书后确保了公钥 L 是苹果认证过的，再用公钥 L 去验证 APP 的签名，这里就间接验证了这个 APP 安装行为是否经过苹果官方允许。（这里只验证安装行为，不验证APP 是否被改动，因为开发阶段 APP 内容总是不断变化的，苹果不需要管。）</li>
+</ol>
+<h3 id="加点东西"><a href="#加点东西" class="headerlink" title="加点东西"></a>加点东西</h3><p>上述流程只解决了上面第一个需求，也就是需要经过苹果允许才可以安装，还未解决第二个避免被滥用的问题。怎么解决呢？苹果再加了两个限制，一是限制在苹果后台注册过的设备才可以安装，二是限制签名只能针对某一个具体的 APP。</p>
+<p>怎么加的？在上述第三步，苹果用私钥 A 签名我们本地公钥 L 时，实际上除了签名公钥 L，还可以加上无限多数据，这些数据都可以保证是经过苹果官方认证的，不会有被篡改的可能。</p>
+<p><img src="/2017/09/22/iOS签名原理/4.png" alt></p>
+<p>可以想到把 允许安装的设备 ID 列表 和 App对应的 AppID 等数据，都在第三步这里跟公钥L一起组成证书，再用苹果私钥 A 对这个证书签名。在最后第 5 步验证时就可以拿到设备 ID 列表，判断当前设备是否符合要求。根据数字签名的原理，只要数字签名通过验证，第 5 步这里的设备 IDs / AppID / 公钥 L 就都是经过苹果认证的，无法被修改，苹果就可以限制可安装的设备和 APP，避免滥用。</p>
+<h3 id="最终流程"><a href="#最终流程" class="headerlink" title="最终流程"></a>最终流程</h3><p>到这里这个证书已经变得很复杂了，有很多额外信息，实际上除了 设备 ID / AppID，还有其他信息也需要在这里用苹果签名，像这个 APP 里 iCloud / push / 后台运行 等权限苹果都想控制，苹果把这些权限开关统一称为 Entitlements，它也需要通过签名去授权。</p>
+<p>实际上一个“证书”本来就有规定的格式规范，上面我们把各种额外信息塞入证书里是不合适的，于是苹果另外搞了个东西，叫 Provisioning Profile，一个 Provisioning Profile 里就包含了证书以及上述提到的所有额外信息，以及所有信息的签名。</p>
+<p>所以整个流程稍微变一下，就变成这样了：</p>
+<p><img src="/2017/09/22/iOS签名原理/5.png" alt></p>
+<p>因为步骤有小变动，这里我们不辞啰嗦重新再列一遍整个流程：</p>
+<ol>
+<li>在你的 Mac 开发机器生成一对公私钥，这里称为公钥L，私钥L。L:Local</li>
+<li>苹果自己有固定的一对公私钥，跟上面 AppStore 例子一样，私钥在苹果后台，公钥在每个 iOS 设备上。这里称为公钥A，私钥A。A:Apple</li>
+<li>把公钥 L 传到苹果后台，用苹果后台里的私钥 A 去签名公钥 L。得到一份数据包含了公钥 L 以及其签名，把这份数据称为证书。</li>
+<li>在苹果后台申请 AppID，配置好设备 ID 列表和 APP 可使用的权限，再加上第③步的证书，组成的数据用私钥 A 签名，把数据和签名一起组成一个 Provisioning Profile 文件，下载到本地 Mac 开发机。</li>
+<li>在开发时，编译完一个 APP 后，用本地的私钥 L 对这个 APP 进行签名，同时把第④步得到的 Provisioning Profile 文件打包进 APP 里，文件名为 embedded.mobileprovision，把 APP 安装到手机上。</li>
+<li>在安装时，iOS 系统取得证书，通过系统内置的公钥 A，去验证 embedded.mobileprovision 的数字签名是否正确，里面的证书签名也会再验一遍。</li>
+<li>确保了 embedded.mobileprovision 里的数据都是苹果授权以后，就可以取出里面的数据，做各种验证，包括用公钥 L 验证APP签名，验证设备 ID 是否在 ID 列表上，AppID 是否对应得上，权限开关是否跟 APP 里的 Entitlements 对应等。</li>
+</ol>
+<p>开发者证书从签名到认证最终苹果采用的流程大致是这样，还有一些细节像证书有效期/证书类型等就不细说了。</p>
+<h3 id="概念和操作"><a href="#概念和操作" class="headerlink" title="概念和操作"></a>概念和操作</h3><p>上面的步骤对应到我们平常具体的操作和概念是这样的：</p>
+<ol>
+<li>第 1 步对应的是 keychain 里的 “从证书颁发机构请求证书”，这里就本地生成了一对公私钥，保存的 CertificateSigningRequest 就是公钥，私钥保存在本地电脑里。</li>
+<li>第 2 步苹果处理，不用管。</li>
+<li>第 3 步对应把 CertificateSigningRequest 传到苹果后台生成证书，并下载到本地。这时本地有两个证书，一个是第 1 步生成的，一个是这里下载回来的，keychain 会把这两个证书关联起来，因为他们公私钥是对应的，在XCode选择下载回来的证书时，实际上会找到 keychain 里对应的私钥去签名。这里私钥只有生成它的这台 Mac 有，如果别的 Mac 也要编译签名这个 App 怎么办？答案是把私钥导出给其他 Mac 用，在 keychain 里导出私钥，就会存成 .p12 文件，其他 Mac 打开后就导入了这个私钥。</li>
+<li>第 4 步都是在苹果网站上操作，配置 AppID / 权限 / 设备等，最后下载 Provisioning Profile 文件。</li>
+<li>第 5 步 XCode 会通过第 3 步下载回来的证书（存着公钥），在本地找到对应的私钥（第一步生成的），用本地私钥去签名 App，并把 Provisioning Profile 文件命名为 embedded.mobileprovision 一起打包进去。这里对 App 的签名数据保存分两部分，Mach-O 可执行文件会把签名直接写入这个文件里，其他资源文件则会保存在 _CodeSignature 目录下。</li>
+</ol>
+<p>第 6 – 7 步的打包和验证都是 Xcode 和 iOS 系统自动做的事。</p>
+<p>这里再总结一下这些概念：</p>
+<ol>
+<li>证书：内容是公钥或私钥，由其他机构对其签名组成的数据包。</li>
+<li>Entitlements：包含了 App 权限开关列表。</li>
+<li>CertificateSigningRequest：本地公钥。</li>
+<li>p12：本地私钥，可以导入到其他电脑。</li>
+<li>Provisioning Profile：包含了 证书 / Entitlements 等数据，并由苹果后台私钥签名的数据包。</li>
+</ol>
+<h3 id="其他发布方式"><a href="#其他发布方式" class="headerlink" title="其他发布方式"></a>其他发布方式</h3><p>前面以开发包为例子说了签名和验证的流程，另外两种方式 In-House 企业签名和 AD-Hoc 流程也是差不多的，只是企业签名不限制安装的设备数，另外需要用户在 iOS 系统设置上手动点击信任这个企业才能通过验证。</p>
+<p>而 AppStore 的签名验证方式有些不一样，前面我们说到最简单的签名方式，苹果在后台直接用私钥签名 App 就可以了，实际上苹果确实是这样做的，如果去下载一个 AppStore 的安装包，会发现它里面是没有 embedded.mobileprovision 文件的，也就是它安装和启动的流程是不依赖这个文件，验证流程也就跟上述几种类型不一样了。</p>
+<p>据猜测，因为上传到 AppStore 的包苹果会重新对内容加密，原来的本地私钥签名就没有用了，需要重新签名，从 AppStore 下载的包苹果也并不打算控制它的有效期，不需要内置一个 embedded.mobileprovision 去做校验，直接在苹果用后台的私钥重新签名，iOS 安装时用本地公钥验证 App 签名就可以了。</p>
+<p>那为什么发布 AppStore 的包还是要跟开发版一样搞各种证书和 Provisioning Profile？猜测因为苹果想做统一管理，Provisioning Profile 里包含一些权限控制，AppID 的检验等，苹果不想在上传 AppStore 包时重新用另一种协议做一遍这些验证，就不如统一把这部分放在 Provisioning Profile 里，上传 AppStore 时只要用同样的流程验证这个 Provisioning Profile 是否合法就可以了。</p>
+<p>所以 App 上传到 AppStore 后，就跟你的 证书 / Provisioning Profile 都没有关系了，无论他们是否过期或被废除，都不会影响 AppStore 上的安装包。</p>
+<p>到这里 iOS 签名机制的原理和主流程大致说完了，希望能对理解苹果签名和排查日常签名问题有所帮助。</p>
+<h2 id="P-S-一些疑问"><a href="#P-S-一些疑问" class="headerlink" title="P.S.一些疑问"></a>P.S.一些疑问</h2><p>最后这里再提一下我关于签名流程的一些的疑问。</p>
+<h4 id="企业证书"><a href="#企业证书" class="headerlink" title="企业证书"></a>企业证书</h4><p>企业证书签名因为限制少，在国内被广泛用于测试和盗版，fir.im / 蒲公英等测试平台都是通过企业证书分发，国内一些市场像 PP 助手，爱思助手，一部分安装手段也是通过企业证书重签名。通过企业证书签名安装的 App，启动时都会验证证书的有效期，并且不定期请求苹果服务器看证书是否被吊销，若已过期或被吊销，就会无法启动 App。对于这种助手的盗版安装手段，苹果想打击只能一个个吊销企业证书，并没有太好的办法。</p>
+<p>这里我的疑问是，苹果做了那么多签名和验证机制去限制在 iOS 安装 App，为什么又要出这样一个限制很少的方式让盗版钻空子呢？若真的是企业用途不适合上 AppStore，也完全可以在 AppStore 开辟一个小的私密版块，还是通过 AppStore 去安装，就不会有这个问题了。</p>
+<h4 id="AppStore-加密"><a href="#AppStore-加密" class="headerlink" title="AppStore 加密"></a>AppStore 加密</h4><p>另一个问题是我们把 App 传上 AppStore 后，苹果会对 App 进行加密，导致 App 体积增大不少，这个加密实际上是没卵用的，只是让破解的人要多做一个步骤，运行 App 去内存 dump 出可执行文件而已，无论怎样加密，都可以用这种方式拿出加密前的可执行文件。所以为什么要做这样的加密呢？想不到有什么好处。</p>
+<h4 id="本地私钥"><a href="#本地私钥" class="headerlink" title="本地私钥"></a>本地私钥</h4><p>我们看到前面说的签名流程很绕很复杂，经常出现各种问题，像有 Provisioning Profile 文件但证书又不对，本地有公钥证书没对应私钥等情况，不理解原理的情况下会被绕晕，我的疑问是，这里为什么不能简化呢？还是以开发证书为例，为什么一定要用本地 Mac 生成的私钥去签名？苹果要的只是本地签名，私钥不一定是要本地生成的，苹果也可以自己生成一对公私钥给我们，放在 Provisioning Profile 里，我们用里面的私钥去加密就行了，这样就不会有 CertificateSigningRequest 和 p12 的概念，跟本地 keychain 没有关系，不需要关心证书，只要有 Provisioning Profile 就能签名，流程会减少，易用性会提高很多，同时苹果想要的控制一点都不会少，也没有什么安全问题，为什么不这样设计呢？</p>
+<p>能想到的一个原因是 Provisioning Profile 在非 AppStore 安装时会打包进安装包，第三方拿到这个 Provisioning Profile 文件就能直接用起来给他自己的 App 签名了。但这种问题也挺好解决，只需要打包时去掉文件里的私钥就行了，所以仍不明白为什么这样设计。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://iCodeWoods.github.io/2017/09/22/iOS签名原理/" data-id="cjt5cp7ld002o2b99d7ugt5qu" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/签名/">签名</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-【Swift】无主引用unowned、隐式解析可选类型" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017/08/30/【Swift】无主引用unowned、隐式解析可选类型/" class="article-date">
+  <time datetime="2017-08-30T08:32:10.000Z" itemprop="datePublished">2017-08-30</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/iOS/">iOS</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/08/30/【Swift】无主引用unowned、隐式解析可选类型/">【Swift】无主引用unowned、隐式解析可选类型</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="类实例之间的循环强引用"><a href="#类实例之间的循环强引用" class="headerlink" title="类实例之间的循环强引用"></a>类实例之间的循环强引用</h2><p>我们先来举个简单循环强引用的栗子，定义两个类Person和Apartment，分别代表公寓和它的居民。Person类有一个可选属性apartment，表示一个人可能拥有公寓。Apartment类有一个可选属性tenant，表示一栋公寓可能拥有居民。</p>
+<p>接下来这段代码就会产生循环强引用了：<br><figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> john = <span class="type">Person</span>(name: <span class="string">"John Appleseed"</span>)</span><br><span class="line"><span class="keyword">let</span> unit4A = <span class="type">Apartment</span>(unit: <span class="string">"4A"</span>)</span><br><span class="line"></span><br><span class="line">john!.apartment = unit4A</span><br><span class="line">unit4A!.tenant = john</span><br></pre></td></tr></table></figure></p>
+<p>Swift 提供了两种办法用来解决你在使用类的属性时所遇到的循环强引用问题：</p>
+<ul>
+<li><strong>弱引用 weak reference</strong></li>
+<li><strong>无主引用 unowned reference</strong></li>
+</ul>
+<h2 id="弱引用"><a href="#弱引用" class="headerlink" title="弱引用"></a>弱引用</h2><p>上例的解决办法就是将apartment或tenant属性声明为弱引用即可，如果有对此例不理解的同学，可以参考<a href="https://github.com/numbbbbb/the-swift-programming-language-in-chinese/blob/gh-pages/source/chapter2/16_Automatic_Reference_Counting.md#strong_reference_cycles_between_class_instances" target="_blank" rel="noopener">官方文档</a>，有配图，讲解得很详细。</p>
+<p>关于弱引用大家多少都有所了解，本文重点也不在此，故不再赘述，只提一点官方文档中的注意事项：</p>
+<blockquote>
+<p>注意</p>
+</blockquote>
+<p>当 ARC 设置弱引用为nil时，属性观察不会被触发。</p>
+<h2 id="无主引用"><a href="#无主引用" class="headerlink" title="无主引用"></a>无主引用</h2><p>可以在声明属性或者变量时，在前面加上关键字unowned表示这是一个无主引用。</p>
+<p>和弱引用类似，无主引用不会牢牢保持住引用的实例。和弱引用不同的是，无主引用在其他实例有相同或者更长的生命周期时使用。</p>
+<p>无主引用通常都被期望拥有值。不过 <strong>ARC 无法在实例被销毁后将无主引用设为nil</strong>，因为非可选类型的变量不允许被赋值为nil。</p>
+<blockquote>
+<p>重要</p>
+</blockquote>
+<p>使用无主引用，你必须确保引用始终指向一个未销毁的实例。<br>如果你试图在实例被销毁后，访问该实例的无主引用，会触发运行时错误。</p>
+<p>下面的例子定义了两个类，Customer和CreditCard，模拟了银行客户和客户的信用卡。这两个类中，每一个都将另外一个类的实例作为自身的属性。这种关系可能会造成循环强引用。<br><figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Customer</span> </span>&#123;</span><br><span class="line">    <span class="keyword">let</span> name: <span class="type">String</span></span><br><span class="line">    <span class="keyword">var</span> card: <span class="type">CreditCard?</span></span><br><span class="line">    <span class="keyword">init</span>(name: <span class="type">String</span>) &#123;</span><br><span class="line">        <span class="keyword">self</span>.name = name</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">deinit</span> &#123; <span class="built_in">print</span>(<span class="string">"\(name) is being deinitialized"</span>) &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">CreditCard</span> </span>&#123;</span><br><span class="line">    <span class="keyword">let</span> number: <span class="type">UInt64</span></span><br><span class="line">    <span class="keyword">unowned</span> <span class="keyword">let</span> customer: <span class="type">Customer</span></span><br><span class="line">    <span class="keyword">init</span>(number: <span class="type">UInt64</span>, customer: <span class="type">Customer</span>) &#123;</span><br><span class="line">        <span class="keyword">self</span>.number = number</span><br><span class="line">        <span class="keyword">self</span>.customer = customer</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">deinit</span> &#123; <span class="built_in">print</span>(<span class="string">"Card #\(number) is being deinitialized"</span>) &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>在这个数据模型中，一个客户可能有或者没有信用卡，但是一张信用卡总是关联着一个客户。为了表示这种关系，Customer类有一个可选类型的card属性，但是CreditCard类有一个非可选类型的customer属性。<br>此外，只能通过将一个number值和customer实例传递给CreditCard构造函数的方式来创建CreditCard实例。这样可以确保当创建CreditCard实例时总是有一个customer实例与之关联。</p>
+<p>下面的代码片段定义了一个叫john的可选类型Customer变量，用来保存某个特定客户的引用：<br><figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> john: <span class="type">Customer?</span></span><br></pre></td></tr></table></figure></p>
+<p>然后我们就可以创建Customer类的实例，用它初始化CreditCard实例，并将新创建的CreditCard实例赋值为客户的card属性：<br><figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">john = <span class="type">Customer</span>(name: <span class="string">"John Appleseed"</span>)</span><br><span class="line">john!.card = <span class="type">CreditCard</span>(number: <span class="number">1234_5678_9012_3456</span>, customer: john!)</span><br></pre></td></tr></table></figure></p>
+<p>在你关联两个实例后，它们的引用关系如下图所示：<br><img src="/2017/08/30/【Swift】无主引用unowned、隐式解析可选类型/unowned0.png" alt></p>
+<p>Customer实例持有对CreditCard实例的强引用，而CreditCard实例持有对Customer实例的无主引用。<br>由于customer的无主引用，当你断开john变量持有的强引用时，再也没有指向Customer实例的强引用了：<br><img src="/2017/08/30/【Swift】无主引用unowned、隐式解析可选类型/unowned1.png" alt></p>
+<p>由于再也没有指向Customer实例的强引用，该实例被销毁了。其后，再也没有指向CreditCard实例的强引用，该实例也随之被销毁了：<br><figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">john = <span class="literal">nil</span></span><br><span class="line"><span class="comment">// 打印 "John Appleseed is being deinitialized"</span></span><br><span class="line"><span class="comment">// 打印 "Card #1234567890123456 is being deinitialized"</span></span><br></pre></td></tr></table></figure></p>
+<p>最后的代码展示了在john变量被设为nil后Customer实例和CreditCard实例的构造函数都打印出了“销毁”的信息。</p>
+<blockquote>
+<p>注意</p>
+</blockquote>
+<p>上面的例子展示了如何使用安全的无主引用。对于需要禁用运行时的安全检查的情况（例如，出于性能方面的原因），Swift还提供了不安全的无主引用。与所有不安全的操作一样，你需要负责检查代码以确保其安全性。 你可以通过unowned(unsafe)来声明不安全无主引用。如果你试图在实例被销毁后，访问该实例的不安全无主引用，你的程序会尝试访问该实例之前所在的内存地址，这是一个不安全的操作。</p>
+<h2 id="无主引用以及隐式解析可选属性"><a href="#无主引用以及隐式解析可选属性" class="headerlink" title="无主引用以及隐式解析可选属性"></a>无主引用以及隐式解析可选属性</h2><ul>
+<li>Person和Apartment的例子展示了<strong>两个属性的值都允许为nil</strong>，并会潜在的产生循环强引用。这种场景最适合用弱引用来解决。</li>
+<li>Customer和CreditCard的例子展示了<strong>一个属性的值允许为nil，而另一个属性的值不允许为nil</strong>，这也可能会产生循环强引用。这种场景最适合通过无主引用来解决。</li>
+<li>然而，存在着第三种场景，在这种场景中，<strong>两个属性都必须有值，并且初始化完成后永远不会为nil</strong>。在这种场景中，需要<strong>一个类使用无主属性，而另外一个类使用隐式解析可选属性</strong>。</li>
+</ul>
+<p>下面的例子定义了两个类，Country和City，每个类将另外一个类的实例保存为属性。每个国家必须有首都，每个城市必须属于一个国家。所以Country类拥有一个capitalCity属性，而City类有一个country属性：<br><figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Country</span> </span>&#123;</span><br><span class="line">    <span class="keyword">let</span> name: <span class="type">String</span></span><br><span class="line">    <span class="keyword">var</span> capitalCity: <span class="type">City!</span></span><br><span class="line">    <span class="keyword">init</span>(name: <span class="type">String</span>, capitalName: <span class="type">String</span>) &#123;</span><br><span class="line">        <span class="keyword">self</span>.name = name</span><br><span class="line">        <span class="keyword">self</span>.capitalCity = <span class="type">City</span>(name: capitalName, country: <span class="keyword">self</span>)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">City</span> </span>&#123;</span><br><span class="line">    <span class="keyword">let</span> name: <span class="type">String</span></span><br><span class="line">    <span class="keyword">unowned</span> <span class="keyword">let</span> country: <span class="type">Country</span></span><br><span class="line">    <span class="keyword">init</span>(name: <span class="type">String</span>, country: <span class="type">Country</span>) &#123;</span><br><span class="line">        <span class="keyword">self</span>.name = name</span><br><span class="line">        <span class="keyword">self</span>.country = country</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>为了建立两个类的依赖关系，City的构造函数接受一个Country实例作为参数，并且将实例保存到country属性。</p>
+<p>Country的构造函数调用了City的构造函数。然而，只有Country的实例完全初始化后，Country的构造函数才能把self传给City的构造函数。在<a href="https://github.com/numbbbbb/the-swift-programming-language-in-chinese/blob/gh-pages/source/chapter2/14_Initialization.html#two_phase_initialization" target="_blank" rel="noopener">两段式构造过程</a>中有具体描述。</p>
+<p>为了满足这种需求，通过在类型结尾处加上感叹号（City!）的方式，将Country的capitalCity属性声明为隐式解析可选类型的属性。这意味着像其他可选类型一样，capitalCity属性的默认值为nil，但是不需要展开它的值就能访问它。在<a href="https://github.com/numbbbbb/the-swift-programming-language-in-chinese/blob/gh-pages/source/chapter2/01_The_Basics.html#implicityly_unwrapped_optionals" target="_blank" rel="noopener">隐式解析可选类型</a>中有描述。</p>
+<p>由于capitalCity默认值为nil，一旦Country的实例在构造函数中给name属性赋值后，整个初始化过程就完成了。这意味着一旦name属性被赋值后，Country的构造函数就能引用并传递隐式的self。Country的构造函数在赋值capitalCity时，就能将self作为参数传递给City的构造函数。</p>
+<p>以上的意义在于你可以通过一条语句同时创建Country和City的实例，而不产生循环强引用，并且capitalCity的属性能被直接访问，而不需要通过感叹号来展开它的可选值：<br><figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> country = <span class="type">Country</span>(name: <span class="string">"Canada"</span>, capitalName: <span class="string">"Ottawa"</span>)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">"\(country.name)'s capital city is called \(country.capitalCity.name)"</span>)</span><br><span class="line"><span class="comment">// 打印 "Canada's capital city is called Ottawa"</span></span><br></pre></td></tr></table></figure></p>
+<p>在上面的例子中，使用隐式解析可选值意味着满足了类的构造函数的两个构造阶段的要求。capitalCity属性在初始化完成后，能像非可选值一样使用和存取，同时还避免了循环强引用。</p>
+<h2 id="闭包引起的循环强引用"><a href="#闭包引起的循环强引用" class="headerlink" title="闭包引起的循环强引用"></a>闭包引起的循环强引用</h2><p>在定义闭包时同时定义捕获列表作为闭包的一部分，通过这种方式可以解决闭包和类实例之间的循环强引用。捕获列表定义了闭包体内捕获一个或者多个引用类型的规则。</p>
+<h2 id="定义捕获列表"><a href="#定义捕获列表" class="headerlink" title="定义捕获列表"></a>定义捕获列表</h2><p>捕获列表中的每一项都由一对元素组成，一个元素是weak或unowned关键字，另一个元素是类实例的引用（例如self）或初始化过的变量（如delegate = self.delegate!）。这些项在方括号中用逗号分开。</p>
+<p>如果闭包有参数列表和返回类型，把捕获列表放在它们前面：<br><figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">lazy</span> <span class="keyword">var</span> someClosure: (<span class="type">Int</span>, <span class="type">String</span>) -&gt; <span class="type">String</span> = &#123;</span><br><span class="line">    [<span class="keyword">unowned</span> <span class="keyword">self</span>, <span class="keyword">weak</span> delegate = <span class="keyword">self</span>.delegate!] (index: <span class="type">Int</span>, stringToProcess: <span class="type">String</span>) -&gt; <span class="type">String</span> <span class="keyword">in</span></span><br><span class="line">    <span class="comment">// 这里是闭包的函数体</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>如果闭包没有指明参数列表或者返回类型，即它们会通过上下文推断，那么可以把捕获列表和关键字in放在闭包最开始的地方：<br><figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">lazy</span> <span class="keyword">var</span> someClosure: <span class="type">Void</span> -&gt; <span class="type">String</span> = &#123;</span><br><span class="line">    [<span class="keyword">unowned</span> <span class="keyword">self</span>, <span class="keyword">weak</span> delegate = <span class="keyword">self</span>.delegate!] <span class="keyword">in</span></span><br><span class="line">    <span class="comment">// 这里是闭包的函数体</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h2 id="弱引用和无主引用"><a href="#弱引用和无主引用" class="headerlink" title="弱引用和无主引用"></a>弱引用和无主引用</h2><p>在闭包和捕获的实例总是互相引用并且总是同时销毁时，将闭包内的捕获定义为无主引用。相反的，在被捕获的引用可能会变为nil时，将闭包内的捕获定义为弱引用。弱引用总是可选类型，并且当引用的实例被销毁后，弱引用的值会自动置为nil。这使我们可以在闭包体内检查它们是否存在。</p>
+<blockquote>
+<p>注意</p>
+</blockquote>
+<p>如果被捕获的引用绝对不会变为nil，应该用无主引用，而不是弱引用。</p>
+<h4 id="参考链接："><a href="#参考链接：" class="headerlink" title="参考链接："></a>参考链接：</h4><p><a href="https://github.com/numbbbbb/the-swift-programming-language-in-chinese/blob/gh-pages/source/chapter2/16_Automatic_Reference_Counting.md#arc_in_action" target="_blank" rel="noopener">the-swift-programming-language-in-chinese</a></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://iCodeWoods.github.io/2017/08/30/【Swift】无主引用unowned、隐式解析可选类型/" data-id="cjt5cp7ku001x2b99dr4d1kfi" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Swift/">Swift</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/unowned/">unowned</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/隐式解析可选类型/">隐式解析可选类型</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-写给自己" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017/07/27/写给自己/" class="article-date">
+  <time datetime="2017-07-27T07:57:20.000Z" itemprop="datePublished">2017-07-27</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/杂/">杂</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/07/27/写给自己/">写给自己</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>入职已经半个多月了，但是感觉自己还没有进入状态。前段时间偶然在网上看到Sunny（孙源）说iOS进阶的速度：</p>
+<blockquote>
+<p>纯日常开发 &lt; 纯看书、博客 &lt; 自己试验、Demo &lt; 写博客 &lt; 系统性分享和讨论 &lt; 提供完整的开源方案</p>
+</blockquote>
+<p>顿时心里感觉：握了个草！原来我一直停留在进阶速度最慢的两个阶段，难怪呢！<br>于是又想捡起好久没写的博客，重操旧业。但是感觉以前的博客质量太低了，所以新搭了一个，前后折腾了三四天（净整些没用的Orz）</p>
+<p>其中有一天早上我心里就暗想，以后要至少半个月写一篇有质量的博客。但是这个念头刚萌生不超过10秒，我心里就又暗想：半个月够呛啊，要不然还是一个月吧。。。Orz</p>
+<p>在这里给未来的自己写下这段话，希望将来的自己如果连一个月一篇有质量的博客都拿不出手的时候，看到这段话产生羞愧之心。。。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://iCodeWoods.github.io/2017/07/27/写给自己/" data-id="cjt5cp7kb000s2b99j5sqncy7" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/杂/">杂</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+
+
+  <nav id="page-nav">
+    <a class="extend prev" rel="prev" href="/">&laquo; __('prev')</a><a class="page-number" href="/">1</a><span class="page-number current">2</span>
+  </nav>
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">分类</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/iOS/">iOS</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/杂/">杂</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/脚本/">脚本</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/读书笔记/">读书笔记</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">标签</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Bash/">Bash</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Books/">Books</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JSPatch/">JSPatch</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/New-Features/">New Features</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/React-Native/">React Native</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Swift/">Swift</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/unowned/">unowned</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/动态化/">动态化</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/杂/">杂</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/签名/">签名</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/脚本/">脚本</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/译文/">译文</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/隐式解析可选类型/">隐式解析可选类型</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">标签云</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/Bash/" style="font-size: 16.67px;">Bash</a> <a href="/tags/Books/" style="font-size: 20px;">Books</a> <a href="/tags/JSPatch/" style="font-size: 10px;">JSPatch</a> <a href="/tags/New-Features/" style="font-size: 10px;">New Features</a> <a href="/tags/React-Native/" style="font-size: 10px;">React Native</a> <a href="/tags/Swift/" style="font-size: 13.33px;">Swift</a> <a href="/tags/unowned/" style="font-size: 10px;">unowned</a> <a href="/tags/动态化/" style="font-size: 10px;">动态化</a> <a href="/tags/杂/" style="font-size: 13.33px;">杂</a> <a href="/tags/签名/" style="font-size: 10px;">签名</a> <a href="/tags/脚本/" style="font-size: 16.67px;">脚本</a> <a href="/tags/译文/" style="font-size: 10px;">译文</a> <a href="/tags/隐式解析可选类型/" style="font-size: 10px;">隐式解析可选类型</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">三月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/01/">一月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">十二月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/11/">十一月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/10/">十月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/05/">五月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/03/">三月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/01/">一月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/11/">十一月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/09/">九月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/08/">八月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/07/">七月 2017</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2019/03/12/《1984》读书笔记/">《1984》读书笔记</a>
+          </li>
+        
+          <li>
+            <a href="/2019/01/03/2018年总结/">2018年总结</a>
+          </li>
+        
+          <li>
+            <a href="/2018/12/10/《Refactoring》读书笔记（四）重新组织数据/">《Refactoring》读书笔记（四）重新组织数据</a>
+          </li>
+        
+          <li>
+            <a href="/2018/12/04/《Refactoring》读书笔记（三）在对象之间搬移特性/">《Refactoring》读书笔记（三）在对象之间搬移特性</a>
+          </li>
+        
+          <li>
+            <a href="/2018/11/28/《Refactoring》读书笔记（二）重新组织函数/">《Refactoring》读书笔记（二）重新组织函数</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2019 iCodeWoods<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+  </div>
+</body>
+</html>
