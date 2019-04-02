@@ -5,21 +5,21 @@
   
   <title>SpriteKit 开发游戏实战——《OverTheMountains》 | iCodeWoods的小站</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="[TOC] TL;DRSpriteKit 早在 iOS 7 就已推出，但由于我的精力/水平有限，直到最近才开始学习它。 文章中的游戏《OverTheMountains》（翻山越岭）是我从零开始自学 SpriteKit 时，用了不到三天时间自己开发的一个小型 demo，并没有参考别人的代码，所以可能存在很多不合理的地方，还望各位不吝赐教，我将非常感激。 项目工程的 GitHub 地址请戳我。 游戏介">
+  <meta name="description" content="[TOC] TL;DRSpriteKit 早在 iOS 7 就已推出，但由于我的精力/水平有限，直到最近才开始学习它。 文章中的游戏《OverTheMountains》（翻山越岭）是我从零开始自学 SpriteKit 时，用了不到三天时间自己开发的一个小型 demo，并没有参考别人的代码，所以可能存在很多不合理的地方，还望各位不吝赐教，我将非常感激。 项目工程的 GitHub 地址请戳我。">
 <meta name="keywords" content="SpriteKit,Game">
 <meta property="og:type" content="article">
 <meta property="og:title" content="SpriteKit 开发游戏实战——《OverTheMountains》">
 <meta property="og:url" content="https://iCodeWoods.github.io/2019/04/02/SpriteKit 开发游戏实战——《OverTheMountains》/index.html">
 <meta property="og:site_name" content="iCodeWoods的小站">
-<meta property="og:description" content="[TOC] TL;DRSpriteKit 早在 iOS 7 就已推出，但由于我的精力/水平有限，直到最近才开始学习它。 文章中的游戏《OverTheMountains》（翻山越岭）是我从零开始自学 SpriteKit 时，用了不到三天时间自己开发的一个小型 demo，并没有参考别人的代码，所以可能存在很多不合理的地方，还望各位不吝赐教，我将非常感激。 项目工程的 GitHub 地址请戳我。 游戏介">
+<meta property="og:description" content="[TOC] TL;DRSpriteKit 早在 iOS 7 就已推出，但由于我的精力/水平有限，直到最近才开始学习它。 文章中的游戏《OverTheMountains》（翻山越岭）是我从零开始自学 SpriteKit 时，用了不到三天时间自己开发的一个小型 demo，并没有参考别人的代码，所以可能存在很多不合理的地方，还望各位不吝赐教，我将非常感激。 项目工程的 GitHub 地址请戳我。">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="https://icodewoods.github.io/2019/04/02/SpriteKit%20开发游戏实战——《OverTheMountains》/assets/OverTheMountains.gif">
-<meta property="og:image" content="https://icodewoods.github.io/2019/04/02/SpriteKit%20开发游戏实战——《OverTheMountains》/assets/Atlas.png">
-<meta property="og:updated_time" content="2019-04-02T10:23:46.543Z">
+<meta property="og:image" content="https://icodewoods.github.io/2019/04/02/SpriteKit%20开发游戏实战——《OverTheMountains》/OverTheMountains.gif">
+<meta property="og:image" content="https://icodewoods.github.io/2019/04/02/SpriteKit%20开发游戏实战——《OverTheMountains》/Atlas.png">
+<meta property="og:updated_time" content="2019-04-02T11:14:53.541Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="SpriteKit 开发游戏实战——《OverTheMountains》">
-<meta name="twitter:description" content="[TOC] TL;DRSpriteKit 早在 iOS 7 就已推出，但由于我的精力/水平有限，直到最近才开始学习它。 文章中的游戏《OverTheMountains》（翻山越岭）是我从零开始自学 SpriteKit 时，用了不到三天时间自己开发的一个小型 demo，并没有参考别人的代码，所以可能存在很多不合理的地方，还望各位不吝赐教，我将非常感激。 项目工程的 GitHub 地址请戳我。 游戏介">
-<meta name="twitter:image" content="https://icodewoods.github.io/2019/04/02/SpriteKit%20开发游戏实战——《OverTheMountains》/assets/OverTheMountains.gif">
+<meta name="twitter:description" content="[TOC] TL;DRSpriteKit 早在 iOS 7 就已推出，但由于我的精力/水平有限，直到最近才开始学习它。 文章中的游戏《OverTheMountains》（翻山越岭）是我从零开始自学 SpriteKit 时，用了不到三天时间自己开发的一个小型 demo，并没有参考别人的代码，所以可能存在很多不合理的地方，还望各位不吝赐教，我将非常感激。 项目工程的 GitHub 地址请戳我。">
+<meta name="twitter:image" content="https://icodewoods.github.io/2019/04/02/SpriteKit%20开发游戏实战——《OverTheMountains》/OverTheMountains.gif">
   
     <link rel="alternate" href="/atom.xml" title="iCodeWoods的小站" type="application/atom+xml">
   
@@ -104,9 +104,10 @@
 <h2 id="TL-DR"><a href="#TL-DR" class="headerlink" title="TL;DR"></a>TL;DR</h2><p>SpriteKit 早在 iOS 7 就已推出，但由于我的精力/水平有限，直到最近才开始学习它。</p>
 <p>文章中的游戏《OverTheMountains》（翻山越岭）是我从零开始自学 SpriteKit 时，用了不到三天时间自己开发的一个小型 demo，并没有参考别人的代码，所以可能存在很多不合理的地方，还望各位不吝赐教，我将非常感激。</p>
 <p>项目工程的 <a href="https://github.com/iCodeWoods/OverTheMountains" target="_blank" rel="noopener">GitHub 地址请戳我</a>。</p>
+<a id="more"></a>
 <h2 id="游戏介绍"><a href="#游戏介绍" class="headerlink" title="游戏介绍"></a>游戏介绍</h2><p>其实这类游戏在 AppStore 上已有很多，无非都是有一个小黑人，使用一根能不断伸长的棍子，看看最终能走多远。</p>
 <p>而本作的游戏背景是，男主人公经过长途跋涉，翻山越岭地去见女主人公。（瞬间不一样了有木有😁）</p>
-<p><img src="/2019/04/02/SpriteKit 开发游戏实战——《OverTheMountains》/./assets/OverTheMountains.gif" alt="OverTheMountains"></p>
+<p><img src="/2019/04/02/SpriteKit 开发游戏实战——《OverTheMountains》/OverTheMountains.gif" alt="OverTheMountains"></p>
 <h2 id="一些实现思路"><a href="#一些实现思路" class="headerlink" title="一些实现思路"></a>一些实现思路</h2><p>尽管游戏本身很简单，但如果一开始没有一个良好的设计，很容易写着写着就乱了。</p>
 <p>下面就粗略地说一下我的实现思路与步骤：</p>
 <ol>
@@ -129,7 +130,7 @@
 <p>在添加时指定一个 key，当想移除时，只需要移除指定 key 的 Action 即可。代码如下：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">- (void)touchesBegan:(NSSet&lt;UITouch *&gt; *)touches withEvent:(UIEvent *)event &#123;</span><br><span class="line">    SKAction *growAction = [SKAction repeatActionForever:[SKAction resizeByWidth:0 height:kStickGrowSpeed duration:0.1]];</span><br><span class="line">    [self.stickNode runAction:growAction withKey:kStickGrowActionName];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (void)touchesEnded:(NSSet&lt;UITouch *&gt; *)touches withEvent:(UIEvent *)event &#123;</span><br><span class="line">    [self.stickNode removeActionForKey:kStickGrowActionName];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <h3 id="玩家的生成与双脚交替行走"><a href="#玩家的生成与双脚交替行走" class="headerlink" title="玩家的生成与双脚交替行走"></a>玩家的生成与双脚交替行走</h3><p>也就是上面所说的第五步。其实就是将一组图片放入以<code>.atlas</code>结尾的文件夹中，然后使用苹果爸爸为我们封装好的 <a href="https://developer.apple.com/documentation/spritekit/sktextureatlas?language=objc" target="_blank" rel="noopener">SKTextureAtlas</a>。</p>
-<p><img src="/2019/04/02/SpriteKit 开发游戏实战——《OverTheMountains》/./assets/Atlas.png" alt="Atlas"></p>
+<p><img src="/2019/04/02/SpriteKit 开发游戏实战——《OverTheMountains》/Atlas.png" alt="Atlas"></p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">- (PlayerNode *)playerNode &#123;</span><br><span class="line">    if (!_playerNode) &#123;</span><br><span class="line">        _playerNode = [[PlayerNode alloc] initWithTexture:self.playerWalkingFrames[0]];</span><br><span class="line">    &#125;</span><br><span class="line">    return _playerNode;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (NSMutableArray *)playerWalkingFrames &#123;</span><br><span class="line">    if (!_playerWalkingFrames) &#123;</span><br><span class="line">        _playerWalkingFrames = [NSMutableArray array];</span><br><span class="line">        SKTextureAtlas *playerAnimatedAtlas = [SKTextureAtlas atlasNamed:kPlayerTextureAtlasKey];</span><br><span class="line">        for (int i = 1; i &lt;= playerAnimatedAtlas.textureNames.count; i++) &#123;</span><br><span class="line">            SKTexture *texture = [playerAnimatedAtlas textureNamed:[NSString stringWithFormat:@&quot;player%d&quot;, i]];</span><br><span class="line">            [_playerWalkingFrames addObject:texture];</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    return _playerWalkingFrames;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <h3 id="棍子、起点、终点、玩家的组动画"><a href="#棍子、起点、终点、玩家的组动画" class="headerlink" title="棍子、起点、终点、玩家的组动画"></a>棍子、起点、终点、玩家的组动画</h3><p>也就是上面所说的第六步。这里涉及到很多并发执行的动画。</p>
 <p>上面说实现思路与步骤的时候只是一个大概，没有完整地说。事实上这里面有一个问题，就是当我们按住屏幕伸长棍子，然后各种元素执行动画时，此时用户如果再点击屏幕，就不能再产生另一根棍子并执行一堆动画了。因此我们加了一个标志位，在 <code>touchesBegan</code> 和 <code>touchesEnd</code> 中进行判断，相当于加了一个锁吧。</p>
@@ -155,7 +156,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://iCodeWoods.github.io/2019/04/02/SpriteKit 开发游戏实战——《OverTheMountains》/" data-id="cjtzmyqfe001wby994vc1yddt" class="article-share-link">Share</a>
+      <a data-url="https://iCodeWoods.github.io/2019/04/02/SpriteKit 开发游戏实战——《OverTheMountains》/" data-id="cjtznuuux001wdw99hjqgzbwf" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Game/">Game</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/SpriteKit/">SpriteKit</a></li></ul>

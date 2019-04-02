@@ -98,58 +98,15 @@
 <h2 id="TL-DR"><a href="#TL-DR" class="headerlink" title="TL;DR"></a>TL;DR</h2><p>SpriteKit 早在 iOS 7 就已推出，但由于我的精力/水平有限，直到最近才开始学习它。</p>
 <p>文章中的游戏《OverTheMountains》（翻山越岭）是我从零开始自学 SpriteKit 时，用了不到三天时间自己开发的一个小型 demo，并没有参考别人的代码，所以可能存在很多不合理的地方，还望各位不吝赐教，我将非常感激。</p>
 <p>项目工程的 <a href="https://github.com/iCodeWoods/OverTheMountains" target="_blank" rel="noopener">GitHub 地址请戳我</a>。</p>
-<h2 id="游戏介绍"><a href="#游戏介绍" class="headerlink" title="游戏介绍"></a>游戏介绍</h2><p>其实这类游戏在 AppStore 上已有很多，无非都是有一个小黑人，使用一根能不断伸长的棍子，看看最终能走多远。</p>
-<p>而本作的游戏背景是，男主人公经过长途跋涉，翻山越岭地去见女主人公。（瞬间不一样了有木有😁）</p>
-<p><img src="/2019/04/02/SpriteKit 开发游戏实战——《OverTheMountains》/./assets/OverTheMountains.gif" alt="OverTheMountains"></p>
-<h2 id="一些实现思路"><a href="#一些实现思路" class="headerlink" title="一些实现思路"></a>一些实现思路</h2><p>尽管游戏本身很简单，但如果一开始没有一个良好的设计，很容易写着写着就乱了。</p>
-<p>下面就粗略地说一下我的实现思路与步骤：</p>
-<ol>
-<li>添加两个矩形（也就是所谓的“山”）（左边的记为起点，右边的记为终点）</li>
-<li>将起点向左移出屏幕，将终点向左移至起点的位置，从屏幕右侧生成一个新的终点并移至合适的位置</li>
-<li>点击屏幕可以在起点处生成一个棍子，且棍子会随着按屏幕的时间增长而增长</li>
-<li>松手后棍子会顺时针旋转45度，并计算是否与终点相交</li>
-<li>在起点添加一个玩家，并可以实现双脚交替走路的动画</li>
-<li>当棍子旋转完毕后，让玩家走至棍子末端。如果相交，则进入下一关，也就是上面所说的第二步，同时让玩家也随着一起移动，并把棍子移除。如果不相交，则棍子旋转至垂直方向，同时玩家坠落悬崖~</li>
-<li>坠落后，进入开始界面，添加一个按钮，用户点击后能够再进入游戏界面，重新开始游戏</li>
-<li>计算得分，添加一个 Label 用于显示分数</li>
-<li>添加一个红心，如果命中红心可以获得额外的分数，计算棍子与红心是否相交</li>
-<li>……and so on</li>
-</ol>
-<p>不难看出，整个游戏最复杂的部分在于第六步。但由于我们在此之前已经实现并且测试过了第二步，所以第六步的难度大幅下降。</p>
-<p>其实从第一步开始，一点点的实现，即使不参照任何其他 demo，我们也能轻松的实现整个游戏。相反，如果一开始就把“起点”、“终点”、“棍子”、“玩家”、“红心”等元素全加上，反而会导致一片混乱。</p>
-<h2 id="一些实现细节"><a href="#一些实现细节" class="headerlink" title="一些实现细节"></a>一些实现细节</h2><h3 id="棍子的伸长"><a href="#棍子的伸长" class="headerlink" title="棍子的伸长"></a>棍子的伸长</h3><p>也就是上面所说的第三步。由于我刚开始学习 SpriteKit，所以思维还没有转变过来，一开始的想法还是使用一个 NSTimer 去处理。（demo 暂且先不考虑 timer 不会释放的问题）</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">- (void)touchesBegan:(NSSet&lt;UITouch *&gt; *)touches withEvent:(UIEvent *)event &#123;</span><br><span class="line">    self.stickTimer = [NSTimer scheduledTimerWithTimeInterval:0.05 target:self selector:@selector(growStick) userInfo:nil repeats:YES];</span><br><span class="line">    [[NSRunLoop mainRunLoop] addTimer:self.stickTimer forMode:NSRunLoopCommonModes];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (void)touchesEnded:(NSSet&lt;UITouch *&gt; *)touches withEvent:(UIEvent *)event &#123;</span><br><span class="line">    [self.stickTimer invalidate];</span><br><span class="line">    self.stickTimer = nil;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (void)growStick &#123;</span><br><span class="line">    self.stickNode.size = CGSizeMake(self.stickNode.size.width, self.stickNode.size.height + kStickGrowSpeed);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>后来发现可以使用 <code>repeatActionForever:</code> 与 <code>runAction:withKey:</code> 方法实现，好处不仅是可以少声明一个属性（stickTimer）和一个方法（growStick），更重要的是现在它真正的融入 SpriteKit 的世界了，它的运行与结束都会由 SKNode 来替我们处理，我们不再需要关心它是否没有释放或者是不准之类的了。</p>
-<p>在添加时指定一个 key，当想移除时，只需要移除指定 key 的 Action 即可。代码如下：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">- (void)touchesBegan:(NSSet&lt;UITouch *&gt; *)touches withEvent:(UIEvent *)event &#123;</span><br><span class="line">    SKAction *growAction = [SKAction repeatActionForever:[SKAction resizeByWidth:0 height:kStickGrowSpeed duration:0.1]];</span><br><span class="line">    [self.stickNode runAction:growAction withKey:kStickGrowActionName];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (void)touchesEnded:(NSSet&lt;UITouch *&gt; *)touches withEvent:(UIEvent *)event &#123;</span><br><span class="line">    [self.stickNode removeActionForKey:kStickGrowActionName];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="玩家的生成与双脚交替行走"><a href="#玩家的生成与双脚交替行走" class="headerlink" title="玩家的生成与双脚交替行走"></a>玩家的生成与双脚交替行走</h3><p>也就是上面所说的第五步。其实就是将一组图片放入以<code>.atlas</code>结尾的文件夹中，然后使用苹果爸爸为我们封装好的 <a href="https://developer.apple.com/documentation/spritekit/sktextureatlas?language=objc" target="_blank" rel="noopener">SKTextureAtlas</a>。</p>
-<p><img src="/2019/04/02/SpriteKit 开发游戏实战——《OverTheMountains》/./assets/Atlas.png" alt="Atlas"></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">- (PlayerNode *)playerNode &#123;</span><br><span class="line">    if (!_playerNode) &#123;</span><br><span class="line">        _playerNode = [[PlayerNode alloc] initWithTexture:self.playerWalkingFrames[0]];</span><br><span class="line">    &#125;</span><br><span class="line">    return _playerNode;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (NSMutableArray *)playerWalkingFrames &#123;</span><br><span class="line">    if (!_playerWalkingFrames) &#123;</span><br><span class="line">        _playerWalkingFrames = [NSMutableArray array];</span><br><span class="line">        SKTextureAtlas *playerAnimatedAtlas = [SKTextureAtlas atlasNamed:kPlayerTextureAtlasKey];</span><br><span class="line">        for (int i = 1; i &lt;= playerAnimatedAtlas.textureNames.count; i++) &#123;</span><br><span class="line">            SKTexture *texture = [playerAnimatedAtlas textureNamed:[NSString stringWithFormat:@&quot;player%d&quot;, i]];</span><br><span class="line">            [_playerWalkingFrames addObject:texture];</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    return _playerWalkingFrames;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="棍子、起点、终点、玩家的组动画"><a href="#棍子、起点、终点、玩家的组动画" class="headerlink" title="棍子、起点、终点、玩家的组动画"></a>棍子、起点、终点、玩家的组动画</h3><p>也就是上面所说的第六步。这里涉及到很多并发执行的动画。</p>
-<p>上面说实现思路与步骤的时候只是一个大概，没有完整地说。事实上这里面有一个问题，就是当我们按住屏幕伸长棍子，然后各种元素执行动画时，此时用户如果再点击屏幕，就不能再产生另一根棍子并执行一堆动画了。因此我们加了一个标志位，在 <code>touchesBegan</code> 和 <code>touchesEnd</code> 中进行判断，相当于加了一个锁吧。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">#pragma mark - Touch Event</span><br><span class="line"></span><br><span class="line">- (void)touchesBegan:(NSSet&lt;UITouch *&gt; *)touches withEvent:(UIEvent *)event &#123;</span><br><span class="line">    if (self.isPlaying) &#123;</span><br><span class="line">        return;</span><br><span class="line">    &#125;</span><br><span class="line">    // do something...</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (void)touchesEnded:(NSSet&lt;UITouch *&gt; *)touches withEvent:(UIEvent *)event &#123;</span><br><span class="line">    if (self.isPlaying) &#123;</span><br><span class="line">        return;</span><br><span class="line">    &#125;</span><br><span class="line">    self.isPlaying = YES;</span><br><span class="line">    // do something...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>然后在所有的棍子、起点、终点、玩家等一系列元素全部执行完动画后，我们再重置 <code>isPlaying</code> 标志位。SKNode 执行 Action 动画是异步的，我们如何准确得知所有动画执行完的时机？由于我初学 SpriteKit，尚不知是否有简便方法，因此还是使用了平时 iOS 开发中所用到的 <code>dispatch_group_t</code> 来实现。当 group 里的操作全部执行完毕后，通过 <code>dispatch_group_notify</code> 来获知并重置标记位。代码如下：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br></pre></td><td class="code"><pre><span class="line">- (void)overTheMountains:(BOOL)success &#123;</span><br><span class="line">    self.currentLevel++;</span><br><span class="line">    </span><br><span class="line">    // 玩家执行双脚交替行走的动画并前进</span><br><span class="line">    [self.playerNode runAction:[SKAction repeatActionForever:[SKAction animateWithTextures:self.playerWalkingFrames timePerFrame:0.3f resize:NO restore:YES]] withKey:kPlayerWalkingActionKey];</span><br><span class="line">    SKAction *forwardPlayerAction = [SKAction moveToX:endPointX duration:kPlayerMoveActionDuration];</span><br><span class="line">    [self.playerNode runAction:forwardPlayerAction completion:^&#123;</span><br><span class="line">        [self.playerNode removeActionForKey:kPlayerWalkingActionKey];</span><br><span class="line">        </span><br><span class="line">        dispatch_group_t group = dispatch_group_create();</span><br><span class="line">        </span><br><span class="line">        // 移除起点</span><br><span class="line">        dispatch_group_enter(group);</span><br><span class="line">        SKAction *removeStartPillarAction = [SKAction moveToX:-CGRectGetWidth(self.startPillarNode.frame) duration:0.1];</span><br><span class="line">        [self.startPillarNode runAction:removeStartPillarAction completion:^&#123;</span><br><span class="line">            [self.startPillarNode removeFromParent];</span><br><span class="line">            dispatch_group_leave(group);</span><br><span class="line">        &#125;];</span><br><span class="line">        </span><br><span class="line">        // 把终点移至起点的位置</span><br><span class="line">        dispatch_group_enter(group);</span><br><span class="line">        [self.endPillarNode runAction:[SKAction moveToX:0 duration:kPillarMoveActionDuration] completion:^&#123;</span><br><span class="line">            self.startPillarNode = self.endPillarNode;</span><br><span class="line">            self.endPillarNode = [self generateEndPillarNodeWithLevel:self.currentLevel];</span><br><span class="line">            dispatch_group_leave(group);</span><br><span class="line">        &#125;];</span><br><span class="line">        </span><br><span class="line">        // 把玩家移至起点的位置</span><br><span class="line">        dispatch_group_enter(group);</span><br><span class="line">        [self.playerNode runAction:[SKAction moveToX:CGRectGetWidth(self.endPillarNode.frame) - CGRectGetWidth(self.playerNode.frame) - kStickWidth duration:kPillarMoveActionDuration] completion:^&#123;</span><br><span class="line">            dispatch_group_leave(group);</span><br><span class="line">        &#125;];</span><br><span class="line">        </span><br><span class="line">        // 移除棍子</span><br><span class="line">        dispatch_group_enter(group);</span><br><span class="line">        SKAction *removeStickAction = [SKAction moveToX:-CGRectGetWidth(self.stickNode.frame) duration:0.3];</span><br><span class="line">        [self.stickNode runAction:removeStickAction completion:^&#123;</span><br><span class="line">            [self.stickNode removeFromParent];</span><br><span class="line">            self.isPlaying = NO;</span><br><span class="line">            dispatch_group_leave(group);</span><br><span class="line">        &#125;];</span><br><span class="line">        </span><br><span class="line">        // 所有动画完成后的通知，在此重置标记位</span><br><span class="line">        dispatch_group_notify(group, dispatch_get_main_queue(), ^&#123;</span><br><span class="line">            NSLog(@&quot;Group finished...&quot;);</span><br><span class="line">            self.isPlaying = NO;</span><br><span class="line">        &#125;);</span><br><span class="line">    &#125;];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="游戏场景的切换"><a href="#游戏场景的切换" class="headerlink" title="游戏场景的切换"></a>游戏场景的切换</h3><p>也就是上面所说的第七步。其实很简单，使用现成的 <code>presentScene:transition:</code> 方法，只需要选择我们自己喜欢的 Transaction 就好了~</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">// 游戏界面，闯关失败后进入开始界面</span><br><span class="line">SKTransition *transition = [SKTransition revealWithDirection:SKTransitionDirectionDown duration:0.5];</span><br><span class="line">[self.view presentScene:[BeginScene sceneWithSize:self.frame.size]; transition:transition];</span><br><span class="line"></span><br><span class="line">// 开始界面，点击开始之后进入游戏界面</span><br><span class="line">SKTransition *transition = [SKTransition doorsOpenHorizontalWithDuration:0.5];</span><br><span class="line">[self.scene.view presentScene:[GameScene sceneWithSize:self.scene.view.frame.size] transition:transition];</span><br></pre></td></tr></table></figure>
-<h2 id="一些未来的规划"><a href="#一些未来的规划" class="headerlink" title="一些未来的规划"></a>一些未来的规划</h2><p>上文所提及的都是一些非常基础的功能，实现并不复杂，但可玩性其实不高，无法持续吸引用户。</p>
-<p>其实真正上手实践了之后，就会发现其实很多比较火的小游戏，难点不在于技术实现，而在于一个好的创意/想法/策划。</p>
-<p>如果在 AppStore 上搜索“Stick Hero”，会发现已经有一大堆类似的应用，功能都差不多。这也是我为什么没有上架这款游戏的原因。想要脱颖而出，就得做出一些不同的点来。</p>
-<ul>
-<li>既然游戏名叫《Over The Mountains》（翻山越岭），那山在哪呢喂！😂😂 所以未来有打算把现在的矩形“柱子”（PillarNode）换成“⛰”，山可能会有不同的形状、高度。</li>
-<li>考虑加上一些符合故事背景的音乐，🌰：《越过山丘》之类的（不过应该还是轻音乐一点比较好。。。）</li>
-<li>考虑加上四季与背景图、山的变化，例如场景会自动切换到冬天，然后⛰会变成雪山等。</li>
-<li>考虑加上金币功能，命中红心、每日登陆、分享、看广告视频等都会获得金币，金币可以用于购买不同的人物形象/场景等。</li>
-<li>翻过一定数量的山后（比如100座），男主角与女主角终于团聚（泪奔~~┭┮﹏┭┮）</li>
-<li>……（其实能做的蛮多的）</li>
-</ul>
-<p>等我有时间的时候，会继续完善这个游戏，并最终上线 AppStore（但愿我有空。。。😂）</p>
-<p>The End.</p>
-
+        
+          <p class="article-more-link">
+            <a href="/2019/04/02/SpriteKit 开发游戏实战——《OverTheMountains》/#more">Read More</a>
+          </p>
+        
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://iCodeWoods.github.io/2019/04/02/SpriteKit 开发游戏实战——《OverTheMountains》/" data-id="cjtzmyqfe001wby994vc1yddt" class="article-share-link">Share</a>
+      <a data-url="https://iCodeWoods.github.io/2019/04/02/SpriteKit 开发游戏实战——《OverTheMountains》/" data-id="cjtznuuux001wdw99hjqgzbwf" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Game/">Game</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/SpriteKit/">SpriteKit</a></li></ul>
@@ -193,23 +150,15 @@
 <p>无知就是力量</p>
 </blockquote>
 <p>开卷就看到如此荒诞不已的文字，而接下来的故事也果然没有辜负这份荒诞。。。</p>
-<p>起初心里觉得这就是一个外国人编造的一个外国的荒诞的虚假故事而已，和我们没有什么关系，也不可能发生在我们身上。</p>
-<p>结果越往后读，心里越是震惊，读到大概一半的时候，感觉心里恍然大悟。书中的描述看似荒诞不羁，但其实我们的现实生活就是类似的啊！</p>
-<p>那我们为什么没有感知到呢？会不会是因为我们其实已经受到了“真理部”的影响？我们的一切是否都在“思想警察”的监视之下？说句可能大逆不道的话，从某种程度上说，我们无疑是的，只是不如书中的“党”那样过分与夸张罢了。</p>
-<p>女票最近在看《改革开放中的邓小平》，昨晚和她讨论了一些问题，现在想来竟然有那么一点像书中的男主角温斯顿，不过好在我的女票并不是凯瑟琳，而是茱莉亚，她很快就明白了我所表达的意思：</p>
-<ul>
-<li>为什么新闻总是报道外国多么多么不好，多么多么混乱，但是那些有钱人们却在拼命地往外国移民？所谓的众生平等是真实的，还是上层阶级的人所灌输给下层阶级的人的一种思想罢了？</li>
-<li>最近有篇文章很火，《当满大街都是外卖骑手，上百万劳动力是否用错了地方?》起初看到这个题目，我也只是按着其字面意思进行了一个极为浅显的思考。但当我看到一些网友的评论时，却发现了很多不同的声音：“工资多少咱先不提，工资从未按月发放，每天看着车间主人的驴脸，毫无升职上升空间，上班的心情比上坟还沉重”、“廉价劳动力不是工厂造成的。美国人工成本是中国的八倍，但是在美国办企业比在大陆还赚钱，钱被谁抽走了一比较就知道了”。看起来，真正的井底之蛙其实只是我自己罢了，有思想、有见识的人大把存在。</li>
-</ul>
-<p>读完后查阅资料，原来这本书是作者在1948年写的，1984是三十多年后了，而我现在看这本书（2019年）又是它的三十多年后，经历了两个三十多年，初读起来却感觉近在咫尺，确实写得很好。</p>
-<blockquote>
-<p>他们不觉悟，就永远不会反抗；而不反抗，他们就无法觉悟。</p>
-</blockquote>
-
+        
+          <p class="article-more-link">
+            <a href="/2019/03/12/《1984》读书笔记/#more">Read More</a>
+          </p>
+        
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://iCodeWoods.github.io/2019/03/12/《1984》读书笔记/" data-id="cjtzmyqea0008by99yy3ylv6s" class="article-share-link">Share</a>
+      <a data-url="https://iCodeWoods.github.io/2019/03/12/《1984》读书笔记/" data-id="cjtznuutq0008dw996t0epvru" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Books/">Books</a></li></ul>
@@ -252,96 +201,15 @@
 <p>这一年我的输入不少，但输出不多；</p>
 <p>这一年我犯的错误不少，但做的总结/反思不多；</p>
 <p>总体而言，尽管有不足之处，但感觉无论是自己还是整个团队，这一年的进步都很大。</p>
-<h1 id="8102-年的工作与输出"><a href="#8102-年的工作与输出" class="headerlink" title="8102 年的工作与输出"></a>8102 年的工作与输出</h1><p><strong>关于工作</strong></p>
-<p>Emmm，工作在绩效评估表里都有，略</p>
-<p><strong>关于分享</strong></p>
-<p>8102 年我在团队内部应该是一共分享了六次：《网易新闻Fastlane功能梳理》、《Texture》、《202_whats_new_in_cocoa_touch》、《AR业务梳理》、《NTESPopuper》、《Fastlane是如何执行起来的》</p>
-<p>次数虽然不少，但其实存在很多问题：</p>
-<ul>
-<li>深度不够</li>
-<li>易紧张，控制不好分享的节奏</li>
-<li>分享/表达/总结（Emmm，不知如何形容这种能力）的能力不足。举个例子：《Refactoring》中有一个“两顶帽子”的比喻：“使用重构技术开发软件时，你把自己的时间分配给两种截然不同的行为：添加新功能，以及重构。。。。。。你可能会发现自己经常变换帽子。。。。。但无论何时你都应该清楚自己戴的是哪一顶帽子。”而我在分享弹窗梳理重构时，就犯了这样的错误：我没有清楚地意识到自己是要讲新弹窗系统的用法，还是要讲它的实现细节，于是导致我在分享时“同时戴了两顶帽子”，最终的分享效果自己很不满意。</li>
-</ul>
-<p><strong>关于博客</strong></p>
-<p>8102 年写的博客不多，而且基本都没什么技术含量（大部分都是读书笔记QAQ），不提也罢。。。</p>
-<h1 id="8102-年的学习、成长与收获"><a href="#8102-年的学习、成长与收获" class="headerlink" title="8102 年的学习、成长与收获"></a>8102 年的学习、成长与收获</h1><h2 id="8102-年我的学习、成长与收获"><a href="#8102-年我的学习、成长与收获" class="headerlink" title="8102 年我的学习、成长与收获"></a>8102 年我的学习、成长与收获</h2><p><strong>架构与模块</strong></p>
-<p>虽然只是了解了点皮毛😁，不过还是很高兴的。感觉明确了一个方向，行动起来效率更高了。</p>
-<p>例如在做弹窗气泡的梳理重构时，从鑫飞那学到了一些抽象的思想，实现了弹窗调用方与实现方的解耦。</p>
-<p>还有做跟贴重构时，与黄旭的大量讨论，使我逐渐清晰了对 MVP、VIPER 等的理解，头脑中形成了分层的思想，也对各种之前常挂在嘴边的“可扩展性”、“可XX性”有了进一步的认识。</p>
-<p>脑图与类图不知算不算是这部分里的，暂且先写在这段。8102 年的另一大收获就是，从庞博那里学到了一些类图的知识（从架构组的每个大佬那都学了点啊哈哈哈）。希望自己能养成一个画脑图、类图的好习惯吧。</p>
-<p><strong>CI/CD 与 脚本</strong></p>
-<p>这一年学到了不少 CI/CD 方面的知识，也总算是在年尾的时候，通过阅读 Fastlane 的源码勉强学会了一丢丢 Ruby 的语法（离入门还差得远😅）</p>
-<p>在这个过程中也学了点 bash（Emmm也没学会），还学了点简单的基本技能，比如给 Mac 添加定时任务之类的。</p>
-<p><strong>书籍与博客</strong></p>
-<p>这一年我读了二十本书，但是上半年读的书基本都和技术无关，而下半年虽然开始看一些技术相关的书，但基本上都没读完😅总体而言下半年读书比上半年少了（时间都去哪了？）</p>
-<ul>
-<li>《偷影子的人》</li>
-<li>《追风筝的人》</li>
-<li>《老人与海》</li>
-<li>《许三观卖血记》</li>
-<li>《活着》</li>
-<li>《兄弟》</li>
-<li>《好吗好的》——未读完</li>
-<li>《沉睡的人鱼之家》</li>
-<li>《长安十二时辰》</li>
-<li>《第七天》</li>
-<li>《无人生还》</li>
-<li>《四世同堂》</li>
-<li>《日常生活中的发明原理》——未读完</li>
-<li>《黄金时代》</li>
-<li>《理性的非理性》——未读完</li>
-<li>《浪潮之巅》——未读完</li>
-<li>《乔布斯传》——未读完</li>
-<li>《Refactoring》——未读完</li>
-<li>《从零开始学架构》——未读完</li>
-</ul>
-<p>讲道理，这一年我看的博客应该有百八十篇了吧。？比较开心的是，有时能够通过浏览一个好的博客，而发现另一个好博客。收获固然很多，但没有被完全消化的则更多得多。</p>
-<h2 id="8102-年我眼中团队的成长与收获"><a href="#8102-年我眼中团队的成长与收获" class="headerlink" title="8102 年我眼中团队的成长与收获"></a>8102 年我眼中团队的成长与收获</h2><p>在我看来，和 7102 年相比，8102 年团队的进步真的是巨大的。</p>
-<p>感受最深的一点就是，架构组与他们所作出的贡献（我就没必要在这罗列了）。和他们一比，真是瞬间感觉自己所做的工作太微不足道了。说实话，他们真的是我目前可见的一个未来的方向。其实自己之所以会看重构/架构等相关的书籍，除了自身原因以外，团队的环境/氛围也是一大主因。</p>
-<p>8102 年团队的各方面氛围都比以前有很大进步，比如与安卓的交流变多了，比如我们开始使用 issues 进行一些讨论，比如我们刚刚诞生的微信公众号，比如我们有了技术设计评审，再比如我们有了现在的这个年终小结（认真脸，这个真的是件好事）。</p>
-<p>还有一方面，举个可能不太恰当的例子：拿破仑曾经说过:“一头狮子率领的一群绵羊,可以打败由一头绵羊带领的一群狮子!” 18 年的团队感觉就像是由一头狮子率领着（但17年并不是由绵羊率领啦QAQ），做了大量的技术方面的优化与积累，于团队整体而言大有裨益。而17年就没有这种感觉，因此17年就会出现一种奇怪的现象：大家都在做着自己的本职工作，而我这个小菜鸟却在咋咋呼呼地做着一些其实很小很简单的技术优化，比如容器类添加ntes_前缀的安全访问方法，比如利用GCDWebServer实时访问沙盒等等，和18年团队所做的这些技术优化相比就是小巫见大巫了。</p>
-<h1 id="8102-年的反思与不足"><a href="#8102-年的反思与不足" class="headerlink" title="8102 年的反思与不足"></a>8102 年的反思与不足</h1><h2 id="8102-年个人的不足"><a href="#8102-年个人的不足" class="headerlink" title="8102 年个人的不足"></a>8102 年个人的不足</h2><p>不足之处真的是太多了。。。要真写得写一大篇，这里只能先挑一部分写出来了：</p>
-<ul>
-<li>自测不足：其实很多 bug 都是可以在自测阶段发现的，但我却常常因各种主观、客观的原因（条件难触发/没有数据/后台没上线/切换模拟器或分支编译时间太长等）而没有做好充足的自测。</li>
-<li>表达能力不足：尽管这一年里我作了不少次的分享（甚至有可能是组内最多的），但我其实对自己分享的效果都不是很满意。每一次分享结束回到家后，我总是会反思与懊悔：“唉那个地方忘了讲了”、“这个地方当时要是这么讲就好了”，然而没有后悔药了😭今年双十一买了《影响力》、《社会心理学》、《演讲的力量》等书，还没来得及看，希望能帮助我在新的一年提升自己的表达能力</li>
-<li>技能树不足：有一次坐地铁时，鑫飞大佬和我说：“感觉 iOS 就三大块：TableView、WebView、视频”，然鹅，我对WebView 与视频近乎一窍不通，对重构后的首页新列表也不熟悉。感觉这些是我的实力方面的硬伤。</li>
-</ul>
-<p>在生活方面，来公司之后胖了20斤。。。QAQ，也没怎么锻炼，希望新的一年能坚持锻炼吧。另外，18年上半年自己还是能做到早睡早起的，每天都能早早地来到公司。而下半年就变成晚睡晚起了😂，希望19年能变回去吧～哦对了，之前坚持写的日记，后来渐渐的变成了“周记”，现在已经变成“月记”了😂</p>
-<h2 id="8102-年我眼中团队的不足"><a href="#8102-年我眼中团队的不足" class="headerlink" title="8102 年我眼中团队的不足"></a>8102 年我眼中团队的不足</h2><p>我对团队也有很多不熟悉的地方，这里仅从我个人的角度出发，不代表正确。</p>
-<p>其实团队的不足，几乎都不是 8102 年产生的，大部分都是天放与鑫飞所说的“欠下的技术债”。</p>
-<ul>
-<li>文档仍然不足</li>
-<li>废弃代码多</li>
-<li>代码警告太多</li>
-<li>与测试的沟通不足：例如之前提到的，开发的脑图与测试的脑图如何能结合一下，或是互相参考一下</li>
-<li>讨论交流感觉不够，比较明显能看出来的一点就是，大多数人不看也不提issues。其实每个人肯定都是有一些想法的，但不知道是出于哪些原因没有说出来。同时要是每个人都能参与讨论就好了，当然这很难，每个人的性格都是不一样的。还有一点就是，其实很多人平时都会看一些技术文章，如果大家能把认为好的文章同步到群里之类的就更好了（当然我也没做到这点，因为感觉大家都不发，就我自己发会很奇怪。。。）</li>
-</ul>
-<h1 id="9102-年的计划与-flag"><a href="#9102-年的计划与-flag" class="headerlink" title="9102 年的计划与 flag"></a>9102 年的计划与 flag</h1><p><strong>工作方面</strong></p>
-<ul>
-<li>设计模式：在这一年的工作与学习中，深深地感受到自己设计模式知识的匮乏。无论是平时的重构工作，还是长远来看的架构相关，都必须要有设计模式作为基础，新的一年希望自己能够读完经典的《设计模式》一书，掌握并运用一些设计模式</li>
-<li>Ruby：得益于 DSL 的简易性，不会 Ruby 的我竟然一直在开发/维护着 CI/CD 相关的功能。但正如8102年最后一次周会我分享时所说的那样，新的一年里希望自己能够“从幼稚走向成熟”。此外也希望自己能写出一些方便自己与他人使用的脚本，将知识运用到生产环节</li>
-<li>新列表：这一年里虽然没少参与业务迭代与技术重构等工作，但神奇的是竟然一次也没有分到过新列表相关的需求。。。虽然鑫飞分享过新列表，但我其实对新列表还是很不熟悉，新的一年里希望自己能够搞定这块</li>
-<li>分享：9102 年自己的分享希望能不少于今年吧（感觉气势很弱的说…）其实这也得益于之前看的一篇文章，关于学习的金字塔，听讲/阅读这类被动学习的学习内容留存率是最低的，教授给他人这类的主动学习才能够记住更多的内容。因此分享于公于私都是件好事</li>
-<li>Push：这块本身自己就不是很熟，需要学习，更何况现在老大想把这块工作分配给我，就更需要搞明白了。这里顺便立个小flag，19年至少要做一次Push相关的分享</li>
-<li>视频、正文：Emmm，为什么这俩放到一起说了呢，因为感觉这俩都很难搞啊QAQ，一直以来的硬伤。。。</li>
-</ul>
-<p>哦还有，希望自己19年能在团队的公众号上发表一篇文章吧～</p>
-<p>19 年会花更多精力在“修炼内功”上。这取决于各方面原因吧，其中一点想提一下就是，平时看各种文章时，总会看到一些诸如“iOS 不行了”，“大前端时代来了”balabala的，就会莫名的产生焦虑。但实际上如果去学习那些雨后春笋般所谓的新技术，不过是一些上层的框架罢了，瞬息万变，只有内功才永远不会过时。</p>
-<p><strong>非工作方面</strong></p>
-<ul>
-<li>坚持写日记，至少不能再是“月记”了，起码也得是周记吧QAQ</li>
-<li>坚持锻炼，现在的体重应该刚好，不能再重了。。。</li>
-<li>早睡早起，能不迟到。。。</li>
-<li>真正有质量的博客输出</li>
-<li>读至少20本书</li>
-</ul>
-<p>2019年，加油！</p>
-<p><img src="/2019/01/03/2018年总结/Fightting.png" alt></p>
-
+        
+          <p class="article-more-link">
+            <a href="/2019/01/03/2018年总结/#more">Read More</a>
+          </p>
+        
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://iCodeWoods.github.io/2019/01/03/2018年总结/" data-id="cjtzmyqfc001vby99jhv919jt" class="article-share-link">Share</a>
+      <a data-url="https://iCodeWoods.github.io/2019/01/03/2018年总结/" data-id="cjtznuuuv001vdw99whbnhc3r" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/杂/">杂</a></li></ul>
@@ -380,46 +248,15 @@
     <div class="article-entry" itemprop="articleBody">
       
         <p>[TOC]</p>
-<h1 id="第八章-重新组织数据"><a href="#第八章-重新组织数据" class="headerlink" title="第八章 重新组织数据"></a>第八章 重新组织数据</h1><h2 id="8-1-Self-Encapsulate-Field（自封装字段）"><a href="#8-1-Self-Encapsulate-Field（自封装字段）" class="headerlink" title="8.1 Self Encapsulate Field（自封装字段）"></a>8.1 Self Encapsulate Field（自封装字段）</h2><h3 id="概要"><a href="#概要" class="headerlink" title="概要"></a>概要</h3><p>你直接访问一个字段，但与字段之间的耦合关系逐渐变得笨拙。</p>
-<p><strong>为这个字段建立取值/设值函数，并且只以这些函数来访问字段。</strong></p>
-<p>（文中提到的两种观点，有点类似于我们 iOS 开发中的 “self.xxx 与 _xxx”）</p>
-<h2 id="8-2-Replace-Data-Value-with-Object（以对象取代数据值）"><a href="#8-2-Replace-Data-Value-with-Object（以对象取代数据值）" class="headerlink" title="8.2 Replace Data Value with Object（以对象取代数据值）"></a>8.2 Replace Data Value with Object（以对象取代数据值）</h2><h3 id="概要-1"><a href="#概要-1" class="headerlink" title="概要"></a>概要</h3><p>你有一个数据项，需要与其他数据和行为一起使用才有意义。</p>
-<p><strong>将数据项变成对象。</strong></p>
-<h2 id="8-3-Change-Value-to-Reference（将值对象改为引用对象）"><a href="#8-3-Change-Value-to-Reference（将值对象改为引用对象）" class="headerlink" title="8.3 Change Value to Reference（将值对象改为引用对象）"></a>8.3 Change Value to Reference（将值对象改为引用对象）</h2><h3 id="概要-2"><a href="#概要-2" class="headerlink" title="概要"></a>概要</h3><p>你从一个类衍生出许多彼此相等的实例，希望将它们替换为同一个对象。</p>
-<p><strong>将这个值对象变成引用对象。</strong></p>
-<h2 id="8-4-Change-Reference-to-Value（将引用对象改为值对象）"><a href="#8-4-Change-Reference-to-Value（将引用对象改为值对象）" class="headerlink" title="8.4 Change Reference to Value（将引用对象改为值对象）"></a>8.4 Change Reference to Value（将引用对象改为值对象）</h2><h3 id="概要-3"><a href="#概要-3" class="headerlink" title="概要"></a>概要</h3><p>你有一个引用对象，很小且不可变，而且不易管理。</p>
-<p><strong>将它变成一个值对象。</strong></p>
-<h2 id="8-5-Replace-Array-with-Object（以对象取代数组）"><a href="#8-5-Replace-Array-with-Object（以对象取代数组）" class="headerlink" title="8.5 Replace Array with Object（以对象取代数组）"></a>8.5 Replace Array with Object（以对象取代数组）</h2><h3 id="概要-4"><a href="#概要-4" class="headerlink" title="概要"></a>概要</h3><p>你有一个数组，其中的元素各自代表不同的东西。</p>
-<p><strong>以对象替换数组。对于数组中的每个元素，以一个字段来表示。</strong></p>
-<h2 id="8-6-Duplicate-Observed-Data（复制“被监视数据”）"><a href="#8-6-Duplicate-Observed-Data（复制“被监视数据”）" class="headerlink" title="8.6 Duplicate Observed Data（复制“被监视数据”）"></a>8.6 Duplicate Observed Data（复制“被监视数据”）</h2><h3 id="概要-5"><a href="#概要-5" class="headerlink" title="概要"></a>概要</h3><p>你有一些领域数据置身于GUI控件中，而领域函数需要访问这些数据。</p>
-<p><strong>将该数据复制到一个领域对象中。建立一个Observer模式，用以同步领域对象和GUI对象内的重复数据。</strong></p>
-<h2 id="8-7-Change-Unidirectional-Association-to-Bidirectional（将单向关联改为双向关联）"><a href="#8-7-Change-Unidirectional-Association-to-Bidirectional（将单向关联改为双向关联）" class="headerlink" title="8.7 Change Unidirectional Association to Bidirectional（将单向关联改为双向关联）"></a>8.7 Change Unidirectional Association to Bidirectional（将单向关联改为双向关联）</h2><h3 id="概要-6"><a href="#概要-6" class="headerlink" title="概要"></a>概要</h3><p>两个类都需要使用对方特性，但其间只有一条单向连接。</p>
-<p><strong>添加一个反向指针，并使修改函数能够同时更新两条连接。</strong></p>
-<h2 id="8-8-Change-Bidirectional-Association-to-Unidirectional（将双向关联改为单向关联）"><a href="#8-8-Change-Bidirectional-Association-to-Unidirectional（将双向关联改为单向关联）" class="headerlink" title="8.8 Change Bidirectional Association to Unidirectional（将双向关联改为单向关联）"></a>8.8 Change Bidirectional Association to Unidirectional（将双向关联改为单向关联）</h2><h3 id="概要-7"><a href="#概要-7" class="headerlink" title="概要"></a>概要</h3><p>两个类之间有双向关联，但其中一个类如今不再需要另一个类的特性。</p>
-<p><strong>去除不必要的关联。</strong></p>
-<h2 id="8-9-Replace-Magic-Number-with-Symbolic-Constant（以字面常量取代魔法数）"><a href="#8-9-Replace-Magic-Number-with-Symbolic-Constant（以字面常量取代魔法数）" class="headerlink" title="8.9 Replace Magic Number with Symbolic Constant（以字面常量取代魔法数）"></a>8.9 Replace Magic Number with Symbolic Constant（以字面常量取代魔法数）</h2><h3 id="概要-8"><a href="#概要-8" class="headerlink" title="概要"></a>概要</h3><p>你有一个字面数值，常有特别含义。</p>
-<p><strong>创造一个常量，根据其意义为它命名，并将上述的字面数值替换为这个常量。</strong></p>
-<h2 id="8-10-Encapsulate-Field（封装字段）"><a href="#8-10-Encapsulate-Field（封装字段）" class="headerlink" title="8.10 Encapsulate Field（封装字段）"></a>8.10 Encapsulate Field（封装字段）</h2><h3 id="概要-9"><a href="#概要-9" class="headerlink" title="概要"></a>概要</h3><p>你的类中存在一个public字段。</p>
-<p><strong>将它声明为private，并提供相应的访问函数。</strong></p>
-<h2 id="8-11-Encapsulate-Collection（封装集合）"><a href="#8-11-Encapsulate-Collection（封装集合）" class="headerlink" title="8.11 Encapsulate Collection（封装集合）"></a>8.11 Encapsulate Collection（封装集合）</h2><h3 id="概要-10"><a href="#概要-10" class="headerlink" title="概要"></a>概要</h3><p>有个函数返回一个集合。</p>
-<p><strong>让这个函数返回该集合的一个只读副本，并在这个类中提供添加/移除集合元素的函数。</strong></p>
-<h2 id="8-12-Replace-Record-with-Data-Class（以数据类取代记录）"><a href="#8-12-Replace-Record-with-Data-Class（以数据类取代记录）" class="headerlink" title="8.12 Replace Record with Data Class（以数据类取代记录）"></a>8.12 Replace Record with Data Class（以数据类取代记录）</h2><h3 id="概要-11"><a href="#概要-11" class="headerlink" title="概要"></a>概要</h3><p>你需要面对传统编程环境中的记录结构。</p>
-<p><strong>为该记录创建一个“哑”数据对象。</strong></p>
-<h2 id="8-13-Replace-Type-Code-with-Class（以类取代类型码）"><a href="#8-13-Replace-Type-Code-with-Class（以类取代类型码）" class="headerlink" title="8.13 Replace Type Code with Class（以类取代类型码）"></a>8.13 Replace Type Code with Class（以类取代类型码）</h2><h3 id="概要-12"><a href="#概要-12" class="headerlink" title="概要"></a>概要</h3><p>类之中有一个数值类型码，但它并不影响类的行为。</p>
-<p><strong>以一个新的类替换该数值类型码。</strong></p>
-<h2 id="8-14-Replace-Type-Code-with-Subclasses（以子类取代类型码）"><a href="#8-14-Replace-Type-Code-with-Subclasses（以子类取代类型码）" class="headerlink" title="8.14 Replace Type Code with Subclasses（以子类取代类型码）"></a>8.14 Replace Type Code with Subclasses（以子类取代类型码）</h2><h3 id="概要-13"><a href="#概要-13" class="headerlink" title="概要"></a>概要</h3><p>你有一个不可变的类型码，它会影响类的行为。</p>
-<p><strong>以子类取代这个类型码。</strong></p>
-<h2 id="8-15-Replace-Type-Code-with-State-Strategy（以-state-strategy-取代类型码）"><a href="#8-15-Replace-Type-Code-with-State-Strategy（以-state-strategy-取代类型码）" class="headerlink" title="8.15 Replace Type Code with State/Strategy（以 state/strategy 取代类型码）"></a>8.15 Replace Type Code with State/Strategy（以 state/strategy 取代类型码）</h2><h3 id="概要-14"><a href="#概要-14" class="headerlink" title="概要"></a>概要</h3><p>你有一个类型码，它会影响类的行为，但你无法通过继承手法消除它。</p>
-<p><strong>以状态对象取代类型码。</strong></p>
-<h3 id="动机"><a href="#动机" class="headerlink" title="动机"></a>动机</h3><p>本项重构和 Replace Type Code with Subclasses（223）很相似，但如果“类型码的值在对象生命周期中发生变化”或“其它原因使得宿主类不能被继承”，你也可以使用本重构。</p>
-<p>State模式和Strategy模式非常相似，重构过程是相同的，选择哪个模式并非问题关键所在。如果你打算在完成本项重构后再以 Replace Conditional with Polymorphism（255）简化一个算法，那么选择 Strategy 模式比较合适；如果你打算搬移与状态相关的数据，而且你把新建对象视为一种变迁状态，就应该选择使用 State 模式。</p>
-<h2 id="8-16-Replace-Subclass-with-Fields（以字段取代子类）"><a href="#8-16-Replace-Subclass-with-Fields（以字段取代子类）" class="headerlink" title="8.16 Replace Subclass with Fields（以字段取代子类）"></a>8.16 Replace Subclass with Fields（以字段取代子类）</h2><h3 id="概要-15"><a href="#概要-15" class="headerlink" title="概要"></a>概要</h3><p>你的各个子类的唯一差别只在“返回常量数据”的函数身上。</p>
-<p><strong>修改这些函数，使他们返回超类中的某个（新增）字段，然后销毁子类。</strong></p>
-
+        
+          <p class="article-more-link">
+            <a href="/2018/12/10/《Refactoring》读书笔记（四）重新组织数据/#more">Read More</a>
+          </p>
+        
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://iCodeWoods.github.io/2018/12/10/《Refactoring》读书笔记（四）重新组织数据/" data-id="cjtzmyqej000hby99taq1rjxo" class="article-share-link">Share</a>
+      <a data-url="https://iCodeWoods.github.io/2018/12/10/《Refactoring》读书笔记（四）重新组织数据/" data-id="cjtznuuu0000hdw99858yiy1n" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Books/">Books</a></li></ul>
@@ -458,30 +295,15 @@
     <div class="article-entry" itemprop="articleBody">
       
         <p>[TOC]</p>
-<h1 id="第七章-在对象之间搬移特性"><a href="#第七章-在对象之间搬移特性" class="headerlink" title="第七章 在对象之间搬移特性"></a>第七章 在对象之间搬移特性</h1><h2 id="7-1-Move-Method（搬移函数）"><a href="#7-1-Move-Method（搬移函数）" class="headerlink" title="7.1 Move Method（搬移函数）"></a>7.1 Move Method（搬移函数）</h2><h3 id="概要"><a href="#概要" class="headerlink" title="概要"></a>概要</h3><p>你的程序中，有个函数与其所驻类之外的另一个类进行更多交流：调用后者，或者被后者调用。</p>
-<p><strong>在该函数最常引用的类中建立一个有着类似行为的新函数。将旧函数变成一个单纯的委托函数，或是将旧函数完全移除。</strong></p>
-<h3 id="动机"><a href="#动机" class="headerlink" title="动机"></a>动机</h3><p>“搬移函数”是重构理论的支柱。通过这种手段，可以使系统中的类更简单，这些类最终也将更干净利落地实现系统交付的任务。</p>
-<h2 id="7-2-Move-Field（搬移字段）"><a href="#7-2-Move-Field（搬移字段）" class="headerlink" title="7.2 Move Field（搬移字段）"></a>7.2 Move Field（搬移字段）</h2><h3 id="概要-1"><a href="#概要-1" class="headerlink" title="概要"></a>概要</h3><p>在你的程序中，某个字段被其所驻类之外的另一个类更多地用到。</p>
-<p><strong>在目标类新建一个字段，修改源字段的所有用户，令它们改用新字段。</strong></p>
-<h2 id="7-3-Extract-Class（提炼类）"><a href="#7-3-Extract-Class（提炼类）" class="headerlink" title="7.3 Extract Class（提炼类）"></a>7.3 Extract Class（提炼类）</h2><h3 id="概要-2"><a href="#概要-2" class="headerlink" title="概要"></a>概要</h3><p>某个类做了应该由两个类做的事。</p>
-<p><strong>建立一个新类，将相关的字段和函数从旧类搬移到新类。</strong></p>
-<h2 id="7-4-Inline-Class（将类内联化）"><a href="#7-4-Inline-Class（将类内联化）" class="headerlink" title="7.4 Inline Class（将类内联化）"></a>7.4 Inline Class（将类内联化）</h2><p>某个类没有做太多事情。</p>
-<p><strong>将这个类的所有特性搬移到另一个类中，然后移除原类。</strong></p>
-<h2 id="7-5-Hide-Delegate（隐藏“委托关系”）"><a href="#7-5-Hide-Delegate（隐藏“委托关系”）" class="headerlink" title="7.5 Hide Delegate（隐藏“委托关系”）"></a>7.5 Hide Delegate（隐藏“委托关系”）</h2><h3 id="概要-3"><a href="#概要-3" class="headerlink" title="概要"></a>概要</h3><p>客户通过一个委托类来调用另一个对象。</p>
-<p><strong>在服务类上建立客户所需的所有函数，用以隐藏委托关系。</strong></p>
-<h3 id="动机-1"><a href="#动机-1" class="headerlink" title="动机"></a>动机</h3><p>即便将来发生委托关系上的变化，变化也将被限制在服务对象中，不会波及客户。</p>
-<h2 id="7-6-Remove-Middle-Man（移除中间人）"><a href="#7-6-Remove-Middle-Man（移除中间人）" class="headerlink" title="7.6 Remove Middle Man（移除中间人）"></a>7.6 Remove Middle Man（移除中间人）</h2><h3 id="概要-4"><a href="#概要-4" class="headerlink" title="概要"></a>概要</h3><p>某个类做了过多的简单委托动作。</p>
-<p><strong>让客户直接调用委托类。</strong></p>
-<h3 id="动机-2"><a href="#动机-2" class="headerlink" title="动机"></a>动机</h3><p>6个月前恰如其分的封装，现今可能就显得笨拙。重构的意义就在于：你永远不必说对不起——只要把出问题的地方修补好就行了。</p>
-<h2 id="7-7-Introduce-Foreign-Method（引入外加函数）"><a href="#7-7-Introduce-Foreign-Method（引入外加函数）" class="headerlink" title="7.7 Introduce Foreign Method（引入外加函数）"></a>7.7 Introduce Foreign Method（引入外加函数）</h2><h3 id="概要-5"><a href="#概要-5" class="headerlink" title="概要"></a>概要</h3><p>你需要为提供服务的类增加一个函数，但你无法修改这个类。</p>
-<p><strong>在客户类中建立一个函数，并以第一参数形式传入一个服务类实例。</strong></p>
-<h2 id="7-8-Introduce-Local-Extension（引入本地扩展）"><a href="#7-8-Introduce-Local-Extension（引入本地扩展）" class="headerlink" title="7.8 Introduce Local Extension（引入本地扩展）"></a>7.8 Introduce Local Extension（引入本地扩展）</h2><h3 id="概要-6"><a href="#概要-6" class="headerlink" title="概要"></a>概要</h3><p>你需要为服务类提供一些额外函数，但你无法修改这个类。</p>
-<p><strong>建立一个新类，使它包含这些额外函数。让这个扩展品成为源类的子类或包装类。</strong></p>
-
+        
+          <p class="article-more-link">
+            <a href="/2018/12/04/《Refactoring》读书笔记（三）在对象之间搬移特性/#more">Read More</a>
+          </p>
+        
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://iCodeWoods.github.io/2018/12/04/《Refactoring》读书笔记（三）在对象之间搬移特性/" data-id="cjtzmyqeg000cby997x1o32sj" class="article-share-link">Share</a>
+      <a data-url="https://iCodeWoods.github.io/2018/12/04/《Refactoring》读书笔记（三）在对象之间搬移特性/" data-id="cjtznuuts0009dw99rh9i59kv" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Books/">Books</a></li></ul>
@@ -520,47 +342,15 @@
     <div class="article-entry" itemprop="articleBody">
       
         <p>[TOC]</p>
-<h1 id="第六章-重新组织函数"><a href="#第六章-重新组织函数" class="headerlink" title="第六章 重新组织函数"></a>第六章 重新组织函数</h1><h2 id="6-1-Extract-Method（提炼函数）"><a href="#6-1-Extract-Method（提炼函数）" class="headerlink" title="6.1 Extract Method（提炼函数）"></a>6.1 Extract Method（提炼函数）</h2><h3 id="概要"><a href="#概要" class="headerlink" title="概要"></a>概要</h3><p>你有一段代码可以被组织在一起并独立出来。</p>
-<p><strong>将这段代码放进一个独立函数中，并让函数名称解释该函数的用途。</strong></p>
-<h3 id="动机"><a href="#动机" class="headerlink" title="动机"></a>动机</h3><p>复用机会大，覆写更容易，使高层函数读起来就像一系列注释。</p>
-<p>函数长度不是问题，关键在于函数名称和函数本体之间的语义距离。如果提炼可以强化代码的清晰度，那就去做，就算函数名称比提炼出来的代码还长也无所谓。</p>
-<p>难点在于局部变量，包括传进源函数的参数和源函数所声明的临时变量。</p>
-<p>可以先尝试运用 Replace Temp with Query（120）减少临时变量。如果仍困难重重，我就会动用 Replace Method with Method Object（135），这个重构手法不在乎代码中有多少临时变量，也不在乎你如何使用它们。</p>
-<h2 id="6-2-Inline-Method（内联函数）"><a href="#6-2-Inline-Method（内联函数）" class="headerlink" title="6.2 Inline Method（内联函数）"></a>6.2 Inline Method（内联函数）</h2><h3 id="概要-1"><a href="#概要-1" class="headerlink" title="概要"></a>概要</h3><p>一个函数的本体与名称同样清楚易懂。</p>
-<p><strong>在函数调用点插入函数本体，然后移除该函数。</strong></p>
-<h3 id="动机-1"><a href="#动机-1" class="headerlink" title="动机"></a>动机</h3><p>间接层有其价值，但不是所有间接层都有价值。</p>
-<p>另一种需要使用 Inline Method（117）的情况是，你手上有一群组织不甚合理的函数。你可以将它们都内联到一个大型函数中，再从中提炼出组织合理的小型函数。Kent Beck 发现，实施 Replace Method with Method Object（135）之前先这么做， 往往可以获得不错的效果。</p>
-<h3 id="做法"><a href="#做法" class="headerlink" title="做法"></a>做法</h3><ul>
-<li>检查函数，确定它不具多态性（如果子类继承了这个函数，就不要将此函数内联，因为子类无法覆写一个根本不存在的函数。）</li>
-<li>略</li>
-</ul>
-<p>难点：对于递归调用、多返回点、内联至另一个对象中而该对象并无提供访问函数……等等。如果遇到了这样的复杂情况，那么就不应该使用这个重构手法。</p>
-<h2 id="6-3-Inline-Temp（内联临时变量）"><a href="#6-3-Inline-Temp（内联临时变量）" class="headerlink" title="6.3 Inline Temp（内联临时变量）"></a>6.3 Inline Temp（内联临时变量）</h2><h3 id="概要-2"><a href="#概要-2" class="headerlink" title="概要"></a>概要</h3><p>你有一个临时变量，只被一个简单表达式赋值一次，而它妨碍了其它重构手法。</p>
-<p><strong>将所有对该变量的引用动作，替换为对它赋值的那个表达式本身。</strong></p>
-<h3 id="动机-2"><a href="#动机-2" class="headerlink" title="动机"></a>动机</h3><p>Inline Temp（119）多半是作为 Replace Temp with Query（120）的一部分使用的，所以真正的动机出现在后者那儿。</p>
-<h2 id="6-4-Replace-Temp-with-Query"><a href="#6-4-Replace-Temp-with-Query" class="headerlink" title="6.4 Replace Temp with Query"></a>6.4 Replace Temp with Query</h2><h3 id="概要-3"><a href="#概要-3" class="headerlink" title="概要"></a>概要</h3><p>你的程序以一个临时变量保存某一表达式的运算结果。</p>
-<p><strong>将这个表达式提炼到一个独立函数中。将这个临时变量的所有引用点替换为对新函数的调用。此后，新函数就可以被其它函数使用。</strong></p>
-<h3 id="动机-3"><a href="#动机-3" class="headerlink" title="动机"></a>动机</h3><p>由于临时变量只在所属函数内可见，所以它们会<strong>驱使你写出更长的函数，因为只有这样你才能访问到需要的临时变量。</strong></p>
-<h2 id="6-5-Introduce-Explaining-Variable（引入解释性变量）"><a href="#6-5-Introduce-Explaining-Variable（引入解释性变量）" class="headerlink" title="6.5 Introduce Explaining Variable（引入解释性变量）"></a>6.5 Introduce Explaining Variable（引入解释性变量）</h2><h3 id="概要-4"><a href="#概要-4" class="headerlink" title="概要"></a>概要</h3><p>你有一个复杂的表达式。</p>
-<p><strong>将该复杂表达式（或其中一部分）的结果放进一个临时变量，以此变量名称来解释表达式用途。</strong></p>
-<h2 id="6-6-Split-Temporary-Varibale（分解临时变量）"><a href="#6-6-Split-Temporary-Varibale（分解临时变量）" class="headerlink" title="6.6 Split Temporary Varibale（分解临时变量）"></a>6.6 Split Temporary Varibale（分解临时变量）</h2><h3 id="概要-5"><a href="#概要-5" class="headerlink" title="概要"></a>概要</h3><p>你的程序有某个临时变量被赋值超过一次，它既不是循环变量，也不被用于收集计算结果。</p>
-<p><strong>针对每次赋值，创造一个独立、对应的临时变量。</strong></p>
-<h3 id="动机-4"><a href="#动机-4" class="headerlink" title="动机"></a>动机</h3><p>同一个临时变量承担两件不同的事情，会令代码阅读者糊涂。</p>
-<blockquote>
-<p>我敢保证，这比吃苏格兰布丁强多了——你知道他们都在里面放了些什么东西吗？</p>
-<p>（苏格兰布丁：haggis，一种苏格兰菜，把羊心等内脏装在羊胃里煮成。由于它被羊胃包成一个球体，因此可以像球一样踢来踢去。）</p>
-</blockquote>
-<h2 id="6-7-Rmove-Assignments-to-Prarmeters（移除对参数的赋值）"><a href="#6-7-Rmove-Assignments-to-Prarmeters（移除对参数的赋值）" class="headerlink" title="6.7 Rmove Assignments to Prarmeters（移除对参数的赋值）"></a>6.7 Rmove Assignments to Prarmeters（移除对参数的赋值）</h2><h3 id="概要-6"><a href="#概要-6" class="headerlink" title="概要"></a>概要</h3><p>代码对一个参数进行赋值。</p>
-<p><strong>以一个临时变量取代该参数的位置。</strong></p>
-<h2 id="6-8-Replace-Method-with-Method-Object（以函数对象取代函数）"><a href="#6-8-Replace-Method-with-Method-Object（以函数对象取代函数）" class="headerlink" title="6.8 Replace Method with Method Object（以函数对象取代函数）"></a>6.8 Replace Method with Method Object（以函数对象取代函数）</h2><h3 id="概要-7"><a href="#概要-7" class="headerlink" title="概要"></a>概要</h3><p>你有一个大型函数，其中对局部变量的使用使你无法采用 Extract Method（110）。</p>
-<p><strong>将这个函数放进一个单独对象中，如此一来局部变量就成了对象内的字段。然后你可以在同一个对象中将这个大型函数分解为多个小型函数。</strong></p>
-<h2 id="6-9-Substitute-Algorithm（替换算法）"><a href="#6-9-Substitute-Algorithm（替换算法）" class="headerlink" title="6.9 Substitute Algorithm（替换算法）"></a>6.9 Substitute Algorithm（替换算法）</h2><h3 id="概要-8"><a href="#概要-8" class="headerlink" title="概要"></a>概要</h3><p>你想要把某个算法替换为另一个更清晰的算法。</p>
-<p><strong>将函数本体替换为另一个算法。</strong></p>
-
+        
+          <p class="article-more-link">
+            <a href="/2018/11/28/《Refactoring》读书笔记（二）重新组织函数/#more">Read More</a>
+          </p>
+        
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://iCodeWoods.github.io/2018/11/28/《Refactoring》读书笔记（二）重新组织函数/" data-id="cjtzmyqeh000dby99c2kt0xbs" class="article-share-link">Share</a>
+      <a data-url="https://iCodeWoods.github.io/2018/11/28/《Refactoring》读书笔记（二）重新组织函数/" data-id="cjtznuuty000ddw99guz3szo2" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Books/">Books</a></li></ul>
@@ -599,100 +389,15 @@
     <div class="article-entry" itemprop="articleBody">
       
         <p>[TOC]</p>
-<h1 id="第一章-重构，第一个案例"><a href="#第一章-重构，第一个案例" class="headerlink" title="第一章 重构，第一个案例"></a>第一章 重构，第一个案例</h1><blockquote>
-<p>如果你发现自己需要为程序添加一个特效，而代码结构使你无法很方便地达成目的，那就先重构那个程序，使特性的添加比较容易进行，然后再添加特性。</p>
-</blockquote>
-<blockquote>
-<p>重构前，先检查自己是否有一套可靠的测试机制。这些测试必须有自我检验能力。</p>
-</blockquote>
-<blockquote>
-<p>任何一个傻瓜都能写出计算机可以理解的代码。唯有写出人类容易理解的代码，才是优秀的程序员。</p>
-</blockquote>
-<p><strong>重构时最好小步前进，如此一来犯错的几率最小。</strong></p>
-<p>（我司的重构一般都是对一个模块使用另一种模式如VIPER/MVP去写，所以都是直接重新写一个模块，然后两者做ABTest以确保无误。。。这种情况真是太难测试了。。。)</p>
-<blockquote>
-<p>这个例子给我们最大的启发是重构的节奏：测试、小修改、测试、小修改、测试、小修改。。。。。。正是这种节奏让重构得以快速而安全地前进。</p>
-</blockquote>
-<p>（Emmm。。。我司的方式好像不应该叫重构，而应该叫“重写”。。。）</p>
-<h1 id="第二章-重构原则"><a href="#第二章-重构原则" class="headerlink" title="第二章 重构原则"></a>第二章 重构原则</h1><h2 id="何谓重构-what"><a href="#何谓重构-what" class="headerlink" title="何谓重构 what"></a>何谓重构 what</h2><blockquote>
-<ul>
-<li>重构（名词）：对软件内部结构的一种调整，目的是在不改变软件可观察行为的前提下，提高其可理解性，降低其修改成本</li>
-<li>重构（动词）：使用一系列重构手法，在不改变软件可观察行为的前提下，调整其结构</li>
-</ul>
-</blockquote>
-<h3 id="两顶帽子"><a href="#两顶帽子" class="headerlink" title="两顶帽子"></a>两顶帽子</h3><p>使用重构技术开发软件时，你把自己的时间分配给两种截然不同的行为：添加新功能，以及重构。</p>
-<ul>
-<li>添加新功能时，你不应该修改既有代码，只管添加新功能。通过测试（并让测试正常运行），你可以衡量自己的工作进度。</li>
-<li>重构时你就不能再添加功能，只管改进程序结构。此时你不应该添加任何测试（除非发现有先前遗漏的东西），只在绝对必要（用以处理接口变化）时才修改测试。</li>
-</ul>
-<p>无论何时你都应该清楚自己戴的是哪一顶帽子。</p>
-<h2 id="为何重构-why"><a href="#为何重构-why" class="headerlink" title="为何重构 why"></a>为何重构 why</h2><ul>
-<li>重构改进软件设计。如果消除重复代码，就可以确定所有事物和行为在代码中只表述一次，这正是优秀设计的根本。</li>
-<li>重构使软件更容易理解。早期重构是“擦掉窗户上的污垢，使你看得更远”。</li>
-<li>重构帮助找到 bug。搞清楚程序结构的同时，也清楚了自己所做的一些假设，于是想不把 bug 揪出来都难。</li>
-<li>重构提高编程速度。良好设计是维持软件开发速度的根本。</li>
-</ul>
-<h2 id="何时重构-when"><a href="#何时重构-when" class="headerlink" title="何时重构 when"></a>何时重构 when</h2><p>反对专门拨出时间进行重构。重构应该随时随地进行，不应该为重构而重构，之所以重构，是因为你想做别的什么事，而重构可以帮助你把那些事做好。</p>
-<h3 id="三次法则"><a href="#三次法则" class="headerlink" title="三次法则"></a>三次法则</h3><p>第一次做某件事时只管去做；第二次做类似的事时会产生反感，但无论如何还是可以去做；第三次再做类似的事，你就应该重构。</p>
-<blockquote>
-<p>事不过三，三则重构。</p>
-</blockquote>
-<ul>
-<li>添加功能时重构。</li>
-<li>修补错误时重构。</li>
-<li>复审代码时重构。</li>
-</ul>
-<p>间接层的价值：</p>
-<ul>
-<li>允许逻辑共享</li>
-<li>分开解释意图和实现</li>
-<li>隔离变化</li>
-<li>封装条件逻辑</li>
-</ul>
-<h2 id="重构的难题"><a href="#重构的难题" class="headerlink" title="重构的难题"></a>重构的难题</h2><ul>
-<li>数据库</li>
-<li>修改接口</li>
-<li>难以通过重构手法完成的设计改动</li>
-<li>何时不该重构</li>
-</ul>
-<h2 id="重构与设计"><a href="#重构与设计" class="headerlink" title="重构与设计"></a>重构与设计</h2><p>重构肩负一项特殊使命：它和设计彼此互补。</p>
-<p>重构可以带来更简单的设计，同时又不损失灵活性，这也降低了设计过程的难度。</p>
-<blockquote>
-<p>哪怕你完全了解系统，也请实际度量它的性能，不要臆测。臆测会让你学到一些东西，但十有八九你是错的。</p>
-</blockquote>
-<h2 id="重构与性能"><a href="#重构与性能" class="headerlink" title="重构与性能"></a>重构与性能</h2><p>除了对性能有严格要求的实时系统，其他任何情况下“编写快速软件”的秘诀就是：首先写出可调的软件，然后调整它以求获得足够速度。</p>
-<h2 id="重构起源何处"><a href="#重构起源何处" class="headerlink" title="重构起源何处"></a>重构起源何处</h2><h1 id="第三章-代码的坏味道"><a href="#第三章-代码的坏味道" class="headerlink" title="第三章 代码的坏味道"></a>第三章 代码的坏味道</h1><blockquote>
-<p>P.S. 第三章内容比较多，将单独拎出来一节</p>
-</blockquote>
-<h1 id="第四章-构筑测试体系"><a href="#第四章-构筑测试体系" class="headerlink" title="第四章 构筑测试体系"></a>第四章 构筑测试体系</h1><h2 id="4-1-自测试代码的价值"><a href="#4-1-自测试代码的价值" class="headerlink" title="4.1 自测试代码的价值"></a>4.1 自测试代码的价值</h2><blockquote>
-<p>确保所有测试都完全自动化，让它们检查自己的测试结果。</p>
-<p>一套测试就是一个强大的bug侦测器，能够大大缩减查找bug所需要的时间。</p>
-</blockquote>
-<h2 id="4-2-JUnit-测试框架"><a href="#4-2-JUnit-测试框架" class="headerlink" title="4.2 JUnit 测试框架"></a>4.2 JUnit 测试框架</h2><blockquote>
-<p>频繁地运行测试。每次编译请把测试也考虑进去——每天至少执行每个测试一次。</p>
-</blockquote>
-<h3 id="单元测试（Unit-Test）和功能测试（Functional-Test）"><a href="#单元测试（Unit-Test）和功能测试（Functional-Test）" class="headerlink" title="单元测试（Unit Test）和功能测试（Functional Test）"></a>单元测试（Unit Test）和功能测试（Functional Test）</h3><blockquote>
-<p>每当你收到bug报告，请先写一个单元测试来暴露这个bug。</p>
-</blockquote>
-<h2 id="4-3-添加更多测试"><a href="#4-3-添加更多测试" class="headerlink" title="4.3 添加更多测试"></a>4.3 添加更多测试</h2><blockquote>
-<p>编写未臻完善的测试并实际运行，好过对完美测试的无尽等待。</p>
-<p>考虑可能出错的边界条件，把测试火力集中在那儿。</p>
-<p>当事情被认为应该会出错时，别忘了检查是否抛出了预期的异常。</p>
-<p>不要因为测试无法捕捉到所有 bug 就不写测试，因为测试的确可以捕捉到大多数 bug。</p>
-</blockquote>
-<h1 id="第五章-重构列表"><a href="#第五章-重构列表" class="headerlink" title="第五章 重构列表"></a>第五章 重构列表</h1><h2 id="5-1-重构的记录格式"><a href="#5-1-重构的记录格式" class="headerlink" title="5.1 重构的记录格式"></a>5.1 重构的记录格式</h2><ul>
-<li>名称（name）</li>
-<li>概要（summary）：适用场景，以及它所做的事情。</li>
-<li>动机（motivation）：为什么需要这个重构，以及什么情况下不该使用这个重构。</li>
-<li>做法（mechanics）</li>
-<li>范例（examples）</li>
-</ul>
-<h2 id="5-2-寻找引用点"><a href="#5-2-寻找引用点" class="headerlink" title="5.2 寻找引用点"></a>5.2 寻找引用点</h2><h2 id="5-3-这些重构手法有多成熟"><a href="#5-3-这些重构手法有多成熟" class="headerlink" title="5.3 这些重构手法有多成熟"></a>5.3 这些重构手法有多成熟</h2><p>设计模式为重构行为提供了目标。设计模式和重构之间有着一种与生俱来的关系。模式是你希望到达的目标，重构则是到达之路。</p>
-
+        
+          <p class="article-more-link">
+            <a href="/2018/11/21/《Refactoring》读书笔记（一）/#more">Read More</a>
+          </p>
+        
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://iCodeWoods.github.io/2018/11/21/《Refactoring》读书笔记（一）/" data-id="cjtzmyqec0009by99x8kr8kt8" class="article-share-link">Share</a>
+      <a data-url="https://iCodeWoods.github.io/2018/11/21/《Refactoring》读书笔记（一）/" data-id="cjtznuutx000cdw99a0q8y3a7" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Books/">Books</a></li></ul>
@@ -730,7 +435,8 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h1 id="第四章-计算机工业的生态链"><a href="#第四章-计算机工业的生态链" class="headerlink" title="第四章 计算机工业的生态链"></a>第四章 计算机工业的生态链</h1><h2 id="计算机行业的发展规律"><a href="#计算机行业的发展规律" class="headerlink" title="计算机行业的发展规律"></a>计算机行业的发展规律</h2><ul>
+        <a id="more"></a>
+<h1 id="第四章-计算机工业的生态链"><a href="#第四章-计算机工业的生态链" class="headerlink" title="第四章 计算机工业的生态链"></a>第四章 计算机工业的生态链</h1><h2 id="计算机行业的发展规律"><a href="#计算机行业的发展规律" class="headerlink" title="计算机行业的发展规律"></a>计算机行业的发展规律</h2><ul>
 <li>摩尔定律</li>
 <li>安迪•比尔定律</li>
 <li>反摩尔定律</li>
@@ -777,7 +483,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://iCodeWoods.github.io/2018/10/30/《浪潮之巅》读书笔记（二）/" data-id="cjtzmyqen000oby99r6ccyseo" class="article-share-link">Share</a>
+      <a data-url="https://iCodeWoods.github.io/2018/10/30/《浪潮之巅》读书笔记（二）/" data-id="cjtznuuu4000odw998ktuqdh6" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Books/">Books</a></li></ul>
@@ -815,7 +521,8 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h1 id="第二章-蓝色巨人-IBM公司"><a href="#第二章-蓝色巨人-IBM公司" class="headerlink" title="第二章 蓝色巨人 IBM公司"></a>第二章 蓝色巨人 IBM公司</h1><ul>
+        <a id="more"></a>
+<h1 id="第二章-蓝色巨人-IBM公司"><a href="#第二章-蓝色巨人-IBM公司" class="headerlink" title="第二章 蓝色巨人 IBM公司"></a>第二章 蓝色巨人 IBM公司</h1><ul>
 <li>当今工业界最大的实验室</li>
 <li>世界第一的专利申请大户</li>
 <li>全球最大的RISC服务器制造商</li>
@@ -848,7 +555,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://iCodeWoods.github.io/2018/10/15/《浪潮之巅》读书笔记（一）/" data-id="cjtzmyqel000jby99trgrtsr9" class="article-share-link">Share</a>
+      <a data-url="https://iCodeWoods.github.io/2018/10/15/《浪潮之巅》读书笔记（一）/" data-id="cjtznuuu2000jdw99kc6k2afj" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Books/">Books</a></li></ul>
@@ -889,33 +596,15 @@
         <p><strong>本文转载自：<a href="http://blog.cnbang.net/tech/3286/" target="_blank" rel="noopener">bang’s blog</a></strong></p>
 <p>&nbsp;</p>
 <p>今天聊聊 iOS 动态化的故事。</p>
-<h1 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h1><p>在开发模式上，web 的方式是比较先进的，有各种优点，包括跨平台/UI开发效率高，最重要的是可以时刻保证用户看到的程序是最新的，没有版本概念，整个系统时刻保持在掌握之中，而客户端开发模式相对 web 开发是一种倒退，客户端做不到这样的动态化，无法随时更新，目前一个客户端程序要更新成本是很高的，需要发布版本，也无法保证所有人都能更新到这个版本，这是最大的弱点，也是非常大的一块需求。</p>
-<h1 id="原因"><a href="#原因" class="headerlink" title="原因"></a>原因</h1><p>为什么会有这种倒退，最主要原因是：苹果引领的体验优先规则。</p>
-<p>在 iPhone 出现之前大家并不太在意一个软件的动画体验，一个 web 应用是很少有动画的，点一个按钮，一整块内容直接刷新，再点个链接整个页面变白刷新，PC上网页滚动都是一格格滚动的，而不是现在手机上那种顺滑流畅的滚动，PC客户端软件也一样，大家都觉得没什么问题，用得挺好，但苹果改变了这种情况，iPhone 刚推出时页面间切换的动画，60fps 的丝滑滚动，点击的即时响应，微软的人都惊呼是黑魔法，让人用了就上瘾，再也回不去，而 web 的方式还不足以像原生客户端那样支持这样的流畅性，做不到好的体验，无法被人接受，开发上优势再多也无法干过客户端，参考 facebook 初期用 web 技术构建 app 的惨状，没办法，服了苹果，大家只能按照苹果的方式干，做原生客户端。</p>
-<p>当然这里还有手机环境网络不稳定，流量费贵的原因，但这些都可以在技术上通过缓存解决，最主要还是体验问题。</p>
-<p>那发展到今天，这个体验问题解决了没有呢？没有，即使发展到今天手机性能已上天，但 web 做出来的东西体验仍然跟客户端有差别，大家也已经习惯了 APP 的方式，也被流畅的 APP 惯坏。现在 APP 里也有不少功能是 web实现，但大家都知道这是牺牲了一些性能体验去换取开发和发布效率，只是一种权衡。</p>
-<h1 id="解决方案"><a href="#解决方案" class="headerlink" title="解决方案"></a>解决方案</h1><p>那这个问题怎么解决呢，现在业界有两种方案。</p>
-<h2 id="1-优化-web-性能"><a href="#1-优化-web-性能" class="headerlink" title="1.优化 web 性能"></a>1.优化 web 性能</h2><p>既然用 web 方式开发的劣势只是性能体验跟不上，那就优化性能吧。web 性能瓶颈在哪里？在那个有悠久历史的 webkit 引擎，它有各种历史问题，要改进它并不容易。我们要的是 web 的开发和发布方式，不需要 web 的全部，那能不能重新实现一个渲染引擎呢，这个引擎可以针对原生客户端优化，不需要兼容繁杂的 web 标准，不跟 web 那些历史问题扯上关系，于是就有了 React Native 和 Weex 这种方案，web 的方式开发，原生的方式渲染，拥有 web 优秀的开发和发布方式，又有不错的性能体验，看起来很完美，很有前途的方案。</p>
-<p>一个方案能不能推广开让大家都使用，主要看成本和收益。目前 React Native 和 Weex 等这些方案的接入成本是很高的，一是它们本身就是大型框架，学习成本高，后期维护成本以及团队学习成本同样高。二是它们还不够成熟，还在继续填坑中，使用的过程可能要一起去填坑。收益上也不够理想，就目前状况它们能代替的是那些本来用 H5 实现的模块，换成这种方式实现后性能体验会更好，但也不能保证像原生那样好，很多场景需要深入框架进行优化。整个 APP 都使用这种方案构建还不靠谱，部分使用又无法使整个 APP 保持动态化，总体上来说收益也没有达到有绝对优势的程度，成本高收益低，推广起来会比较困难，还需期待其继续发展。</p>
-<h2 id="2-原生动态化"><a href="#2-原生动态化" class="headerlink" title="2.原生动态化"></a>2.原生动态化</h2><p>另一种是方案是，我可以放弃用 web 的开发方式，放弃 web 跨平台/UI开发简单的优越性，我想继续用原生的方式开发这个APP，但又希望这个 APP 随时可以更新，让程序时刻在自己掌握中，出了问题可以快速修复，还想要可以随时更新版本快速迭代，可以不？完全可以，用动态库就行了。</p>
-<h3 id="动态库"><a href="#动态库" class="headerlink" title="动态库"></a>动态库</h3><p>技术上要在 iOS 上做到原生动态化比 Android 更容易，iOS 开发语言 Objective-C 天生动态，运行时都能随意替换方法，运行时加载动态库又是项很老的技术，只要我把增量的代码和资源打包到一个 framework 里，动态下发运行时加载，修 bug，加功能都不在话下，性能完全无损，这件事就结束了。</p>
-<p>但是呢。苹果把加载动态库的功能给封了，动态库必须跟随安装包一起签名才能被加载，无法通过别的途径签名后再下发。</p>
-<p>为什么这么做呢，这又涉及到苹果另一个创举：审核模式（苹果的创举之多令人发指）。一个软件，要在一个平台上发布，需要先通过这个平台的人工审核，这个好像在苹果之前没见过有别人这样做过，windows 不用，mac 不用，各种 unix 不用，web 也不用，苹果为了对自己的平台有绝对控制权，搞了这样一个东西，审核模式就跟动态化冲突了，如果我一个 APP 可以不经过审核不断下发 framework 添加修改功能， 还需要苹果审核做什么？</p>
-<p>因为这种限制，没法用最方便的方式进行动态更新了，整个 APP 发出去后就不受控制，有什么严重 bug，需要添加什么功能，都乖乖打个包提交给苹果审核，再等用户慢慢更新，对于急性子的中国人来说，这种事难以容忍。</p>
-<h3 id="绕道"><a href="#绕道" class="headerlink" title="绕道"></a>绕道</h3><p>苹果把动态库这扇门关了，我们可以绕个道从另一个门进，动态加功能可以缓缓，大家需求还不那么迫切，但修 bug 的需求就很急，很多公司 APP 的 crash 率是 KPI 来着，看着线上 crash 不断增多又毫无办法是很不爽的事，于是有了 waxPatch 和 JSPatch 这种方案，曲线救国。</p>
-<p>JSPatch 把 OC 手动翻译成 JS，在运行时通过 OC 的动态特性去调用和替换 OC 方法，实时修复 bug。修 bug 这个需求基本是满足了，虽然小绕了下道，但成本还是很低的，引擎本身也很小很轻量，接入对 APP 不会有任何负面影响，在关键时刻又可以帮大忙，成本低收益高，于是很容易推广开。</p>
-<p>人欲望是无穷的，技术宅的折腾是无止境的，JSPatch 满足了修 bug 的需求，但还是无法满足动态化的全部需求，最大的缺点在于需要手写 JS，虽然已经有转换器辅助，但还没做到100%准确，用来修 bug 还好，用来添加功能的话学习成本和开发效率还不够。</p>
-<p>于是有了滴滴的 DynamicCocoa 这种方案，绕了一个更大的道，从编译阶段入手，通过 clang 把 OC 代码编译成自己定制的 JS 格式，再动态下发去执行，做到原生开发，动态运行，主打动态添加功能，当然顺便把修 bug 也给支持了。手机 QQ 内部也有一个类似的方案，不过更进一步，他们通过 clang 把 OC 代码编译成自己定制的字节码动态下发，然后开发一个虚拟机去执行（惊呆了），同样实现了原生开发，动态运行，都是 NB 得很的方案。只要底层处理做得足够好，也是个成本低收益高的方案，不过目前都还没开源，还没能看到实际效果和 NB 的源码，挺期待。</p>
-<h3 id="审核"><a href="#审核" class="headerlink" title="审核"></a>审核</h3><p>这种方案有没有什么问题呢，问题在对于苹果审核比较尴尬。这种方案做到极致后(所有OC/C语法都支持)，实际上是绕道实现了动态加载 framework 的全部功能，开发体验还是一致的，如果苹果同意这种方案，那相当于允许加载动态库，那还不如直接把门开了，让大家直接用动态库去做这个事情，用动态库还能在签名时禁止使用私有 API，用这种编译成脚本/字节码下发的方案可就禁止不了了。</p>
-<p>这跟 JSPatch 还不太一样，JSPatch 虽然我也想推广动态添加功能的用法，但因为开发体验问题大部分还是用于修 bug，苹果审核对 JSPatch 开始也是有一些拒绝案例，后来估计看到大家只是用它来修 bug 和 crash，提升 APP 的质量，就默许了。但 DynamicCocoa 和手Q的方案一开始目标和效果就是跟加载动态库对齐，大规模推广后苹果会怎么看就不知道了。</p>
-<p>我觉得苹果现在的审核方式挺有问题的，有多少APP是审核时用一套，审核通过后又通过后台一些开关把不符合规则的一些功能开放出来？只要能连上网，就有N种方式修改 APP 里的功能，苹果完全拦不住。个人认为审核方式应该改为只在发布新 APP 时审核，发布后允许动态下发代码更新，版本更新也不需要重新审核，而是通过举报和抽查的方式去审核已上线的 APP，这样既能顾及开发效率，方便开发者快速迭代做出更好的 APP，也更能确保审核效果，只是实施起来没有现在简单粗暴。</p>
-<h1 id="最后"><a href="#最后" class="headerlink" title="最后"></a>最后</h1><p>故事讲到这里已经差不多了，再多说一点，有个让我觉得很奇怪的问题，就是国外开发者只热衷于使用第一种方案解决问题，也就是使用web技术，用 React Native / NativeScript 的方式去做这个事情，对第二种方案很冷淡，包括 iOS Android 都是，原生热更新只在国内火，国外根本不感冒，国外有个 rollout 热更新平台也不温不火，为什么呢？是国外用户更守规则，或是用户对线上 bug 容忍度高，开发者对线上 bug 并不那么着急？还是 Android 被 Google Play 卡死断了这念想，iOS JSPatch 之类的方案推广不利？缺少国外一线开发者的支持，让系统原生支持动态化就比较困难了。</p>
-<p>个人认为由系统支持动态化（允许加载动态库）在当前环境下是最好的，兼顾开发效率和 APP 体验，虽然不能跨平台，但也还能接受，可惜这个主动权掌握在苹果手上，开发者无能为力，才会出现这么多强行绕道突破的方案。web 的方式可能是未来，但目前适用范围有限，接下来怎么发展，拭目以待吧。</p>
-
+        
+          <p class="article-more-link">
+            <a href="/2018/05/24/iOS 动态化的故事/#more">Read More</a>
+          </p>
+        
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://iCodeWoods.github.io/2018/05/24/iOS 动态化的故事/" data-id="cjtzmyqfg001yby99i3dy8ng4" class="article-share-link">Share</a>
+      <a data-url="https://iCodeWoods.github.io/2018/05/24/iOS 动态化的故事/" data-id="cjtznuuuz001ydw99i4e9kmgi" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JSPatch/">JSPatch</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/React-Native/">React Native</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/动态化/">动态化</a></li></ul>

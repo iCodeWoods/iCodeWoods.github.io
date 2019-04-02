@@ -5,18 +5,18 @@
   
   <title>Bash学习之——变量、read、array、declare | iCodeWoods的小站</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="变量的配置守则 双引号内的特殊字符如 $ 等，可以保有原本的特性，如： “var=”lang is $LANG””则“echo $var”可得“lang is zh_TW.UTF-8” 单引号内的特殊字符则仅为一般字符 （纯文本），如： “var=’lang is $LANG’”则“echo $var”可得“lang is $LANG” 在一串指令的执行中，还需要借由其他额外的指令所提供的信息时，">
+  <meta name="description" content="变量的配置守则 双引号内的特殊字符如 $ 等，可以保有原本的特性，如： “var=”lang is $LANG””则“echo $var”可得“lang is zh_TW.UTF-8” 单引号内的特殊字符则仅为一般字符 （纯文本），如： “var=’lang is $LANG’”则“echo $var”可得“lang is $LANG” 在一串指令的执行中，还需要借由其他额外的指令所提供的信息时">
 <meta name="keywords" content="脚本,Bash">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Bash学习之——变量、read、array、declare">
 <meta property="og:url" content="https://iCodeWoods.github.io/2018/01/26/Bash学习之——变量、read、array、declare/index.html">
 <meta property="og:site_name" content="iCodeWoods的小站">
-<meta property="og:description" content="变量的配置守则 双引号内的特殊字符如 $ 等，可以保有原本的特性，如： “var=”lang is $LANG””则“echo $var”可得“lang is zh_TW.UTF-8” 单引号内的特殊字符则仅为一般字符 （纯文本），如： “var=’lang is $LANG’”则“echo $var”可得“lang is $LANG” 在一串指令的执行中，还需要借由其他额外的指令所提供的信息时，">
+<meta property="og:description" content="变量的配置守则 双引号内的特殊字符如 $ 等，可以保有原本的特性，如： “var=”lang is $LANG””则“echo $var”可得“lang is zh_TW.UTF-8” 单引号内的特殊字符则仅为一般字符 （纯文本），如： “var=’lang is $LANG’”则“echo $var”可得“lang is $LANG” 在一串指令的执行中，还需要借由其他额外的指令所提供的信息时">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-03-12T05:36:32.015Z">
+<meta property="og:updated_time" content="2019-04-02T11:16:13.280Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Bash学习之——变量、read、array、declare">
-<meta name="twitter:description" content="变量的配置守则 双引号内的特殊字符如 $ 等，可以保有原本的特性，如： “var=”lang is $LANG””则“echo $var”可得“lang is zh_TW.UTF-8” 单引号内的特殊字符则仅为一般字符 （纯文本），如： “var=’lang is $LANG’”则“echo $var”可得“lang is $LANG” 在一串指令的执行中，还需要借由其他额外的指令所提供的信息时，">
+<meta name="twitter:description" content="变量的配置守则 双引号内的特殊字符如 $ 等，可以保有原本的特性，如： “var=”lang is $LANG””则“echo $var”可得“lang is zh_TW.UTF-8” 单引号内的特殊字符则仅为一般字符 （纯文本），如： “var=’lang is $LANG’”则“echo $var”可得“lang is $LANG” 在一串指令的执行中，还需要借由其他额外的指令所提供的信息时">
   
     <link rel="alternate" href="/atom.xml" title="iCodeWoods的小站" type="application/atom+xml">
   
@@ -97,7 +97,8 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h2 id="变量的配置守则"><a href="#变量的配置守则" class="headerlink" title="变量的配置守则"></a>变量的配置守则</h2><ul>
+        <a id="more"></a>
+<h2 id="变量的配置守则"><a href="#变量的配置守则" class="headerlink" title="变量的配置守则"></a>变量的配置守则</h2><ul>
 <li>双引号内的特殊字符如 $ 等，可以保有原本的特性，如： “var=”lang is $LANG””则“echo $var”可得“lang is zh_TW.UTF-8”</li>
 <li>单引号内的特殊字符则仅为一般字符 （纯文本），如： “var=’lang is $LANG’”则“echo $var”可得“lang is $LANG”</li>
 <li>在一串指令的执行中，还需要借由其他额外的指令所提供的信息时，可以使用反单引号 <code>指令</code> 或 “$（指令）”</li>
@@ -125,7 +126,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://iCodeWoods.github.io/2018/01/26/Bash学习之——变量、read、array、declare/" data-id="cjtzmyqdv0000by99cqhxc3r9" class="article-share-link">Share</a>
+      <a data-url="https://iCodeWoods.github.io/2018/01/26/Bash学习之——变量、read、array、declare/" data-id="cjtznuut90000dw99jgs51f1y" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Bash/">Bash</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/脚本/">脚本</a></li></ul>

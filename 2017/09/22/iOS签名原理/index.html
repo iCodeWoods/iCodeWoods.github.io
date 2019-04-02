@@ -5,23 +5,23 @@
   
   <title>iOS签名原理 | iCodeWoods的小站</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="本文转载自：bang’s blog &amp;nbsp; iOS 签名机制挺复杂，各种证书，Provisioning Profile，entitlements，CertificateSigningRequest，p12，AppID，概念一堆，也很容易出错，本文尝试从原理出发，一步步推出为什么会有这么多概念，希望能有助于理解 iOS App 签名的原理和流程。 目的先来看看苹果的签名机制是为了做什么。在 i">
+  <meta name="description" content="本文转载自：bang’s blog &amp;nbsp; iOS 签名机制挺复杂，各种证书，Provisioning Profile，entitlements，CertificateSigningRequest，p12，AppID，概念一堆，也很容易出错，本文尝试从原理出发，一步步推出为什么会有这么多概念，希望能有助于理解 iOS App 签名的原理和流程。">
 <meta name="keywords" content="签名">
 <meta property="og:type" content="article">
 <meta property="og:title" content="iOS签名原理">
 <meta property="og:url" content="https://iCodeWoods.github.io/2017/09/22/iOS签名原理/index.html">
 <meta property="og:site_name" content="iCodeWoods的小站">
-<meta property="og:description" content="本文转载自：bang’s blog &amp;nbsp; iOS 签名机制挺复杂，各种证书，Provisioning Profile，entitlements，CertificateSigningRequest，p12，AppID，概念一堆，也很容易出错，本文尝试从原理出发，一步步推出为什么会有这么多概念，希望能有助于理解 iOS App 签名的原理和流程。 目的先来看看苹果的签名机制是为了做什么。在 i">
+<meta property="og:description" content="本文转载自：bang’s blog &amp;nbsp; iOS 签名机制挺复杂，各种证书，Provisioning Profile，entitlements，CertificateSigningRequest，p12，AppID，概念一堆，也很容易出错，本文尝试从原理出发，一步步推出为什么会有这么多概念，希望能有助于理解 iOS App 签名的原理和流程。">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="https://icodewoods.github.io/2017/09/22/iOS签名原理/1.png">
 <meta property="og:image" content="https://icodewoods.github.io/2017/09/22/iOS签名原理/2.png">
 <meta property="og:image" content="https://icodewoods.github.io/2017/09/22/iOS签名原理/3.png">
 <meta property="og:image" content="https://icodewoods.github.io/2017/09/22/iOS签名原理/4.png">
 <meta property="og:image" content="https://icodewoods.github.io/2017/09/22/iOS签名原理/5.png">
-<meta property="og:updated_time" content="2019-03-12T05:36:32.019Z">
+<meta property="og:updated_time" content="2019-04-02T11:15:43.387Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="iOS签名原理">
-<meta name="twitter:description" content="本文转载自：bang’s blog &amp;nbsp; iOS 签名机制挺复杂，各种证书，Provisioning Profile，entitlements，CertificateSigningRequest，p12，AppID，概念一堆，也很容易出错，本文尝试从原理出发，一步步推出为什么会有这么多概念，希望能有助于理解 iOS App 签名的原理和流程。 目的先来看看苹果的签名机制是为了做什么。在 i">
+<meta name="twitter:description" content="本文转载自：bang’s blog &amp;nbsp; iOS 签名机制挺复杂，各种证书，Provisioning Profile，entitlements，CertificateSigningRequest，p12，AppID，概念一堆，也很容易出错，本文尝试从原理出发，一步步推出为什么会有这么多概念，希望能有助于理解 iOS App 签名的原理和流程。">
 <meta name="twitter:image" content="https://icodewoods.github.io/2017/09/22/iOS签名原理/1.png">
   
     <link rel="alternate" href="/atom.xml" title="iCodeWoods的小站" type="application/atom+xml">
@@ -106,6 +106,7 @@
         <p><strong>本文转载自：<a href="http://blog.cnbang.net/tech/3386/" target="_blank" rel="noopener">bang’s blog</a></strong></p>
 <p>&nbsp;</p>
 <p>iOS 签名机制挺复杂，各种证书，Provisioning Profile，entitlements，CertificateSigningRequest，p12，AppID，概念一堆，也很容易出错，本文尝试从原理出发，一步步推出为什么会有这么多概念，希望能有助于理解 iOS App 签名的原理和流程。</p>
+<a id="more"></a>
 <h3 id="目的"><a href="#目的" class="headerlink" title="目的"></a>目的</h3><p>先来看看苹果的签名机制是为了做什么。在 iOS 出来之前，在主流操作系统(Mac/Windows/Linux)上开发和运行软件是不需要签名的，软件随便从哪里下载都能运行，导致平台对第三方软件难以控制，盗版流行。苹果希望解决这样的问题，在 iOS 平台对第三方 APP 有绝对的控制权，一定要保证每一个安装到 iOS 上的 APP 都是经过苹果官方允许的，怎样保证呢？就是通过签名机制。</p>
 <h3 id="非对称加密"><a href="#非对称加密" class="headerlink" title="非对称加密"></a>非对称加密</h3><p>通常我们说的签名就是数字签名，它是基于非对称加密算法实现的。对称加密是通过同一份密钥加密和解密数据，而非对称加密则有两份密钥，分别是公钥和私钥，用公钥加密的数据，要用私钥才能解密，用私钥加密的数据，要用公钥才能解密。</p>
 <p>简单说一下常用的非对称加密算法 RSA 的数学原理，理解简单的数学原理，就可以理解非对称加密是怎么做到的，为什么会是安全的：</p>
@@ -216,7 +217,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://iCodeWoods.github.io/2017/09/22/iOS签名原理/" data-id="cjtzmyqg7002vby993krqsue0" class="article-share-link">Share</a>
+      <a data-url="https://iCodeWoods.github.io/2017/09/22/iOS签名原理/" data-id="cjtznuuvm002vdw99kth58cmn" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/签名/">签名</a></li></ul>

@@ -5,18 +5,18 @@
   
   <title>iOS 动态化的故事 | iCodeWoods的小站</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="本文转载自：bang’s blog &amp;nbsp; 今天聊聊 iOS 动态化的故事。 问题在开发模式上，web 的方式是比较先进的，有各种优点，包括跨平台/UI开发效率高，最重要的是可以时刻保证用户看到的程序是最新的，没有版本概念，整个系统时刻保持在掌握之中，而客户端开发模式相对 web 开发是一种倒退，客户端做不到这样的动态化，无法随时更新，目前一个客户端程序要更新成本是很高的，需要发布版本，也无">
+  <meta name="description" content="本文转载自：bang’s blog &amp;nbsp; 今天聊聊 iOS 动态化的故事。">
 <meta name="keywords" content="动态化,JSPatch,React Native">
 <meta property="og:type" content="article">
 <meta property="og:title" content="iOS 动态化的故事">
 <meta property="og:url" content="https://iCodeWoods.github.io/2018/05/24/iOS 动态化的故事/index.html">
 <meta property="og:site_name" content="iCodeWoods的小站">
-<meta property="og:description" content="本文转载自：bang’s blog &amp;nbsp; 今天聊聊 iOS 动态化的故事。 问题在开发模式上，web 的方式是比较先进的，有各种优点，包括跨平台/UI开发效率高，最重要的是可以时刻保证用户看到的程序是最新的，没有版本概念，整个系统时刻保持在掌握之中，而客户端开发模式相对 web 开发是一种倒退，客户端做不到这样的动态化，无法随时更新，目前一个客户端程序要更新成本是很高的，需要发布版本，也无">
+<meta property="og:description" content="本文转载自：bang’s blog &amp;nbsp; 今天聊聊 iOS 动态化的故事。">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-03-12T05:36:32.018Z">
+<meta property="og:updated_time" content="2019-04-02T11:15:48.425Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="iOS 动态化的故事">
-<meta name="twitter:description" content="本文转载自：bang’s blog &amp;nbsp; 今天聊聊 iOS 动态化的故事。 问题在开发模式上，web 的方式是比较先进的，有各种优点，包括跨平台/UI开发效率高，最重要的是可以时刻保证用户看到的程序是最新的，没有版本概念，整个系统时刻保持在掌握之中，而客户端开发模式相对 web 开发是一种倒退，客户端做不到这样的动态化，无法随时更新，目前一个客户端程序要更新成本是很高的，需要发布版本，也无">
+<meta name="twitter:description" content="本文转载自：bang’s blog &amp;nbsp; 今天聊聊 iOS 动态化的故事。">
   
     <link rel="alternate" href="/atom.xml" title="iCodeWoods的小站" type="application/atom+xml">
   
@@ -100,6 +100,7 @@
         <p><strong>本文转载自：<a href="http://blog.cnbang.net/tech/3286/" target="_blank" rel="noopener">bang’s blog</a></strong></p>
 <p>&nbsp;</p>
 <p>今天聊聊 iOS 动态化的故事。</p>
+<a id="more"></a>
 <h1 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h1><p>在开发模式上，web 的方式是比较先进的，有各种优点，包括跨平台/UI开发效率高，最重要的是可以时刻保证用户看到的程序是最新的，没有版本概念，整个系统时刻保持在掌握之中，而客户端开发模式相对 web 开发是一种倒退，客户端做不到这样的动态化，无法随时更新，目前一个客户端程序要更新成本是很高的，需要发布版本，也无法保证所有人都能更新到这个版本，这是最大的弱点，也是非常大的一块需求。</p>
 <h1 id="原因"><a href="#原因" class="headerlink" title="原因"></a>原因</h1><p>为什么会有这种倒退，最主要原因是：苹果引领的体验优先规则。</p>
 <p>在 iPhone 出现之前大家并不太在意一个软件的动画体验，一个 web 应用是很少有动画的，点一个按钮，一整块内容直接刷新，再点个链接整个页面变白刷新，PC上网页滚动都是一格格滚动的，而不是现在手机上那种顺滑流畅的滚动，PC客户端软件也一样，大家都觉得没什么问题，用得挺好，但苹果改变了这种情况，iPhone 刚推出时页面间切换的动画，60fps 的丝滑滚动，点击的即时响应，微软的人都惊呼是黑魔法，让人用了就上瘾，再也回不去，而 web 的方式还不足以像原生客户端那样支持这样的流畅性，做不到好的体验，无法被人接受，开发上优势再多也无法干过客户端，参考 facebook 初期用 web 技术构建 app 的惨状，没办法，服了苹果，大家只能按照苹果的方式干，做原生客户端。</p>
@@ -126,7 +127,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://iCodeWoods.github.io/2018/05/24/iOS 动态化的故事/" data-id="cjtzmyqfg001yby99i3dy8ng4" class="article-share-link">Share</a>
+      <a data-url="https://iCodeWoods.github.io/2018/05/24/iOS 动态化的故事/" data-id="cjtznuuuz001ydw99i4e9kmgi" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JSPatch/">JSPatch</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/React-Native/">React Native</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/动态化/">动态化</a></li></ul>

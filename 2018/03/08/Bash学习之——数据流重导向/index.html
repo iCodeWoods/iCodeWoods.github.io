@@ -5,20 +5,20 @@
   
   <title>Bash学习之——数据流重导向 | iCodeWoods的小站</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="stdout、stderr、/dev/null 标准输入　　  (stdin)：代码为 0 ，使用 &amp;lt; 或 &amp;lt;&amp;lt; ； 标准输出　 　(stdout)：代码为 1 ，使用 &amp;gt; 或 &amp;gt;&amp;gt; ； 标准错误输出 (stderr)：代码为 2 ，使用 2&amp;gt; 或 2&amp;gt;&amp;gt; ；  覆盖与累加 1&amp;gt; ：以覆盖的方法将『正确的数据』输出到指定的文件或装置上；">
+  <meta name="description" content="stdout、stderr、/dev/null 标准输入　　  (stdin)：代码为 0 ，使用 &amp;lt; 或 &amp;lt;&amp;lt; ； 标准输出　 　(stdout)：代码为 1 ，使用 &amp;gt; 或 &amp;gt;&amp;gt; ； 标准错误输出 (stderr)：代码为 2 ，使用 2&amp;gt; 或 2&amp;gt;&amp;gt; ；">
 <meta name="keywords" content="脚本,Bash">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Bash学习之——数据流重导向">
 <meta property="og:url" content="https://iCodeWoods.github.io/2018/03/08/Bash学习之——数据流重导向/index.html">
 <meta property="og:site_name" content="iCodeWoods的小站">
-<meta property="og:description" content="stdout、stderr、/dev/null 标准输入　　  (stdin)：代码为 0 ，使用 &amp;lt; 或 &amp;lt;&amp;lt; ； 标准输出　 　(stdout)：代码为 1 ，使用 &amp;gt; 或 &amp;gt;&amp;gt; ； 标准错误输出 (stderr)：代码为 2 ，使用 2&amp;gt; 或 2&amp;gt;&amp;gt; ；  覆盖与累加 1&amp;gt; ：以覆盖的方法将『正确的数据』输出到指定的文件或装置上；">
+<meta property="og:description" content="stdout、stderr、/dev/null 标准输入　　  (stdin)：代码为 0 ，使用 &amp;lt; 或 &amp;lt;&amp;lt; ； 标准输出　 　(stdout)：代码为 1 ，使用 &amp;gt; 或 &amp;gt;&amp;gt; ； 标准错误输出 (stderr)：代码为 2 ，使用 2&amp;gt; 或 2&amp;gt;&amp;gt; ；">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="https://icodewoods.github.io/2018/03/08/Bash学习之——数据流重导向/bash1.png">
 <meta property="og:image" content="https://icodewoods.github.io/2018/03/08/Bash学习之——数据流重导向/bash2.png">
-<meta property="og:updated_time" content="2019-03-12T05:36:32.018Z">
+<meta property="og:updated_time" content="2019-04-02T11:15:58.427Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Bash学习之——数据流重导向">
-<meta name="twitter:description" content="stdout、stderr、/dev/null 标准输入　　  (stdin)：代码为 0 ，使用 &amp;lt; 或 &amp;lt;&amp;lt; ； 标准输出　 　(stdout)：代码为 1 ，使用 &amp;gt; 或 &amp;gt;&amp;gt; ； 标准错误输出 (stderr)：代码为 2 ，使用 2&amp;gt; 或 2&amp;gt;&amp;gt; ；  覆盖与累加 1&amp;gt; ：以覆盖的方法将『正确的数据』输出到指定的文件或装置上；">
+<meta name="twitter:description" content="stdout、stderr、/dev/null 标准输入　　  (stdin)：代码为 0 ，使用 &amp;lt; 或 &amp;lt;&amp;lt; ； 标准输出　 　(stdout)：代码为 1 ，使用 &amp;gt; 或 &amp;gt;&amp;gt; ； 标准错误输出 (stderr)：代码为 2 ，使用 2&amp;gt; 或 2&amp;gt;&amp;gt; ；">
 <meta name="twitter:image" content="https://icodewoods.github.io/2018/03/08/Bash学习之——数据流重导向/bash1.png">
   
     <link rel="alternate" href="/atom.xml" title="iCodeWoods的小站" type="application/atom+xml">
@@ -105,6 +105,7 @@
 <li>标准输出　 　(stdout)：代码为 1 ，使用 &gt; 或 &gt;&gt; ；</li>
 <li>标准错误输出 (stderr)：代码为 2 ，使用 2&gt; 或 2&gt;&gt; ；</li>
 </ul>
+<a id="more"></a>
 <h4 id="覆盖与累加"><a href="#覆盖与累加" class="headerlink" title="覆盖与累加"></a>覆盖与累加</h4><ul>
 <li>1&gt; ：以覆盖的方法将『正确的数据』输出到指定的文件或装置上；</li>
 <li>1&gt;&gt;：以累加的方法将『正确的数据』输出到指定的文件或装置上；</li>
@@ -132,7 +133,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://iCodeWoods.github.io/2018/03/08/Bash学习之——数据流重导向/" data-id="cjtzmyqe70006by99t2p70tia" class="article-share-link">Share</a>
+      <a data-url="https://iCodeWoods.github.io/2018/03/08/Bash学习之——数据流重导向/" data-id="cjtznuutn0006dw99i0baomst" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Bash/">Bash</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/脚本/">脚本</a></li></ul>

@@ -5,18 +5,18 @@
   
   <title>【译】The Best New Features in Swift 4 | iCodeWoods的小站</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="本文翻译自：Mike Ash’s Blog，略有修改 译者：iCodeWoods Swift 4 来了，并且发生了很多不错的改变。Swift 4 既没有像去年的 Swift 3 那样几乎完全修改了语法，也没有像 Swift 2 那样创建了很多新功能。但是 Swift 4 有一些很不错的改善代码的地方，我们来看一看吧！ 多行字符串文字（Multi-Line String Literals）有时你的代">
+  <meta name="description" content="本文翻译自：Mike Ash’s Blog，略有修改 译者：iCodeWoods Swift 4 来了，并且发生了很多不错的改变。Swift 4 既没有像去年的 Swift 3 那样几乎完全修改了语法，也没有像 Swift 2 那样创建了很多新功能。但是 Swift 4 有一些很不错的改善代码的地方，我们来看一看吧！">
 <meta name="keywords" content="Swift,译文,New Features">
 <meta property="og:type" content="article">
 <meta property="og:title" content="【译】The Best New Features in Swift 4">
 <meta property="og:url" content="https://iCodeWoods.github.io/2018/01/23/【译】The Best New Features in Swift 4/index.html">
 <meta property="og:site_name" content="iCodeWoods的小站">
-<meta property="og:description" content="本文翻译自：Mike Ash’s Blog，略有修改 译者：iCodeWoods Swift 4 来了，并且发生了很多不错的改变。Swift 4 既没有像去年的 Swift 3 那样几乎完全修改了语法，也没有像 Swift 2 那样创建了很多新功能。但是 Swift 4 有一些很不错的改善代码的地方，我们来看一看吧！ 多行字符串文字（Multi-Line String Literals）有时你的代">
+<meta property="og:description" content="本文翻译自：Mike Ash’s Blog，略有修改 译者：iCodeWoods Swift 4 来了，并且发生了很多不错的改变。Swift 4 既没有像去年的 Swift 3 那样几乎完全修改了语法，也没有像 Swift 2 那样创建了很多新功能。但是 Swift 4 有一些很不错的改善代码的地方，我们来看一看吧！">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-03-12T05:36:32.027Z">
+<meta property="og:updated_time" content="2019-04-02T11:16:40.231Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="【译】The Best New Features in Swift 4">
-<meta name="twitter:description" content="本文翻译自：Mike Ash’s Blog，略有修改 译者：iCodeWoods Swift 4 来了，并且发生了很多不错的改变。Swift 4 既没有像去年的 Swift 3 那样几乎完全修改了语法，也没有像 Swift 2 那样创建了很多新功能。但是 Swift 4 有一些很不错的改善代码的地方，我们来看一看吧！ 多行字符串文字（Multi-Line String Literals）有时你的代">
+<meta name="twitter:description" content="本文翻译自：Mike Ash’s Blog，略有修改 译者：iCodeWoods Swift 4 来了，并且发生了很多不错的改变。Swift 4 既没有像去年的 Swift 3 那样几乎完全修改了语法，也没有像 Swift 2 那样创建了很多新功能。但是 Swift 4 有一些很不错的改善代码的地方，我们来看一看吧！">
   
     <link rel="alternate" href="/atom.xml" title="iCodeWoods的小站" type="application/atom+xml">
   
@@ -100,6 +100,7 @@
         <p><em>本文翻译自：<a href="https://plausible.coop/blog/2017/09/13/best-new-features-in-swift-4" target="_blank" rel="noopener">Mike Ash’s Blog</a>，略有修改</em></p>
 <p><em>译者：<a href="https://icodewoods.github.io/">iCodeWoods</a></em></p>
 <p>Swift 4 来了，并且发生了很多不错的改变。Swift 4 既没有像去年的 Swift 3 那样几乎完全修改了语法，也没有像 Swift 2 那样创建了很多新功能。但是 Swift 4 有一些很不错的改善代码的地方，我们来看一看吧！</p>
+<a id="more"></a>
 <h2 id="多行字符串文字（Multi-Line-String-Literals）"><a href="#多行字符串文字（Multi-Line-String-Literals）" class="headerlink" title="多行字符串文字（Multi-Line String Literals）"></a>多行字符串文字（Multi-Line String Literals）</h2><p>有时你的代码中需要使用很长的、多行的字符串，它可能是一个HTML模板，可能是XML的一个块，或者是一个很长的用户信息。无论是哪一种，在 Swift 3 中写起来都很痛苦。</p>
 <p>你可以把它们全部写在一行中，但是代码很快就会变得很丑：<br><figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> message = <span class="string">"Please disable your Frobnitz before proceeding.\n\nTo do this, visit Settings -&gt; Frobnitz, then toggle the switch to \"off\".\n\nIf you need the Frobnitz to remain enabled, tap \"Proceed Anyway\" below."</span></span><br></pre></td></tr></table></figure></p>
 <p>你可以通过连接字符串将它分成多行：<br><figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> message =</span><br><span class="line">    <span class="string">"Please disable your Frobnitz before proceeding.\n\n"</span></span><br><span class="line">  + <span class="string">"To do this, visit Settings -&gt; Frobnitz, then toggle the switch to \"off\".\n\n"</span></span><br><span class="line">  + <span class="string">"If you need the Frobnitz to remain enabled, tap \"Proceed Anyway\" below."</span></span><br></pre></td></tr></table></figure></p>
@@ -148,7 +149,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://iCodeWoods.github.io/2018/01/23/【译】The Best New Features in Swift 4/" data-id="cjtzmyqfk0023by99mnyqu449" class="article-share-link">Share</a>
+      <a data-url="https://iCodeWoods.github.io/2018/01/23/【译】The Best New Features in Swift 4/" data-id="cjtznuuv10023dw997qvesrhl" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/New-Features/">New Features</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Swift/">Swift</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/译文/">译文</a></li></ul>
