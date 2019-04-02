@@ -7,6 +7,8 @@ tags: Books
 ---
 [TOC]
 
+<!-- more -->
+
 # 第六章 重新组织函数
 
 ## 6.1 Extract Method（提炼函数）

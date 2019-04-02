@@ -7,6 +7,8 @@ tags:
  - 脚本
  - Bash
 ---
+<!-- more -->
+
 ## 变量的配置守则
 
 - 双引号内的特殊字符如 $ 等，可以保有原本的特性，如： “var="lang is $LANG"”则“echo $var”可得“lang is zh_TW.UTF-8”

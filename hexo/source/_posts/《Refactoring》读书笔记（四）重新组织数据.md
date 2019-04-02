@@ -8,6 +8,8 @@ tags: Books
 
 [TOC]
 
+<!-- more -->
+
 # 第八章 重新组织数据
 
 ## 8.1 Self Encapsulate Field（自封装字段）

@@ -7,6 +7,8 @@ tags: Books
 ---
 [TOC]
 
+<!-- more -->
+
 # 第七章 在对象之间搬移特性
 
 ## 7.1 Move Method（搬移函数）

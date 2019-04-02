@@ -17,6 +17,8 @@ SpriteKit 早在 iOS 7 就已推出，但由于我的精力/水平有限，直�
 
 项目工程的 [GitHub 地址请戳我](https://github.com/iCodeWoods/OverTheMountains)。
 
+<!-- more -->
+
 ## 游戏介绍
 
 其实这类游戏在 AppStore 上已有很多，无非都是有一个小黑人，使用一根能不断伸长的棍子，看看最终能走多远。
