@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+  <title>SpriteKit 开发游戏实战——《OverTheMountains》 | iCodeWoods的小站</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="[TOC] TL;DRSpriteKit 早在 iOS 7 就已推出，但由于我的精力/水平有限，直到最近才开始学习它。 文章中的游戏《OverTheMountains》（翻山越岭）是我从零开始自学 SpriteKit 时，用了不到三天时间自己开发的一个小型 demo，并没有参考别人的代码，所以可能存在很多不合理的地方，还望各位不吝赐教，我将非常感激。 项目工程的 GitHub 地址请戳我。 游戏介">
+<meta name="keywords" content="SpriteKit,Game">
+<meta property="og:type" content="article">
+<meta property="og:title" content="SpriteKit 开发游戏实战——《OverTheMountains》">
+<meta property="og:url" content="https://iCodeWoods.github.io/2019/04/02/SpriteKit 开发游戏实战——《OverTheMountains》/index.html">
+<meta property="og:site_name" content="iCodeWoods的小站">
+<meta property="og:description" content="[TOC] TL;DRSpriteKit 早在 iOS 7 就已推出，但由于我的精力/水平有限，直到最近才开始学习它。 文章中的游戏《OverTheMountains》（翻山越岭）是我从零开始自学 SpriteKit 时，用了不到三天时间自己开发的一个小型 demo，并没有参考别人的代码，所以可能存在很多不合理的地方，还望各位不吝赐教，我将非常感激。 项目工程的 GitHub 地址请戳我。 游戏介">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="https://icodewoods.github.io/2019/04/02/SpriteKit%20开发游戏实战——《OverTheMountains》/assets/OverTheMountains.gif">
+<meta property="og:image" content="https://icodewoods.github.io/2019/04/02/SpriteKit%20开发游戏实战——《OverTheMountains》/assets/Atlas.png">
+<meta property="og:updated_time" content="2019-04-02T10:23:46.543Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="SpriteKit 开发游戏实战——《OverTheMountains》">
+<meta name="twitter:description" content="[TOC] TL;DRSpriteKit 早在 iOS 7 就已推出，但由于我的精力/水平有限，直到最近才开始学习它。 文章中的游戏《OverTheMountains》（翻山越岭）是我从零开始自学 SpriteKit 时，用了不到三天时间自己开发的一个小型 demo，并没有参考别人的代码，所以可能存在很多不合理的地方，还望各位不吝赐教，我将非常感激。 项目工程的 GitHub 地址请戳我。 游戏介">
+<meta name="twitter:image" content="https://icodewoods.github.io/2019/04/02/SpriteKit%20开发游戏实战——《OverTheMountains》/assets/OverTheMountains.gif">
+  
+    <link rel="alternate" href="/atom.xml" title="iCodeWoods的小站" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  
+
+</head>
+</html>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">iCodeWoods的小站</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">片刻之欢愉，不如须臾之宁静</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+          <a class="main-nav-link" href="/about">About</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="搜索"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://iCodeWoods.github.io"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-SpriteKit 开发游戏实战——《OverTheMountains》" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/04/02/SpriteKit 开发游戏实战——《OverTheMountains》/" class="article-date">
+  <time datetime="2019-04-02T10:20:35.000Z" itemprop="datePublished">2019-04-02</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/iOS/">iOS</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      SpriteKit 开发游戏实战——《OverTheMountains》
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>[TOC]</p>
+<h2 id="TL-DR"><a href="#TL-DR" class="headerlink" title="TL;DR"></a>TL;DR</h2><p>SpriteKit 早在 iOS 7 就已推出，但由于我的精力/水平有限，直到最近才开始学习它。</p>
+<p>文章中的游戏《OverTheMountains》（翻山越岭）是我从零开始自学 SpriteKit 时，用了不到三天时间自己开发的一个小型 demo，并没有参考别人的代码，所以可能存在很多不合理的地方，还望各位不吝赐教，我将非常感激。</p>
+<p>项目工程的 <a href="https://github.com/iCodeWoods/OverTheMountains" target="_blank" rel="noopener">GitHub 地址请戳我</a>。</p>
+<h2 id="游戏介绍"><a href="#游戏介绍" class="headerlink" title="游戏介绍"></a>游戏介绍</h2><p>其实这类游戏在 AppStore 上已有很多，无非都是有一个小黑人，使用一根能不断伸长的棍子，看看最终能走多远。</p>
+<p>而本作的游戏背景是，男主人公经过长途跋涉，翻山越岭地去见女主人公。（瞬间不一样了有木有😁）</p>
+<p><img src="/2019/04/02/SpriteKit 开发游戏实战——《OverTheMountains》/./assets/OverTheMountains.gif" alt="OverTheMountains"></p>
+<h2 id="一些实现思路"><a href="#一些实现思路" class="headerlink" title="一些实现思路"></a>一些实现思路</h2><p>尽管游戏本身很简单，但如果一开始没有一个良好的设计，很容易写着写着就乱了。</p>
+<p>下面就粗略地说一下我的实现思路与步骤：</p>
+<ol>
+<li>添加两个矩形（也就是所谓的“山”）（左边的记为起点，右边的记为终点）</li>
+<li>将起点向左移出屏幕，将终点向左移至起点的位置，从屏幕右侧生成一个新的终点并移至合适的位置</li>
+<li>点击屏幕可以在起点处生成一个棍子，且棍子会随着按屏幕的时间增长而增长</li>
+<li>松手后棍子会顺时针旋转45度，并计算是否与终点相交</li>
+<li>在起点添加一个玩家，并可以实现双脚交替走路的动画</li>
+<li>当棍子旋转完毕后，让玩家走至棍子末端。如果相交，则进入下一关，也就是上面所说的第二步，同时让玩家也随着一起移动，并把棍子移除。如果不相交，则棍子旋转至垂直方向，同时玩家坠落悬崖~</li>
+<li>坠落后，进入开始界面，添加一个按钮，用户点击后能够再进入游戏界面，重新开始游戏</li>
+<li>计算得分，添加一个 Label 用于显示分数</li>
+<li>添加一个红心，如果命中红心可以获得额外的分数，计算棍子与红心是否相交</li>
+<li>……and so on</li>
+</ol>
+<p>不难看出，整个游戏最复杂的部分在于第六步。但由于我们在此之前已经实现并且测试过了第二步，所以第六步的难度大幅下降。</p>
+<p>其实从第一步开始，一点点的实现，即使不参照任何其他 demo，我们也能轻松的实现整个游戏。相反，如果一开始就把“起点”、“终点”、“棍子”、“玩家”、“红心”等元素全加上，反而会导致一片混乱。</p>
+<h2 id="一些实现细节"><a href="#一些实现细节" class="headerlink" title="一些实现细节"></a>一些实现细节</h2><h3 id="棍子的伸长"><a href="#棍子的伸长" class="headerlink" title="棍子的伸长"></a>棍子的伸长</h3><p>也就是上面所说的第三步。由于我刚开始学习 SpriteKit，所以思维还没有转变过来，一开始的想法还是使用一个 NSTimer 去处理。（demo 暂且先不考虑 timer 不会释放的问题）</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">- (void)touchesBegan:(NSSet&lt;UITouch *&gt; *)touches withEvent:(UIEvent *)event &#123;</span><br><span class="line">    self.stickTimer = [NSTimer scheduledTimerWithTimeInterval:0.05 target:self selector:@selector(growStick) userInfo:nil repeats:YES];</span><br><span class="line">    [[NSRunLoop mainRunLoop] addTimer:self.stickTimer forMode:NSRunLoopCommonModes];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (void)touchesEnded:(NSSet&lt;UITouch *&gt; *)touches withEvent:(UIEvent *)event &#123;</span><br><span class="line">    [self.stickTimer invalidate];</span><br><span class="line">    self.stickTimer = nil;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (void)growStick &#123;</span><br><span class="line">    self.stickNode.size = CGSizeMake(self.stickNode.size.width, self.stickNode.size.height + kStickGrowSpeed);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>后来发现可以使用 <code>repeatActionForever:</code> 与 <code>runAction:withKey:</code> 方法实现，好处不仅是可以少声明一个属性（stickTimer）和一个方法（growStick），更重要的是现在它真正的融入 SpriteKit 的世界了，它的运行与结束都会由 SKNode 来替我们处理，我们不再需要关心它是否没有释放或者是不准之类的了。</p>
+<p>在添加时指定一个 key，当想移除时，只需要移除指定 key 的 Action 即可。代码如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">- (void)touchesBegan:(NSSet&lt;UITouch *&gt; *)touches withEvent:(UIEvent *)event &#123;</span><br><span class="line">    SKAction *growAction = [SKAction repeatActionForever:[SKAction resizeByWidth:0 height:kStickGrowSpeed duration:0.1]];</span><br><span class="line">    [self.stickNode runAction:growAction withKey:kStickGrowActionName];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (void)touchesEnded:(NSSet&lt;UITouch *&gt; *)touches withEvent:(UIEvent *)event &#123;</span><br><span class="line">    [self.stickNode removeActionForKey:kStickGrowActionName];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="玩家的生成与双脚交替行走"><a href="#玩家的生成与双脚交替行走" class="headerlink" title="玩家的生成与双脚交替行走"></a>玩家的生成与双脚交替行走</h3><p>也就是上面所说的第五步。其实就是将一组图片放入以<code>.atlas</code>结尾的文件夹中，然后使用苹果爸爸为我们封装好的 <a href="https://developer.apple.com/documentation/spritekit/sktextureatlas?language=objc" target="_blank" rel="noopener">SKTextureAtlas</a>。</p>
+<p><img src="/2019/04/02/SpriteKit 开发游戏实战——《OverTheMountains》/./assets/Atlas.png" alt="Atlas"></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">- (PlayerNode *)playerNode &#123;</span><br><span class="line">    if (!_playerNode) &#123;</span><br><span class="line">        _playerNode = [[PlayerNode alloc] initWithTexture:self.playerWalkingFrames[0]];</span><br><span class="line">    &#125;</span><br><span class="line">    return _playerNode;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (NSMutableArray *)playerWalkingFrames &#123;</span><br><span class="line">    if (!_playerWalkingFrames) &#123;</span><br><span class="line">        _playerWalkingFrames = [NSMutableArray array];</span><br><span class="line">        SKTextureAtlas *playerAnimatedAtlas = [SKTextureAtlas atlasNamed:kPlayerTextureAtlasKey];</span><br><span class="line">        for (int i = 1; i &lt;= playerAnimatedAtlas.textureNames.count; i++) &#123;</span><br><span class="line">            SKTexture *texture = [playerAnimatedAtlas textureNamed:[NSString stringWithFormat:@&quot;player%d&quot;, i]];</span><br><span class="line">            [_playerWalkingFrames addObject:texture];</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    return _playerWalkingFrames;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="棍子、起点、终点、玩家的组动画"><a href="#棍子、起点、终点、玩家的组动画" class="headerlink" title="棍子、起点、终点、玩家的组动画"></a>棍子、起点、终点、玩家的组动画</h3><p>也就是上面所说的第六步。这里涉及到很多并发执行的动画。</p>
+<p>上面说实现思路与步骤的时候只是一个大概，没有完整地说。事实上这里面有一个问题，就是当我们按住屏幕伸长棍子，然后各种元素执行动画时，此时用户如果再点击屏幕，就不能再产生另一根棍子并执行一堆动画了。因此我们加了一个标志位，在 <code>touchesBegan</code> 和 <code>touchesEnd</code> 中进行判断，相当于加了一个锁吧。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">#pragma mark - Touch Event</span><br><span class="line"></span><br><span class="line">- (void)touchesBegan:(NSSet&lt;UITouch *&gt; *)touches withEvent:(UIEvent *)event &#123;</span><br><span class="line">    if (self.isPlaying) &#123;</span><br><span class="line">        return;</span><br><span class="line">    &#125;</span><br><span class="line">    // do something...</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (void)touchesEnded:(NSSet&lt;UITouch *&gt; *)touches withEvent:(UIEvent *)event &#123;</span><br><span class="line">    if (self.isPlaying) &#123;</span><br><span class="line">        return;</span><br><span class="line">    &#125;</span><br><span class="line">    self.isPlaying = YES;</span><br><span class="line">    // do something...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>然后在所有的棍子、起点、终点、玩家等一系列元素全部执行完动画后，我们再重置 <code>isPlaying</code> 标志位。SKNode 执行 Action 动画是异步的，我们如何准确得知所有动画执行完的时机？由于我初学 SpriteKit，尚不知是否有简便方法，因此还是使用了平时 iOS 开发中所用到的 <code>dispatch_group_t</code> 来实现。当 group 里的操作全部执行完毕后，通过 <code>dispatch_group_notify</code> 来获知并重置标记位。代码如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br></pre></td><td class="code"><pre><span class="line">- (void)overTheMountains:(BOOL)success &#123;</span><br><span class="line">    self.currentLevel++;</span><br><span class="line">    </span><br><span class="line">    // 玩家执行双脚交替行走的动画并前进</span><br><span class="line">    [self.playerNode runAction:[SKAction repeatActionForever:[SKAction animateWithTextures:self.playerWalkingFrames timePerFrame:0.3f resize:NO restore:YES]] withKey:kPlayerWalkingActionKey];</span><br><span class="line">    SKAction *forwardPlayerAction = [SKAction moveToX:endPointX duration:kPlayerMoveActionDuration];</span><br><span class="line">    [self.playerNode runAction:forwardPlayerAction completion:^&#123;</span><br><span class="line">        [self.playerNode removeActionForKey:kPlayerWalkingActionKey];</span><br><span class="line">        </span><br><span class="line">        dispatch_group_t group = dispatch_group_create();</span><br><span class="line">        </span><br><span class="line">        // 移除起点</span><br><span class="line">        dispatch_group_enter(group);</span><br><span class="line">        SKAction *removeStartPillarAction = [SKAction moveToX:-CGRectGetWidth(self.startPillarNode.frame) duration:0.1];</span><br><span class="line">        [self.startPillarNode runAction:removeStartPillarAction completion:^&#123;</span><br><span class="line">            [self.startPillarNode removeFromParent];</span><br><span class="line">            dispatch_group_leave(group);</span><br><span class="line">        &#125;];</span><br><span class="line">        </span><br><span class="line">        // 把终点移至起点的位置</span><br><span class="line">        dispatch_group_enter(group);</span><br><span class="line">        [self.endPillarNode runAction:[SKAction moveToX:0 duration:kPillarMoveActionDuration] completion:^&#123;</span><br><span class="line">            self.startPillarNode = self.endPillarNode;</span><br><span class="line">            self.endPillarNode = [self generateEndPillarNodeWithLevel:self.currentLevel];</span><br><span class="line">            dispatch_group_leave(group);</span><br><span class="line">        &#125;];</span><br><span class="line">        </span><br><span class="line">        // 把玩家移至起点的位置</span><br><span class="line">        dispatch_group_enter(group);</span><br><span class="line">        [self.playerNode runAction:[SKAction moveToX:CGRectGetWidth(self.endPillarNode.frame) - CGRectGetWidth(self.playerNode.frame) - kStickWidth duration:kPillarMoveActionDuration] completion:^&#123;</span><br><span class="line">            dispatch_group_leave(group);</span><br><span class="line">        &#125;];</span><br><span class="line">        </span><br><span class="line">        // 移除棍子</span><br><span class="line">        dispatch_group_enter(group);</span><br><span class="line">        SKAction *removeStickAction = [SKAction moveToX:-CGRectGetWidth(self.stickNode.frame) duration:0.3];</span><br><span class="line">        [self.stickNode runAction:removeStickAction completion:^&#123;</span><br><span class="line">            [self.stickNode removeFromParent];</span><br><span class="line">            self.isPlaying = NO;</span><br><span class="line">            dispatch_group_leave(group);</span><br><span class="line">        &#125;];</span><br><span class="line">        </span><br><span class="line">        // 所有动画完成后的通知，在此重置标记位</span><br><span class="line">        dispatch_group_notify(group, dispatch_get_main_queue(), ^&#123;</span><br><span class="line">            NSLog(@&quot;Group finished...&quot;);</span><br><span class="line">            self.isPlaying = NO;</span><br><span class="line">        &#125;);</span><br><span class="line">    &#125;];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="游戏场景的切换"><a href="#游戏场景的切换" class="headerlink" title="游戏场景的切换"></a>游戏场景的切换</h3><p>也就是上面所说的第七步。其实很简单，使用现成的 <code>presentScene:transition:</code> 方法，只需要选择我们自己喜欢的 Transaction 就好了~</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">// 游戏界面，闯关失败后进入开始界面</span><br><span class="line">SKTransition *transition = [SKTransition revealWithDirection:SKTransitionDirectionDown duration:0.5];</span><br><span class="line">[self.view presentScene:[BeginScene sceneWithSize:self.frame.size]; transition:transition];</span><br><span class="line"></span><br><span class="line">// 开始界面，点击开始之后进入游戏界面</span><br><span class="line">SKTransition *transition = [SKTransition doorsOpenHorizontalWithDuration:0.5];</span><br><span class="line">[self.scene.view presentScene:[GameScene sceneWithSize:self.scene.view.frame.size] transition:transition];</span><br></pre></td></tr></table></figure>
+<h2 id="一些未来的规划"><a href="#一些未来的规划" class="headerlink" title="一些未来的规划"></a>一些未来的规划</h2><p>上文所提及的都是一些非常基础的功能，实现并不复杂，但可玩性其实不高，无法持续吸引用户。</p>
+<p>其实真正上手实践了之后，就会发现其实很多比较火的小游戏，难点不在于技术实现，而在于一个好的创意/想法/策划。</p>
+<p>如果在 AppStore 上搜索“Stick Hero”，会发现已经有一大堆类似的应用，功能都差不多。这也是我为什么没有上架这款游戏的原因。想要脱颖而出，就得做出一些不同的点来。</p>
+<ul>
+<li>既然游戏名叫《Over The Mountains》（翻山越岭），那山在哪呢喂！😂😂 所以未来有打算把现在的矩形“柱子”（PillarNode）换成“⛰”，山可能会有不同的形状、高度。</li>
+<li>考虑加上一些符合故事背景的音乐，🌰：《越过山丘》之类的（不过应该还是轻音乐一点比较好。。。）</li>
+<li>考虑加上四季与背景图、山的变化，例如场景会自动切换到冬天，然后⛰会变成雪山等。</li>
+<li>考虑加上金币功能，命中红心、每日登陆、分享、看广告视频等都会获得金币，金币可以用于购买不同的人物形象/场景等。</li>
+<li>翻过一定数量的山后（比如100座），男主角与女主角终于团聚（泪奔~~┭┮﹏┭┮）</li>
+<li>……（其实能做的蛮多的）</li>
+</ul>
+<p>等我有时间的时候，会继续完善这个游戏，并最终上线 AppStore（但愿我有空。。。😂）</p>
+<p>The End.</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://iCodeWoods.github.io/2019/04/02/SpriteKit 开发游戏实战——《OverTheMountains》/" data-id="cjtzmyqfe001wby994vc1yddt" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Game/">Game</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/SpriteKit/">SpriteKit</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2019/03/12/《1984》读书笔记/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">《1984》读书笔记</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">分类</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/iOS/">iOS</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/杂/">杂</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/脚本/">脚本</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/读书笔记/">读书笔记</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">标签</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Bash/">Bash</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Books/">Books</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Game/">Game</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/JSPatch/">JSPatch</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/New-Features/">New Features</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/React-Native/">React Native</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/SpriteKit/">SpriteKit</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Swift/">Swift</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/unowned/">unowned</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/动态化/">动态化</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/杂/">杂</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/签名/">签名</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/脚本/">脚本</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/译文/">译文</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/隐式解析可选类型/">隐式解析可选类型</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">标签云</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/Bash/" style="font-size: 16.67px;">Bash</a> <a href="/tags/Books/" style="font-size: 20px;">Books</a> <a href="/tags/Game/" style="font-size: 10px;">Game</a> <a href="/tags/JSPatch/" style="font-size: 10px;">JSPatch</a> <a href="/tags/New-Features/" style="font-size: 10px;">New Features</a> <a href="/tags/React-Native/" style="font-size: 10px;">React Native</a> <a href="/tags/SpriteKit/" style="font-size: 10px;">SpriteKit</a> <a href="/tags/Swift/" style="font-size: 13.33px;">Swift</a> <a href="/tags/unowned/" style="font-size: 10px;">unowned</a> <a href="/tags/动态化/" style="font-size: 10px;">动态化</a> <a href="/tags/杂/" style="font-size: 13.33px;">杂</a> <a href="/tags/签名/" style="font-size: 10px;">签名</a> <a href="/tags/脚本/" style="font-size: 16.67px;">脚本</a> <a href="/tags/译文/" style="font-size: 10px;">译文</a> <a href="/tags/隐式解析可选类型/" style="font-size: 10px;">隐式解析可选类型</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">归档</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/04/">四月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">三月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/01/">一月 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">十二月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/11/">十一月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/10/">十月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/05/">五月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/03/">三月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/01/">一月 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/11/">十一月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/09/">九月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/08/">八月 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/07/">七月 2017</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">最新文章</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2019/04/02/SpriteKit 开发游戏实战——《OverTheMountains》/">SpriteKit 开发游戏实战——《OverTheMountains》</a>
+          </li>
+        
+          <li>
+            <a href="/2019/03/12/《1984》读书笔记/">《1984》读书笔记</a>
+          </li>
+        
+          <li>
+            <a href="/2019/01/03/2018年总结/">2018年总结</a>
+          </li>
+        
+          <li>
+            <a href="/2018/12/10/《Refactoring》读书笔记（四）重新组织数据/">《Refactoring》读书笔记（四）重新组织数据</a>
+          </li>
+        
+          <li>
+            <a href="/2018/12/04/《Refactoring》读书笔记（三）在对象之间搬移特性/">《Refactoring》读书笔记（三）在对象之间搬移特性</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2019 iCodeWoods<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+    <a href="/about" class="mobile-nav-link">About</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+  </div>
+</body>
+</html>
