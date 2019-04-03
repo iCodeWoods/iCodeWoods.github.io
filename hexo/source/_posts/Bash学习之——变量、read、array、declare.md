@@ -7,8 +7,6 @@ tags:
  - 脚本
  - Bash
 ---
-<!-- more -->
-
 ## 变量的配置守则
 
 - 双引号内的特殊字符如 $ 等，可以保有原本的特性，如： “var="lang is $LANG"”则“echo $var”可得“lang is zh_TW.UTF-8”
@@ -18,6 +16,8 @@ tags:
 - 若该变量需要在其他子程序执行，则需要以 export 来使变量变成环境变量： “export PATH”
 - 通常大写字符为系统默认变量，自行设置变量可以使用小写字符，方便判断 （纯粹依照使用者兴趣与嗜好）
 - 取消变量的方法为使用 unset：“unset 变量名称”。例如取消 myname 的设置：“unset myname”
+
+<!-- more -->
 
 ## 环境变量
 
