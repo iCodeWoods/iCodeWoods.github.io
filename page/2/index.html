@@ -107,7 +107,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://iCodeWoods.github.io/2018/03/08/Bash学习之——数据流重导向/" data-id="cjtzp8dc700058v99tzg5net8" class="article-share-link">Share</a>
+      <a data-url="https://iCodeWoods.github.io/2018/03/08/Bash学习之——数据流重导向/" data-id="cju0n2a950005y599qvdp6bbh" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Bash/">Bash</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/脚本/">脚本</a></li></ul>
@@ -158,7 +158,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://iCodeWoods.github.io/2018/01/31/Bash学习之——变量内容的删除、取代与替换/" data-id="cjtzp8dc200028v998kifil77" class="article-share-link">Share</a>
+      <a data-url="https://iCodeWoods.github.io/2018/01/31/Bash学习之——变量内容的删除、取代与替换/" data-id="cju0n2a900002y599c5h58tx5" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Bash/">Bash</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/脚本/">脚本</a></li></ul>
@@ -196,8 +196,7 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <a id="more"></a>
-<h2 id="变量的配置守则"><a href="#变量的配置守则" class="headerlink" title="变量的配置守则"></a>变量的配置守则</h2><ul>
+        <h2 id="变量的配置守则"><a href="#变量的配置守则" class="headerlink" title="变量的配置守则"></a>变量的配置守则</h2><ul>
 <li>双引号内的特殊字符如 $ 等，可以保有原本的特性，如： “var=”lang is $LANG””则“echo $var”可得“lang is zh_TW.UTF-8”</li>
 <li>单引号内的特殊字符则仅为一般字符 （纯文本），如： “var=’lang is $LANG’”则“echo $var”可得“lang is $LANG”</li>
 <li>在一串指令的执行中，还需要借由其他额外的指令所提供的信息时，可以使用反单引号 <code>指令</code> 或 “$（指令）”</li>
@@ -206,26 +205,15 @@
 <li>通常大写字符为系统默认变量，自行设置变量可以使用小写字符，方便判断 （纯粹依照使用者兴趣与嗜好）</li>
 <li>取消变量的方法为使用 unset：“unset 变量名称”。例如取消 myname 的设置：“unset myname”</li>
 </ul>
-<h2 id="环境变量"><a href="#环境变量" class="headerlink" title="环境变量"></a>环境变量</h2><ul>
-<li>$：目前这个 Shell 的线程代号，亦即是所谓的 PID</li>
-<li>?：上一个执行的指令所回传的值</li>
-<li>RANDOM：产生随机数。目前大多数的 distributions 都会有随机数生成器，那就是 /dev/random 这个文件。 我们可以通过这个随机数文件相关的变量 ($RANDOM) 来随机取得随机数值。在 BASH 的环境下，这个 RANDOM 变量的内容，介于 0~32767 之间，所以，你只要 echo $RANDOM 时，系统就会主动的随机取出一个介于 0~32767 的数值。如果想要使用 0~9 之间的数值呢？利用 declare 宣告数值类型，然后这样做就可以了：<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">bash-3.2$ <span class="built_in">declare</span> -i number=<span class="variable">$RANDOM</span>%10; <span class="built_in">echo</span> <span class="variable">$number</span></span><br><span class="line">8   &lt;== 此时会随机取出 0~9 之间的数值喔！</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<h2 id="变量键盘读取、数组与宣告：-read-array-declare"><a href="#变量键盘读取、数组与宣告：-read-array-declare" class="headerlink" title="变量键盘读取、数组与宣告： read, array, declare"></a>变量键盘读取、数组与宣告： read, array, declare</h2><h3 id="read"><a href="#read" class="headerlink" title="read"></a>read</h3><p>读取来自键盘输入的变量。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">[root@www ~]<span class="comment"># read [-pt] variable</span></span><br><span class="line">选项与参数：</span><br><span class="line">-p ：后面可以接提示字符</span><br><span class="line">-t ：后面可以接等待的秒数</span><br><span class="line"></span><br><span class="line">例：提示使用者 30 秒内输入自己的大名，将该输入字符串作为名为 named 的变量内容</span><br><span class="line">[root@www ~]<span class="comment"># read -p "Please keyin your name: " -t 30 named</span></span><br><span class="line">Please keyin your name: VBird Tsai   &lt;==注意看，会有提示字符喔！</span><br><span class="line">[root@www ~]<span class="comment"># echo $named</span></span><br><span class="line">VBird Tsai        &lt;==输入的数据又变成一个变量的内容了！</span><br></pre></td></tr></table></figure></p>
-<h3 id="declare-typeset"><a href="#declare-typeset" class="headerlink" title="declare / typeset"></a>declare / typeset</h3><p>declare 或 typeset 是一样的功能，就是在“宣告变量的类型”。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">[root@www ~]<span class="comment"># declare [-aixr] variable</span></span><br><span class="line">选项与参数：</span><br><span class="line">-a ：将后面名为 variable 的变量定义成为数组 (array) 类型</span><br><span class="line">-i ：将后面名为 variable 的变量定义成为整数数字 (<span class="built_in">integer</span>) 类型</span><br><span class="line">-x ：用法与 <span class="built_in">export</span> 一样，就是将后面的 variable 变成环境变量；</span><br><span class="line">-r ：将变量配置成为 <span class="built_in">readonly</span> 类型，该变量不可被更改内容，也不能 <span class="built_in">unset</span></span><br><span class="line"></span><br><span class="line">范例一：让变量 sum 进行 100+300+50 的加总结果</span><br><span class="line">[root@www ~]<span class="comment"># sum=100+300+50</span></span><br><span class="line">[root@www ~]<span class="comment"># echo $sum</span></span><br><span class="line">100+300+50  &lt;==咦！怎么没有计算加和？因为这是文字型态的变量属性啊！</span><br><span class="line">[root@www ~]<span class="comment"># declare -i sum=100+300+50</span></span><br><span class="line">[root@www ~]<span class="comment"># echo $sum</span></span><br><span class="line">450</span><br></pre></td></tr></table></figure></p>
-<p>默认的情况下， bash 对于变量有几个基本的定义：</p>
-<ul>
-<li>变量类型默认为“字串”，所以若不指定变量类型，则 1+2 为一个“字串”而不是“计算式”。</li>
-<li>bash 环境中的数值运算，默认最多仅能到达整数形态，所以 1/3 结果是 0；</li>
-</ul>
-<h3 id="array"><a href="#array" class="headerlink" title="array"></a>array</h3><p>在 bash 里数组的配置方式是：var[index]=content<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">范例：配置上面提到的 var[1] ～ var[3] 的变量。</span><br><span class="line">[root@www ~]<span class="comment"># var[1]="small min"</span></span><br><span class="line">[root@www ~]<span class="comment"># var[2]="big min"</span></span><br><span class="line">[root@www ~]<span class="comment"># var[3]="nice min"</span></span><br><span class="line">[root@www ~]<span class="comment"># echo "$&#123;var[1]&#125;, $&#123;var[2]&#125;, $&#123;var[3]&#125;"</span></span><br><span class="line">small min, big min, nice min</span><br></pre></td></tr></table></figure></p>
-<p><em>参考文章：<a href="http://cn.linux.vbird.org/linux_basic/0320bash.php#variable" target="_blank" rel="noopener">鸟哥的私房菜</a></em></p>
-
+        
+          <p class="article-more-link">
+            <a href="/2018/01/26/Bash学习之——变量、read、array、declare/#more">Read More</a>
+          </p>
+        
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://iCodeWoods.github.io/2018/01/26/Bash学习之——变量、read、array、declare/" data-id="cjtzp8dbv00008v99pipdizbx" class="article-share-link">Share</a>
+      <a data-url="https://iCodeWoods.github.io/2018/01/26/Bash学习之——变量、read、array、declare/" data-id="cju0n2a8u0000y599vrumvtu6" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Bash/">Bash</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/脚本/">脚本</a></li></ul>
@@ -274,7 +262,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://iCodeWoods.github.io/2018/01/23/【译】The Best New Features in Swift 4/" data-id="cjtzp8ddp00238v99ckh1gzag" class="article-share-link">Share</a>
+      <a data-url="https://iCodeWoods.github.io/2018/01/23/【译】The Best New Features in Swift 4/" data-id="cju0n2aah0023y599hivz8zb0" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/New-Features/">New Features</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Swift/">Swift</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/译文/">译文</a></li></ul>
@@ -322,7 +310,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://iCodeWoods.github.io/2017/11/11/《长安十二时辰》读书笔记/" data-id="cjtzp8dcs000n8v99nwh44976" class="article-share-link">Share</a>
+      <a data-url="https://iCodeWoods.github.io/2017/11/11/《长安十二时辰》读书笔记/" data-id="cju0n2a9k000ny599gthdaf8o" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Books/">Books</a></li></ul>
@@ -371,7 +359,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://iCodeWoods.github.io/2017/09/22/iOS签名原理/" data-id="cjtzp8de3002v8v99r071auiw" class="article-share-link">Share</a>
+      <a data-url="https://iCodeWoods.github.io/2017/09/22/iOS签名原理/" data-id="cju0n2aaz002vy5995l58wjst" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/签名/">签名</a></li></ul>
@@ -409,66 +397,22 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <a id="more"></a>
-<h2 id="类实例之间的循环强引用"><a href="#类实例之间的循环强引用" class="headerlink" title="类实例之间的循环强引用"></a>类实例之间的循环强引用</h2><p>我们先来举个简单循环强引用的栗子，定义两个类Person和Apartment，分别代表公寓和它的居民。Person类有一个可选属性apartment，表示一个人可能拥有公寓。Apartment类有一个可选属性tenant，表示一栋公寓可能拥有居民。</p>
+        <h2 id="类实例之间的循环强引用"><a href="#类实例之间的循环强引用" class="headerlink" title="类实例之间的循环强引用"></a>类实例之间的循环强引用</h2><p>我们先来举个简单循环强引用的栗子，定义两个类Person和Apartment，分别代表公寓和它的居民。Person类有一个可选属性apartment，表示一个人可能拥有公寓。Apartment类有一个可选属性tenant，表示一栋公寓可能拥有居民。</p>
 <p>接下来这段代码就会产生循环强引用了：<br><figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> john = <span class="type">Person</span>(name: <span class="string">"John Appleseed"</span>)</span><br><span class="line"><span class="keyword">let</span> unit4A = <span class="type">Apartment</span>(unit: <span class="string">"4A"</span>)</span><br><span class="line"></span><br><span class="line">john!.apartment = unit4A</span><br><span class="line">unit4A!.tenant = john</span><br></pre></td></tr></table></figure></p>
 <p>Swift 提供了两种办法用来解决你在使用类的属性时所遇到的循环强引用问题：</p>
 <ul>
 <li><strong>弱引用 weak reference</strong></li>
 <li><strong>无主引用 unowned reference</strong></li>
 </ul>
-<h2 id="弱引用"><a href="#弱引用" class="headerlink" title="弱引用"></a>弱引用</h2><p>上例的解决办法就是将apartment或tenant属性声明为弱引用即可，如果有对此例不理解的同学，可以参考<a href="https://github.com/numbbbbb/the-swift-programming-language-in-chinese/blob/gh-pages/source/chapter2/16_Automatic_Reference_Counting.md#strong_reference_cycles_between_class_instances" target="_blank" rel="noopener">官方文档</a>，有配图，讲解得很详细。</p>
-<p>关于弱引用大家多少都有所了解，本文重点也不在此，故不再赘述，只提一点官方文档中的注意事项：</p>
-<blockquote>
-<p>注意</p>
-</blockquote>
-<p>当 ARC 设置弱引用为nil时，属性观察不会被触发。</p>
-<h2 id="无主引用"><a href="#无主引用" class="headerlink" title="无主引用"></a>无主引用</h2><p>可以在声明属性或者变量时，在前面加上关键字unowned表示这是一个无主引用。</p>
-<p>和弱引用类似，无主引用不会牢牢保持住引用的实例。和弱引用不同的是，无主引用在其他实例有相同或者更长的生命周期时使用。</p>
-<p>无主引用通常都被期望拥有值。不过 <strong>ARC 无法在实例被销毁后将无主引用设为nil</strong>，因为非可选类型的变量不允许被赋值为nil。</p>
-<blockquote>
-<p>重要</p>
-</blockquote>
-<p>使用无主引用，你必须确保引用始终指向一个未销毁的实例。<br>如果你试图在实例被销毁后，访问该实例的无主引用，会触发运行时错误。</p>
-<p>下面的例子定义了两个类，Customer和CreditCard，模拟了银行客户和客户的信用卡。这两个类中，每一个都将另外一个类的实例作为自身的属性。这种关系可能会造成循环强引用。<br><figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Customer</span> </span>&#123;</span><br><span class="line">    <span class="keyword">let</span> name: <span class="type">String</span></span><br><span class="line">    <span class="keyword">var</span> card: <span class="type">CreditCard?</span></span><br><span class="line">    <span class="keyword">init</span>(name: <span class="type">String</span>) &#123;</span><br><span class="line">        <span class="keyword">self</span>.name = name</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">deinit</span> &#123; <span class="built_in">print</span>(<span class="string">"\(name) is being deinitialized"</span>) &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">CreditCard</span> </span>&#123;</span><br><span class="line">    <span class="keyword">let</span> number: <span class="type">UInt64</span></span><br><span class="line">    <span class="keyword">unowned</span> <span class="keyword">let</span> customer: <span class="type">Customer</span></span><br><span class="line">    <span class="keyword">init</span>(number: <span class="type">UInt64</span>, customer: <span class="type">Customer</span>) &#123;</span><br><span class="line">        <span class="keyword">self</span>.number = number</span><br><span class="line">        <span class="keyword">self</span>.customer = customer</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">deinit</span> &#123; <span class="built_in">print</span>(<span class="string">"Card #\(number) is being deinitialized"</span>) &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>在这个数据模型中，一个客户可能有或者没有信用卡，但是一张信用卡总是关联着一个客户。为了表示这种关系，Customer类有一个可选类型的card属性，但是CreditCard类有一个非可选类型的customer属性。<br>此外，只能通过将一个number值和customer实例传递给CreditCard构造函数的方式来创建CreditCard实例。这样可以确保当创建CreditCard实例时总是有一个customer实例与之关联。</p>
-<p>下面的代码片段定义了一个叫john的可选类型Customer变量，用来保存某个特定客户的引用：<br><figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> john: <span class="type">Customer?</span></span><br></pre></td></tr></table></figure></p>
-<p>然后我们就可以创建Customer类的实例，用它初始化CreditCard实例，并将新创建的CreditCard实例赋值为客户的card属性：<br><figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">john = <span class="type">Customer</span>(name: <span class="string">"John Appleseed"</span>)</span><br><span class="line">john!.card = <span class="type">CreditCard</span>(number: <span class="number">1234_5678_9012_3456</span>, customer: john!)</span><br></pre></td></tr></table></figure></p>
-<p>在你关联两个实例后，它们的引用关系如下图所示：<br><img src="/2017/08/30/【Swift】无主引用unowned、隐式解析可选类型/unowned0.png" alt></p>
-<p>Customer实例持有对CreditCard实例的强引用，而CreditCard实例持有对Customer实例的无主引用。<br>由于customer的无主引用，当你断开john变量持有的强引用时，再也没有指向Customer实例的强引用了：<br><img src="/2017/08/30/【Swift】无主引用unowned、隐式解析可选类型/unowned1.png" alt></p>
-<p>由于再也没有指向Customer实例的强引用，该实例被销毁了。其后，再也没有指向CreditCard实例的强引用，该实例也随之被销毁了：<br><figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">john = <span class="literal">nil</span></span><br><span class="line"><span class="comment">// 打印 "John Appleseed is being deinitialized"</span></span><br><span class="line"><span class="comment">// 打印 "Card #1234567890123456 is being deinitialized"</span></span><br></pre></td></tr></table></figure></p>
-<p>最后的代码展示了在john变量被设为nil后Customer实例和CreditCard实例的构造函数都打印出了“销毁”的信息。</p>
-<blockquote>
-<p>注意</p>
-</blockquote>
-<p>上面的例子展示了如何使用安全的无主引用。对于需要禁用运行时的安全检查的情况（例如，出于性能方面的原因），Swift还提供了不安全的无主引用。与所有不安全的操作一样，你需要负责检查代码以确保其安全性。 你可以通过unowned(unsafe)来声明不安全无主引用。如果你试图在实例被销毁后，访问该实例的不安全无主引用，你的程序会尝试访问该实例之前所在的内存地址，这是一个不安全的操作。</p>
-<h2 id="无主引用以及隐式解析可选属性"><a href="#无主引用以及隐式解析可选属性" class="headerlink" title="无主引用以及隐式解析可选属性"></a>无主引用以及隐式解析可选属性</h2><ul>
-<li>Person和Apartment的例子展示了<strong>两个属性的值都允许为nil</strong>，并会潜在的产生循环强引用。这种场景最适合用弱引用来解决。</li>
-<li>Customer和CreditCard的例子展示了<strong>一个属性的值允许为nil，而另一个属性的值不允许为nil</strong>，这也可能会产生循环强引用。这种场景最适合通过无主引用来解决。</li>
-<li>然而，存在着第三种场景，在这种场景中，<strong>两个属性都必须有值，并且初始化完成后永远不会为nil</strong>。在这种场景中，需要<strong>一个类使用无主属性，而另外一个类使用隐式解析可选属性</strong>。</li>
-</ul>
-<p>下面的例子定义了两个类，Country和City，每个类将另外一个类的实例保存为属性。每个国家必须有首都，每个城市必须属于一个国家。所以Country类拥有一个capitalCity属性，而City类有一个country属性：<br><figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Country</span> </span>&#123;</span><br><span class="line">    <span class="keyword">let</span> name: <span class="type">String</span></span><br><span class="line">    <span class="keyword">var</span> capitalCity: <span class="type">City!</span></span><br><span class="line">    <span class="keyword">init</span>(name: <span class="type">String</span>, capitalName: <span class="type">String</span>) &#123;</span><br><span class="line">        <span class="keyword">self</span>.name = name</span><br><span class="line">        <span class="keyword">self</span>.capitalCity = <span class="type">City</span>(name: capitalName, country: <span class="keyword">self</span>)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">City</span> </span>&#123;</span><br><span class="line">    <span class="keyword">let</span> name: <span class="type">String</span></span><br><span class="line">    <span class="keyword">unowned</span> <span class="keyword">let</span> country: <span class="type">Country</span></span><br><span class="line">    <span class="keyword">init</span>(name: <span class="type">String</span>, country: <span class="type">Country</span>) &#123;</span><br><span class="line">        <span class="keyword">self</span>.name = name</span><br><span class="line">        <span class="keyword">self</span>.country = country</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>为了建立两个类的依赖关系，City的构造函数接受一个Country实例作为参数，并且将实例保存到country属性。</p>
-<p>Country的构造函数调用了City的构造函数。然而，只有Country的实例完全初始化后，Country的构造函数才能把self传给City的构造函数。在<a href="https://github.com/numbbbbb/the-swift-programming-language-in-chinese/blob/gh-pages/source/chapter2/14_Initialization.html#two_phase_initialization" target="_blank" rel="noopener">两段式构造过程</a>中有具体描述。</p>
-<p>为了满足这种需求，通过在类型结尾处加上感叹号（City!）的方式，将Country的capitalCity属性声明为隐式解析可选类型的属性。这意味着像其他可选类型一样，capitalCity属性的默认值为nil，但是不需要展开它的值就能访问它。在<a href="https://github.com/numbbbbb/the-swift-programming-language-in-chinese/blob/gh-pages/source/chapter2/01_The_Basics.html#implicityly_unwrapped_optionals" target="_blank" rel="noopener">隐式解析可选类型</a>中有描述。</p>
-<p>由于capitalCity默认值为nil，一旦Country的实例在构造函数中给name属性赋值后，整个初始化过程就完成了。这意味着一旦name属性被赋值后，Country的构造函数就能引用并传递隐式的self。Country的构造函数在赋值capitalCity时，就能将self作为参数传递给City的构造函数。</p>
-<p>以上的意义在于你可以通过一条语句同时创建Country和City的实例，而不产生循环强引用，并且capitalCity的属性能被直接访问，而不需要通过感叹号来展开它的可选值：<br><figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> country = <span class="type">Country</span>(name: <span class="string">"Canada"</span>, capitalName: <span class="string">"Ottawa"</span>)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">"\(country.name)'s capital city is called \(country.capitalCity.name)"</span>)</span><br><span class="line"><span class="comment">// 打印 "Canada's capital city is called Ottawa"</span></span><br></pre></td></tr></table></figure></p>
-<p>在上面的例子中，使用隐式解析可选值意味着满足了类的构造函数的两个构造阶段的要求。capitalCity属性在初始化完成后，能像非可选值一样使用和存取，同时还避免了循环强引用。</p>
-<h2 id="闭包引起的循环强引用"><a href="#闭包引起的循环强引用" class="headerlink" title="闭包引起的循环强引用"></a>闭包引起的循环强引用</h2><p>在定义闭包时同时定义捕获列表作为闭包的一部分，通过这种方式可以解决闭包和类实例之间的循环强引用。捕获列表定义了闭包体内捕获一个或者多个引用类型的规则。</p>
-<h2 id="定义捕获列表"><a href="#定义捕获列表" class="headerlink" title="定义捕获列表"></a>定义捕获列表</h2><p>捕获列表中的每一项都由一对元素组成，一个元素是weak或unowned关键字，另一个元素是类实例的引用（例如self）或初始化过的变量（如delegate = self.delegate!）。这些项在方括号中用逗号分开。</p>
-<p>如果闭包有参数列表和返回类型，把捕获列表放在它们前面：<br><figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">lazy</span> <span class="keyword">var</span> someClosure: (<span class="type">Int</span>, <span class="type">String</span>) -&gt; <span class="type">String</span> = &#123;</span><br><span class="line">    [<span class="keyword">unowned</span> <span class="keyword">self</span>, <span class="keyword">weak</span> delegate = <span class="keyword">self</span>.delegate!] (index: <span class="type">Int</span>, stringToProcess: <span class="type">String</span>) -&gt; <span class="type">String</span> <span class="keyword">in</span></span><br><span class="line">    <span class="comment">// 这里是闭包的函数体</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>如果闭包没有指明参数列表或者返回类型，即它们会通过上下文推断，那么可以把捕获列表和关键字in放在闭包最开始的地方：<br><figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">lazy</span> <span class="keyword">var</span> someClosure: <span class="type">Void</span> -&gt; <span class="type">String</span> = &#123;</span><br><span class="line">    [<span class="keyword">unowned</span> <span class="keyword">self</span>, <span class="keyword">weak</span> delegate = <span class="keyword">self</span>.delegate!] <span class="keyword">in</span></span><br><span class="line">    <span class="comment">// 这里是闭包的函数体</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<h2 id="弱引用和无主引用"><a href="#弱引用和无主引用" class="headerlink" title="弱引用和无主引用"></a>弱引用和无主引用</h2><p>在闭包和捕获的实例总是互相引用并且总是同时销毁时，将闭包内的捕获定义为无主引用。相反的，在被捕获的引用可能会变为nil时，将闭包内的捕获定义为弱引用。弱引用总是可选类型，并且当引用的实例被销毁后，弱引用的值会自动置为nil。这使我们可以在闭包体内检查它们是否存在。</p>
-<blockquote>
-<p>注意</p>
-</blockquote>
-<p>如果被捕获的引用绝对不会变为nil，应该用无主引用，而不是弱引用。</p>
-<h4 id="参考链接："><a href="#参考链接：" class="headerlink" title="参考链接："></a>参考链接：</h4><p><a href="https://github.com/numbbbbb/the-swift-programming-language-in-chinese/blob/gh-pages/source/chapter2/16_Automatic_Reference_Counting.md#arc_in_action" target="_blank" rel="noopener">the-swift-programming-language-in-chinese</a></p>
-
+        
+          <p class="article-more-link">
+            <a href="/2017/08/30/【Swift】无主引用unowned、隐式解析可选类型/#more">Read More</a>
+          </p>
+        
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://iCodeWoods.github.io/2017/08/30/【Swift】无主引用unowned、隐式解析可选类型/" data-id="cjtzp8ddn00218v99zwu33oig" class="article-share-link">Share</a>
+      <a data-url="https://iCodeWoods.github.io/2017/08/30/【Swift】无主引用unowned、隐式解析可选类型/" data-id="cju0n2aag0021y599u2be1hlg" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Swift/">Swift</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/unowned/">unowned</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/隐式解析可选类型/">隐式解析可选类型</a></li></ul>
@@ -517,7 +461,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://iCodeWoods.github.io/2017/07/27/写给自己/" data-id="cjtzp8dct000r8v99wknqr60o" class="article-share-link">Share</a>
+      <a data-url="https://iCodeWoods.github.io/2017/07/27/写给自己/" data-id="cju0n2a9m000ry599o5iz1pb2" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/杂/">杂</a></li></ul>

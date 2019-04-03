@@ -5,20 +5,20 @@
   
   <title>【Swift】无主引用unowned、隐式解析可选类型 | iCodeWoods的小站</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="类实例之间的循环强引用我们先来举个简单循环强引用的栗子，定义两个类Person和Apartment，分别代表公寓和它的居民。Person类有一个可选属性apartment，表示一个人可能拥有公寓。Apartment类有一个可选属性tenant，表示一栋公寓可能拥有居民。 接下来这段代码就会产生循环强引用了：12345let john = Person(name: &quot;John Appleseed&quot;">
+  <meta name="description" content="类实例之间的循环强引用我们先来举个简单循环强引用的栗子，定义两个类Person和Apartment，分别代表公寓和它的居民。Person类有一个可选属性apartment，表示一个人可能拥有公寓。Apartment类有一个可选属性tenant，表示一栋公寓可能拥有居民。 接下来这段代码就会产生循环强引用了：12345let john = Person(name: &quot;John Appleseed&quot;)">
 <meta name="keywords" content="Swift,unowned,隐式解析可选类型">
 <meta property="og:type" content="article">
 <meta property="og:title" content="【Swift】无主引用unowned、隐式解析可选类型">
 <meta property="og:url" content="https://iCodeWoods.github.io/2017/08/30/【Swift】无主引用unowned、隐式解析可选类型/index.html">
 <meta property="og:site_name" content="iCodeWoods的小站">
-<meta property="og:description" content="类实例之间的循环强引用我们先来举个简单循环强引用的栗子，定义两个类Person和Apartment，分别代表公寓和它的居民。Person类有一个可选属性apartment，表示一个人可能拥有公寓。Apartment类有一个可选属性tenant，表示一栋公寓可能拥有居民。 接下来这段代码就会产生循环强引用了：12345let john = Person(name: &quot;John Appleseed&quot;">
+<meta property="og:description" content="类实例之间的循环强引用我们先来举个简单循环强引用的栗子，定义两个类Person和Apartment，分别代表公寓和它的居民。Person类有一个可选属性apartment，表示一个人可能拥有公寓。Apartment类有一个可选属性tenant，表示一栋公寓可能拥有居民。 接下来这段代码就会产生循环强引用了：12345let john = Person(name: &quot;John Appleseed&quot;)">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="https://icodewoods.github.io/2017/08/30/【Swift】无主引用unowned、隐式解析可选类型/unowned0.png">
 <meta property="og:image" content="https://icodewoods.github.io/2017/08/30/【Swift】无主引用unowned、隐式解析可选类型/unowned1.png">
-<meta property="og:updated_time" content="2019-04-02T11:16:31.184Z">
+<meta property="og:updated_time" content="2019-04-03T03:14:40.697Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="【Swift】无主引用unowned、隐式解析可选类型">
-<meta name="twitter:description" content="类实例之间的循环强引用我们先来举个简单循环强引用的栗子，定义两个类Person和Apartment，分别代表公寓和它的居民。Person类有一个可选属性apartment，表示一个人可能拥有公寓。Apartment类有一个可选属性tenant，表示一栋公寓可能拥有居民。 接下来这段代码就会产生循环强引用了：12345let john = Person(name: &quot;John Appleseed&quot;">
+<meta name="twitter:description" content="类实例之间的循环强引用我们先来举个简单循环强引用的栗子，定义两个类Person和Apartment，分别代表公寓和它的居民。Person类有一个可选属性apartment，表示一个人可能拥有公寓。Apartment类有一个可选属性tenant，表示一栋公寓可能拥有居民。 接下来这段代码就会产生循环强引用了：12345let john = Person(name: &quot;John Appleseed&quot;)">
 <meta name="twitter:image" content="https://icodewoods.github.io/2017/08/30/【Swift】无主引用unowned、隐式解析可选类型/unowned0.png">
   
     <link rel="alternate" href="/atom.xml" title="iCodeWoods的小站" type="application/atom+xml">
@@ -100,14 +100,14 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <a id="more"></a>
-<h2 id="类实例之间的循环强引用"><a href="#类实例之间的循环强引用" class="headerlink" title="类实例之间的循环强引用"></a>类实例之间的循环强引用</h2><p>我们先来举个简单循环强引用的栗子，定义两个类Person和Apartment，分别代表公寓和它的居民。Person类有一个可选属性apartment，表示一个人可能拥有公寓。Apartment类有一个可选属性tenant，表示一栋公寓可能拥有居民。</p>
+        <h2 id="类实例之间的循环强引用"><a href="#类实例之间的循环强引用" class="headerlink" title="类实例之间的循环强引用"></a>类实例之间的循环强引用</h2><p>我们先来举个简单循环强引用的栗子，定义两个类Person和Apartment，分别代表公寓和它的居民。Person类有一个可选属性apartment，表示一个人可能拥有公寓。Apartment类有一个可选属性tenant，表示一栋公寓可能拥有居民。</p>
 <p>接下来这段代码就会产生循环强引用了：<br><figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> john = <span class="type">Person</span>(name: <span class="string">"John Appleseed"</span>)</span><br><span class="line"><span class="keyword">let</span> unit4A = <span class="type">Apartment</span>(unit: <span class="string">"4A"</span>)</span><br><span class="line"></span><br><span class="line">john!.apartment = unit4A</span><br><span class="line">unit4A!.tenant = john</span><br></pre></td></tr></table></figure></p>
 <p>Swift 提供了两种办法用来解决你在使用类的属性时所遇到的循环强引用问题：</p>
 <ul>
 <li><strong>弱引用 weak reference</strong></li>
 <li><strong>无主引用 unowned reference</strong></li>
 </ul>
+<a id="more"></a>
 <h2 id="弱引用"><a href="#弱引用" class="headerlink" title="弱引用"></a>弱引用</h2><p>上例的解决办法就是将apartment或tenant属性声明为弱引用即可，如果有对此例不理解的同学，可以参考<a href="https://github.com/numbbbbb/the-swift-programming-language-in-chinese/blob/gh-pages/source/chapter2/16_Automatic_Reference_Counting.md#strong_reference_cycles_between_class_instances" target="_blank" rel="noopener">官方文档</a>，有配图，讲解得很详细。</p>
 <p>关于弱引用大家多少都有所了解，本文重点也不在此，故不再赘述，只提一点官方文档中的注意事项：</p>
 <blockquote>
@@ -159,7 +159,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://iCodeWoods.github.io/2017/08/30/【Swift】无主引用unowned、隐式解析可选类型/" data-id="cjtzp8ddn00218v99zwu33oig" class="article-share-link">Share</a>
+      <a data-url="https://iCodeWoods.github.io/2017/08/30/【Swift】无主引用unowned、隐式解析可选类型/" data-id="cju0n2aag0021y599u2be1hlg" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Swift/">Swift</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/unowned/">unowned</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/隐式解析可选类型/">隐式解析可选类型</a></li></ul>
