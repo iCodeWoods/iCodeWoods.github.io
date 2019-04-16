@@ -107,18 +107,18 @@
 
 
 
-  <meta name="description" content="第六章 重新组织函数6.1 Extract Method（提炼函数）概要你有一段代码可以被组织在一起并独立出来。 将这段代码放进一个独立函数中，并让函数名称解释该函数的用途。 动机复用机会大，覆写更容易，使高层函数读起来就像一系列注释。 函数长度不是问题，关键在于函数名称和函数本体之间的语义距离。如果提炼可以强化代码的清晰度，那就去做，就算函数名称比提炼出来的代码还长也无所谓。 难点在于局部变量">
+  <meta name="description" content="第六章 重新组织函数6.1 Extract Method（提炼函数）概要你有一段代码可以被组织在一起并独立出来。 将这段代码放进一个独立函数中，并让函数名称解释该函数的用途。 动机复用机会大，覆写更容易，使高层函数读起来就像一系列注释。 函数长度不是问题，关键在于函数名称和函数本体之间的语义距离。如果提炼可以强化代码的清晰度，那就去做，就算函数名称比提炼出来的代码还长也无所谓。 难点在于局部变量，">
 <meta name="keywords" content="Books">
 <meta property="og:type" content="article">
 <meta property="og:title" content="《Refactoring》读书笔记（二）重新组织函数">
 <meta property="og:url" content="https://iCodeWoods.github.io/2018/11/28/《Refactoring》读书笔记（二）重新组织函数/index.html">
 <meta property="og:site_name" content="iCodeWoods的小站">
-<meta property="og:description" content="第六章 重新组织函数6.1 Extract Method（提炼函数）概要你有一段代码可以被组织在一起并独立出来。 将这段代码放进一个独立函数中，并让函数名称解释该函数的用途。 动机复用机会大，覆写更容易，使高层函数读起来就像一系列注释。 函数长度不是问题，关键在于函数名称和函数本体之间的语义距离。如果提炼可以强化代码的清晰度，那就去做，就算函数名称比提炼出来的代码还长也无所谓。 难点在于局部变量">
+<meta property="og:description" content="第六章 重新组织函数6.1 Extract Method（提炼函数）概要你有一段代码可以被组织在一起并独立出来。 将这段代码放进一个独立函数中，并让函数名称解释该函数的用途。 动机复用机会大，覆写更容易，使高层函数读起来就像一系列注释。 函数长度不是问题，关键在于函数名称和函数本体之间的语义距离。如果提炼可以强化代码的清晰度，那就去做，就算函数名称比提炼出来的代码还长也无所谓。 难点在于局部变量，">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-04-16T10:31:36.239Z">
+<meta property="og:updated_time" content="2019-04-16T10:35:38.152Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="《Refactoring》读书笔记（二）重新组织函数">
-<meta name="twitter:description" content="第六章 重新组织函数6.1 Extract Method（提炼函数）概要你有一段代码可以被组织在一起并独立出来。 将这段代码放进一个独立函数中，并让函数名称解释该函数的用途。 动机复用机会大，覆写更容易，使高层函数读起来就像一系列注释。 函数长度不是问题，关键在于函数名称和函数本体之间的语义距离。如果提炼可以强化代码的清晰度，那就去做，就算函数名称比提炼出来的代码还长也无所谓。 难点在于局部变量">
+<meta name="twitter:description" content="第六章 重新组织函数6.1 Extract Method（提炼函数）概要你有一段代码可以被组织在一起并独立出来。 将这段代码放进一个独立函数中，并让函数名称解释该函数的用途。 动机复用机会大，覆写更容易，使高层函数读起来就像一系列注释。 函数长度不是问题，关键在于函数名称和函数本体之间的语义距离。如果提炼可以强化代码的清晰度，那就去做，就算函数名称比提炼出来的代码还长也无所谓。 难点在于局部变量，">
 
 
 
@@ -459,13 +459,13 @@
       
 
       
-        <a id="more"></a>
-<h1 id="第六章-重新组织函数"><a href="#第六章-重新组织函数" class="headerlink" title="第六章 重新组织函数"></a>第六章 重新组织函数</h1><h2 id="6-1-Extract-Method（提炼函数）"><a href="#6-1-Extract-Method（提炼函数）" class="headerlink" title="6.1 Extract Method（提炼函数）"></a>6.1 Extract Method（提炼函数）</h2><h3 id="概要"><a href="#概要" class="headerlink" title="概要"></a>概要</h3><p>你有一段代码可以被组织在一起并独立出来。</p>
+        <h1 id="第六章-重新组织函数"><a href="#第六章-重新组织函数" class="headerlink" title="第六章 重新组织函数"></a>第六章 重新组织函数</h1><h2 id="6-1-Extract-Method（提炼函数）"><a href="#6-1-Extract-Method（提炼函数）" class="headerlink" title="6.1 Extract Method（提炼函数）"></a>6.1 Extract Method（提炼函数）</h2><h3 id="概要"><a href="#概要" class="headerlink" title="概要"></a>概要</h3><p>你有一段代码可以被组织在一起并独立出来。</p>
 <p><strong>将这段代码放进一个独立函数中，并让函数名称解释该函数的用途。</strong></p>
 <h3 id="动机"><a href="#动机" class="headerlink" title="动机"></a>动机</h3><p>复用机会大，覆写更容易，使高层函数读起来就像一系列注释。</p>
 <p>函数长度不是问题，关键在于函数名称和函数本体之间的语义距离。如果提炼可以强化代码的清晰度，那就去做，就算函数名称比提炼出来的代码还长也无所谓。</p>
 <p>难点在于局部变量，包括传进源函数的参数和源函数所声明的临时变量。</p>
 <p>可以先尝试运用 Replace Temp with Query（120）减少临时变量。如果仍困难重重，我就会动用 Replace Method with Method Object（135），这个重构手法不在乎代码中有多少临时变量，也不在乎你如何使用它们。</p>
+<a id="more"></a>
 <h2 id="6-2-Inline-Method（内联函数）"><a href="#6-2-Inline-Method（内联函数）" class="headerlink" title="6.2 Inline Method（内联函数）"></a>6.2 Inline Method（内联函数）</h2><h3 id="概要-1"><a href="#概要-1" class="headerlink" title="概要"></a>概要</h3><p>一个函数的本体与名称同样清楚易懂。</p>
 <p><strong>在函数调用点插入函数本体，然后移除该函数。</strong></p>
 <h3 id="动机-1"><a href="#动机-1" class="headerlink" title="动机"></a>动机</h3><p>间接层有其价值，但不是所有间接层都有价值。</p>

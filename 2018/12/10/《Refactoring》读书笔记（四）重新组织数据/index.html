@@ -107,18 +107,18 @@
 
 
 
-  <meta name="description" content="第八章 重新组织数据8.1 Self Encapsulate Field（自封装字段）概要你直接访问一个字段，但与字段之间的耦合关系逐渐变得笨拙。 为这个字段建立取值/设值函数，并且只以这些函数来访问字段。 （文中提到的两种观点，有点类似于我们 iOS 开发中的 “self.xxx 与 _xxx”） 8.2 Replace Data Value with Object（以对象取代数据值）概要你有">
+  <meta name="description" content="第八章 重新组织数据8.1 Self Encapsulate Field（自封装字段）概要你直接访问一个字段，但与字段之间的耦合关系逐渐变得笨拙。 为这个字段建立取值/设值函数，并且只以这些函数来访问字段。">
 <meta name="keywords" content="Books">
 <meta property="og:type" content="article">
 <meta property="og:title" content="《Refactoring》读书笔记（四）重新组织数据">
 <meta property="og:url" content="https://iCodeWoods.github.io/2018/12/10/《Refactoring》读书笔记（四）重新组织数据/index.html">
 <meta property="og:site_name" content="iCodeWoods的小站">
-<meta property="og:description" content="第八章 重新组织数据8.1 Self Encapsulate Field（自封装字段）概要你直接访问一个字段，但与字段之间的耦合关系逐渐变得笨拙。 为这个字段建立取值/设值函数，并且只以这些函数来访问字段。 （文中提到的两种观点，有点类似于我们 iOS 开发中的 “self.xxx 与 _xxx”） 8.2 Replace Data Value with Object（以对象取代数据值）概要你有">
+<meta property="og:description" content="第八章 重新组织数据8.1 Self Encapsulate Field（自封装字段）概要你直接访问一个字段，但与字段之间的耦合关系逐渐变得笨拙。 为这个字段建立取值/设值函数，并且只以这些函数来访问字段。">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-04-16T10:31:22.287Z">
+<meta property="og:updated_time" content="2019-04-16T10:35:12.080Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="《Refactoring》读书笔记（四）重新组织数据">
-<meta name="twitter:description" content="第八章 重新组织数据8.1 Self Encapsulate Field（自封装字段）概要你直接访问一个字段，但与字段之间的耦合关系逐渐变得笨拙。 为这个字段建立取值/设值函数，并且只以这些函数来访问字段。 （文中提到的两种观点，有点类似于我们 iOS 开发中的 “self.xxx 与 _xxx”） 8.2 Replace Data Value with Object（以对象取代数据值）概要你有">
+<meta name="twitter:description" content="第八章 重新组织数据8.1 Self Encapsulate Field（自封装字段）概要你直接访问一个字段，但与字段之间的耦合关系逐渐变得笨拙。 为这个字段建立取值/设值函数，并且只以这些函数来访问字段。">
 
 
 
@@ -459,9 +459,9 @@
       
 
       
-        <a id="more"></a>
-<h1 id="第八章-重新组织数据"><a href="#第八章-重新组织数据" class="headerlink" title="第八章 重新组织数据"></a>第八章 重新组织数据</h1><h2 id="8-1-Self-Encapsulate-Field（自封装字段）"><a href="#8-1-Self-Encapsulate-Field（自封装字段）" class="headerlink" title="8.1 Self Encapsulate Field（自封装字段）"></a>8.1 Self Encapsulate Field（自封装字段）</h2><h3 id="概要"><a href="#概要" class="headerlink" title="概要"></a>概要</h3><p>你直接访问一个字段，但与字段之间的耦合关系逐渐变得笨拙。</p>
+        <h1 id="第八章-重新组织数据"><a href="#第八章-重新组织数据" class="headerlink" title="第八章 重新组织数据"></a>第八章 重新组织数据</h1><h2 id="8-1-Self-Encapsulate-Field（自封装字段）"><a href="#8-1-Self-Encapsulate-Field（自封装字段）" class="headerlink" title="8.1 Self Encapsulate Field（自封装字段）"></a>8.1 Self Encapsulate Field（自封装字段）</h2><h3 id="概要"><a href="#概要" class="headerlink" title="概要"></a>概要</h3><p>你直接访问一个字段，但与字段之间的耦合关系逐渐变得笨拙。</p>
 <p><strong>为这个字段建立取值/设值函数，并且只以这些函数来访问字段。</strong></p>
+<a id="more"></a>
 <p>（文中提到的两种观点，有点类似于我们 iOS 开发中的 “self.xxx 与 _xxx”）</p>
 <h2 id="8-2-Replace-Data-Value-with-Object（以对象取代数据值）"><a href="#8-2-Replace-Data-Value-with-Object（以对象取代数据值）" class="headerlink" title="8.2 Replace Data Value with Object（以对象取代数据值）"></a>8.2 Replace Data Value with Object（以对象取代数据值）</h2><h3 id="概要-1"><a href="#概要-1" class="headerlink" title="概要"></a>概要</h3><p>你有一个数据项，需要与其他数据和行为一起使用才有意义。</p>
 <p><strong>将数据项变成对象。</strong></p>

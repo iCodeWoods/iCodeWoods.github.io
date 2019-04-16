@@ -107,18 +107,18 @@
 
 
 
-  <meta name="description" content="第七章 在对象之间搬移特性7.1 Move Method（搬移函数）概要你的程序中，有个函数与其所驻类之外的另一个类进行更多交流：调用后者，或者被后者调用。 在该函数最常引用的类中建立一个有着类似行为的新函数。将旧函数变成一个单纯的委托函数，或是将旧函数完全移除。 动机“搬移函数”是重构理论的支柱。通过这种手段，可以使系统中的类更简单，这些类最终也将更干净利落地实现系统交付的任务。 7.2 Mo">
+  <meta name="description" content="第七章 在对象之间搬移特性7.1 Move Method（搬移函数）概要你的程序中，有个函数与其所驻类之外的另一个类进行更多交流：调用后者，或者被后者调用。 在该函数最常引用的类中建立一个有着类似行为的新函数。将旧函数变成一个单纯的委托函数，或是将旧函数完全移除。 动机“搬移函数”是重构理论的支柱。通过这种手段，可以使系统中的类更简单，这些类最终也将更干净利落地实现系统交付的任务。">
 <meta name="keywords" content="Books">
 <meta property="og:type" content="article">
 <meta property="og:title" content="《Refactoring》读书笔记（三）在对象之间搬移特性">
 <meta property="og:url" content="https://iCodeWoods.github.io/2018/12/04/《Refactoring》读书笔记（三）在对象之间搬移特性/index.html">
 <meta property="og:site_name" content="iCodeWoods的小站">
-<meta property="og:description" content="第七章 在对象之间搬移特性7.1 Move Method（搬移函数）概要你的程序中，有个函数与其所驻类之外的另一个类进行更多交流：调用后者，或者被后者调用。 在该函数最常引用的类中建立一个有着类似行为的新函数。将旧函数变成一个单纯的委托函数，或是将旧函数完全移除。 动机“搬移函数”是重构理论的支柱。通过这种手段，可以使系统中的类更简单，这些类最终也将更干净利落地实现系统交付的任务。 7.2 Mo">
+<meta property="og:description" content="第七章 在对象之间搬移特性7.1 Move Method（搬移函数）概要你的程序中，有个函数与其所驻类之外的另一个类进行更多交流：调用后者，或者被后者调用。 在该函数最常引用的类中建立一个有着类似行为的新函数。将旧函数变成一个单纯的委托函数，或是将旧函数完全移除。 动机“搬移函数”是重构理论的支柱。通过这种手段，可以使系统中的类更简单，这些类最终也将更干净利落地实现系统交付的任务。">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-04-16T10:31:20.464Z">
+<meta property="og:updated_time" content="2019-04-16T10:37:30.052Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="《Refactoring》读书笔记（三）在对象之间搬移特性">
-<meta name="twitter:description" content="第七章 在对象之间搬移特性7.1 Move Method（搬移函数）概要你的程序中，有个函数与其所驻类之外的另一个类进行更多交流：调用后者，或者被后者调用。 在该函数最常引用的类中建立一个有着类似行为的新函数。将旧函数变成一个单纯的委托函数，或是将旧函数完全移除。 动机“搬移函数”是重构理论的支柱。通过这种手段，可以使系统中的类更简单，这些类最终也将更干净利落地实现系统交付的任务。 7.2 Mo">
+<meta name="twitter:description" content="第七章 在对象之间搬移特性7.1 Move Method（搬移函数）概要你的程序中，有个函数与其所驻类之外的另一个类进行更多交流：调用后者，或者被后者调用。 在该函数最常引用的类中建立一个有着类似行为的新函数。将旧函数变成一个单纯的委托函数，或是将旧函数完全移除。 动机“搬移函数”是重构理论的支柱。通过这种手段，可以使系统中的类更简单，这些类最终也将更干净利落地实现系统交付的任务。">
 
 
 
@@ -459,10 +459,10 @@
       
 
       
-        <a id="more"></a>
-<h1 id="第七章-在对象之间搬移特性"><a href="#第七章-在对象之间搬移特性" class="headerlink" title="第七章 在对象之间搬移特性"></a>第七章 在对象之间搬移特性</h1><h2 id="7-1-Move-Method（搬移函数）"><a href="#7-1-Move-Method（搬移函数）" class="headerlink" title="7.1 Move Method（搬移函数）"></a>7.1 Move Method（搬移函数）</h2><h3 id="概要"><a href="#概要" class="headerlink" title="概要"></a>概要</h3><p>你的程序中，有个函数与其所驻类之外的另一个类进行更多交流：调用后者，或者被后者调用。</p>
+        <h1 id="第七章-在对象之间搬移特性"><a href="#第七章-在对象之间搬移特性" class="headerlink" title="第七章 在对象之间搬移特性"></a>第七章 在对象之间搬移特性</h1><h2 id="7-1-Move-Method（搬移函数）"><a href="#7-1-Move-Method（搬移函数）" class="headerlink" title="7.1 Move Method（搬移函数）"></a>7.1 Move Method（搬移函数）</h2><h3 id="概要"><a href="#概要" class="headerlink" title="概要"></a>概要</h3><p>你的程序中，有个函数与其所驻类之外的另一个类进行更多交流：调用后者，或者被后者调用。</p>
 <p><strong>在该函数最常引用的类中建立一个有着类似行为的新函数。将旧函数变成一个单纯的委托函数，或是将旧函数完全移除。</strong></p>
 <h3 id="动机"><a href="#动机" class="headerlink" title="动机"></a>动机</h3><p>“搬移函数”是重构理论的支柱。通过这种手段，可以使系统中的类更简单，这些类最终也将更干净利落地实现系统交付的任务。</p>
+<a id="more"></a>
 <h2 id="7-2-Move-Field（搬移字段）"><a href="#7-2-Move-Field（搬移字段）" class="headerlink" title="7.2 Move Field（搬移字段）"></a>7.2 Move Field（搬移字段）</h2><h3 id="概要-1"><a href="#概要-1" class="headerlink" title="概要"></a>概要</h3><p>在你的程序中，某个字段被其所驻类之外的另一个类更多地用到。</p>
 <p><strong>在目标类新建一个字段，修改源字段的所有用户，令它们改用新字段。</strong></p>
 <h2 id="7-3-Extract-Class（提炼类）"><a href="#7-3-Extract-Class（提炼类）" class="headerlink" title="7.3 Extract Class（提炼类）"></a>7.3 Extract Class（提炼类）</h2><h3 id="概要-2"><a href="#概要-2" class="headerlink" title="概要"></a>概要</h3><p>某个类做了应该由两个类做的事。</p>
