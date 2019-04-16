@@ -451,8 +451,7 @@
 
       
         
-          <p>[TOC]</p>
-<h2 id="TL-DR"><a href="#TL-DR" class="headerlink" title="TL;DR"></a>TL;DR</h2><p>SpriteKit 早在 iOS 7 就已推出，但由于我的精力/水平有限，直到最近才开始学习它。</p>
+          <h2 id="TL-DR"><a href="#TL-DR" class="headerlink" title="TL;DR"></a>TL;DR</h2><p>SpriteKit 早在 iOS 7 就已推出，但由于我的精力/水平有限，直到最近才开始学习它。</p>
 <p>文章中的游戏《OverTheMountains》（翻山越岭）是我从零开始自学 SpriteKit 时，用了不到三天时间自己开发的一个小型 demo，并没有参考别人的代码，所以可能存在很多不合理的地方，还望各位不吝赐教，我将非常感激。</p>
 <p>项目工程的 <a href="https://github.com/iCodeWoods/OverTheMountains" target="_blank" rel="noopener">GitHub 地址请戳我</a>。</p>
           <!--noindex-->
@@ -785,8 +784,7 @@
 
       
         
-          <p>[TOC]</p>
-<h1 id="TL-DR"><a href="#TL-DR" class="headerlink" title="TL;DR"></a>TL;DR</h1><p>8102 年是我来到网易的第三年、来到 NB iOS Team 的第二年。</p>
+          <h1 id="TL-DR"><a href="#TL-DR" class="headerlink" title="TL;DR"></a>TL;DR</h1><p>8102 年是我来到网易的第三年、来到 NB iOS Team 的第二年。</p>
 <p>这一年我的输入不少，但输出不多；</p>
 <p>这一年我犯的错误不少，但做的总结/反思不多；</p>
 <p>总体而言，尽管有不足之处，但感觉无论是自己还是整个团队，这一年的进步都很大。</p>
@@ -952,16 +950,45 @@
 
       
         
-          <p>[TOC]</p>
-          <!--noindex-->
           
-            <div class="post-button text-center">
-              <a class="btn" href="/2018/12/10/《Refactoring》读书笔记（四）重新组织数据/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
+            <a id="more"></a>
+<h1 id="第八章-重新组织数据"><a href="#第八章-重新组织数据" class="headerlink" title="第八章 重新组织数据"></a>第八章 重新组织数据</h1><h2 id="8-1-Self-Encapsulate-Field（自封装字段）"><a href="#8-1-Self-Encapsulate-Field（自封装字段）" class="headerlink" title="8.1 Self Encapsulate Field（自封装字段）"></a>8.1 Self Encapsulate Field（自封装字段）</h2><h3 id="概要"><a href="#概要" class="headerlink" title="概要"></a>概要</h3><p>你直接访问一个字段，但与字段之间的耦合关系逐渐变得笨拙。</p>
+<p><strong>为这个字段建立取值/设值函数，并且只以这些函数来访问字段。</strong></p>
+<p>（文中提到的两种观点，有点类似于我们 iOS 开发中的 “self.xxx 与 _xxx”）</p>
+<h2 id="8-2-Replace-Data-Value-with-Object（以对象取代数据值）"><a href="#8-2-Replace-Data-Value-with-Object（以对象取代数据值）" class="headerlink" title="8.2 Replace Data Value with Object（以对象取代数据值）"></a>8.2 Replace Data Value with Object（以对象取代数据值）</h2><h3 id="概要-1"><a href="#概要-1" class="headerlink" title="概要"></a>概要</h3><p>你有一个数据项，需要与其他数据和行为一起使用才有意义。</p>
+<p><strong>将数据项变成对象。</strong></p>
+<h2 id="8-3-Change-Value-to-Reference（将值对象改为引用对象）"><a href="#8-3-Change-Value-to-Reference（将值对象改为引用对象）" class="headerlink" title="8.3 Change Value to Reference（将值对象改为引用对象）"></a>8.3 Change Value to Reference（将值对象改为引用对象）</h2><h3 id="概要-2"><a href="#概要-2" class="headerlink" title="概要"></a>概要</h3><p>你从一个类衍生出许多彼此相等的实例，希望将它们替换为同一个对象。</p>
+<p><strong>将这个值对象变成引用对象。</strong></p>
+<h2 id="8-4-Change-Reference-to-Value（将引用对象改为值对象）"><a href="#8-4-Change-Reference-to-Value（将引用对象改为值对象）" class="headerlink" title="8.4 Change Reference to Value（将引用对象改为值对象）"></a>8.4 Change Reference to Value（将引用对象改为值对象）</h2><h3 id="概要-3"><a href="#概要-3" class="headerlink" title="概要"></a>概要</h3><p>你有一个引用对象，很小且不可变，而且不易管理。</p>
+<p><strong>将它变成一个值对象。</strong></p>
+<h2 id="8-5-Replace-Array-with-Object（以对象取代数组）"><a href="#8-5-Replace-Array-with-Object（以对象取代数组）" class="headerlink" title="8.5 Replace Array with Object（以对象取代数组）"></a>8.5 Replace Array with Object（以对象取代数组）</h2><h3 id="概要-4"><a href="#概要-4" class="headerlink" title="概要"></a>概要</h3><p>你有一个数组，其中的元素各自代表不同的东西。</p>
+<p><strong>以对象替换数组。对于数组中的每个元素，以一个字段来表示。</strong></p>
+<h2 id="8-6-Duplicate-Observed-Data（复制“被监视数据”）"><a href="#8-6-Duplicate-Observed-Data（复制“被监视数据”）" class="headerlink" title="8.6 Duplicate Observed Data（复制“被监视数据”）"></a>8.6 Duplicate Observed Data（复制“被监视数据”）</h2><h3 id="概要-5"><a href="#概要-5" class="headerlink" title="概要"></a>概要</h3><p>你有一些领域数据置身于GUI控件中，而领域函数需要访问这些数据。</p>
+<p><strong>将该数据复制到一个领域对象中。建立一个Observer模式，用以同步领域对象和GUI对象内的重复数据。</strong></p>
+<h2 id="8-7-Change-Unidirectional-Association-to-Bidirectional（将单向关联改为双向关联）"><a href="#8-7-Change-Unidirectional-Association-to-Bidirectional（将单向关联改为双向关联）" class="headerlink" title="8.7 Change Unidirectional Association to Bidirectional（将单向关联改为双向关联）"></a>8.7 Change Unidirectional Association to Bidirectional（将单向关联改为双向关联）</h2><h3 id="概要-6"><a href="#概要-6" class="headerlink" title="概要"></a>概要</h3><p>两个类都需要使用对方特性，但其间只有一条单向连接。</p>
+<p><strong>添加一个反向指针，并使修改函数能够同时更新两条连接。</strong></p>
+<h2 id="8-8-Change-Bidirectional-Association-to-Unidirectional（将双向关联改为单向关联）"><a href="#8-8-Change-Bidirectional-Association-to-Unidirectional（将双向关联改为单向关联）" class="headerlink" title="8.8 Change Bidirectional Association to Unidirectional（将双向关联改为单向关联）"></a>8.8 Change Bidirectional Association to Unidirectional（将双向关联改为单向关联）</h2><h3 id="概要-7"><a href="#概要-7" class="headerlink" title="概要"></a>概要</h3><p>两个类之间有双向关联，但其中一个类如今不再需要另一个类的特性。</p>
+<p><strong>去除不必要的关联。</strong></p>
+<h2 id="8-9-Replace-Magic-Number-with-Symbolic-Constant（以字面常量取代魔法数）"><a href="#8-9-Replace-Magic-Number-with-Symbolic-Constant（以字面常量取代魔法数）" class="headerlink" title="8.9 Replace Magic Number with Symbolic Constant（以字面常量取代魔法数）"></a>8.9 Replace Magic Number with Symbolic Constant（以字面常量取代魔法数）</h2><h3 id="概要-8"><a href="#概要-8" class="headerlink" title="概要"></a>概要</h3><p>你有一个字面数值，常有特别含义。</p>
+<p><strong>创造一个常量，根据其意义为它命名，并将上述的字面数值替换为这个常量。</strong></p>
+<h2 id="8-10-Encapsulate-Field（封装字段）"><a href="#8-10-Encapsulate-Field（封装字段）" class="headerlink" title="8.10 Encapsulate Field（封装字段）"></a>8.10 Encapsulate Field（封装字段）</h2><h3 id="概要-9"><a href="#概要-9" class="headerlink" title="概要"></a>概要</h3><p>你的类中存在一个public字段。</p>
+<p><strong>将它声明为private，并提供相应的访问函数。</strong></p>
+<h2 id="8-11-Encapsulate-Collection（封装集合）"><a href="#8-11-Encapsulate-Collection（封装集合）" class="headerlink" title="8.11 Encapsulate Collection（封装集合）"></a>8.11 Encapsulate Collection（封装集合）</h2><h3 id="概要-10"><a href="#概要-10" class="headerlink" title="概要"></a>概要</h3><p>有个函数返回一个集合。</p>
+<p><strong>让这个函数返回该集合的一个只读副本，并在这个类中提供添加/移除集合元素的函数。</strong></p>
+<h2 id="8-12-Replace-Record-with-Data-Class（以数据类取代记录）"><a href="#8-12-Replace-Record-with-Data-Class（以数据类取代记录）" class="headerlink" title="8.12 Replace Record with Data Class（以数据类取代记录）"></a>8.12 Replace Record with Data Class（以数据类取代记录）</h2><h3 id="概要-11"><a href="#概要-11" class="headerlink" title="概要"></a>概要</h3><p>你需要面对传统编程环境中的记录结构。</p>
+<p><strong>为该记录创建一个“哑”数据对象。</strong></p>
+<h2 id="8-13-Replace-Type-Code-with-Class（以类取代类型码）"><a href="#8-13-Replace-Type-Code-with-Class（以类取代类型码）" class="headerlink" title="8.13 Replace Type Code with Class（以类取代类型码）"></a>8.13 Replace Type Code with Class（以类取代类型码）</h2><h3 id="概要-12"><a href="#概要-12" class="headerlink" title="概要"></a>概要</h3><p>类之中有一个数值类型码，但它并不影响类的行为。</p>
+<p><strong>以一个新的类替换该数值类型码。</strong></p>
+<h2 id="8-14-Replace-Type-Code-with-Subclasses（以子类取代类型码）"><a href="#8-14-Replace-Type-Code-with-Subclasses（以子类取代类型码）" class="headerlink" title="8.14 Replace Type Code with Subclasses（以子类取代类型码）"></a>8.14 Replace Type Code with Subclasses（以子类取代类型码）</h2><h3 id="概要-13"><a href="#概要-13" class="headerlink" title="概要"></a>概要</h3><p>你有一个不可变的类型码，它会影响类的行为。</p>
+<p><strong>以子类取代这个类型码。</strong></p>
+<h2 id="8-15-Replace-Type-Code-with-State-Strategy（以-state-strategy-取代类型码）"><a href="#8-15-Replace-Type-Code-with-State-Strategy（以-state-strategy-取代类型码）" class="headerlink" title="8.15 Replace Type Code with State/Strategy（以 state/strategy 取代类型码）"></a>8.15 Replace Type Code with State/Strategy（以 state/strategy 取代类型码）</h2><h3 id="概要-14"><a href="#概要-14" class="headerlink" title="概要"></a>概要</h3><p>你有一个类型码，它会影响类的行为，但你无法通过继承手法消除它。</p>
+<p><strong>以状态对象取代类型码。</strong></p>
+<h3 id="动机"><a href="#动机" class="headerlink" title="动机"></a>动机</h3><p>本项重构和 Replace Type Code with Subclasses（223）很相似，但如果“类型码的值在对象生命周期中发生变化”或“其它原因使得宿主类不能被继承”，你也可以使用本重构。</p>
+<p>State模式和Strategy模式非常相似，重构过程是相同的，选择哪个模式并非问题关键所在。如果你打算在完成本项重构后再以 Replace Conditional with Polymorphism（255）简化一个算法，那么选择 Strategy 模式比较合适；如果你打算搬移与状态相关的数据，而且你把新建对象视为一种变迁状态，就应该选择使用 State 模式。</p>
+<h2 id="8-16-Replace-Subclass-with-Fields（以字段取代子类）"><a href="#8-16-Replace-Subclass-with-Fields（以字段取代子类）" class="headerlink" title="8.16 Replace Subclass with Fields（以字段取代子类）"></a>8.16 Replace Subclass with Fields（以字段取代子类）</h2><h3 id="概要-15"><a href="#概要-15" class="headerlink" title="概要"></a>概要</h3><p>你的各个子类的唯一差别只在“返回常量数据”的函数身上。</p>
+<p><strong>修改这些函数，使他们返回超类中的某个（新增）字段，然后销毁子类。</strong></p>
+
           
-          <!--/noindex-->
         
       
     </div>
@@ -1115,16 +1142,29 @@
 
       
         
-          <p>[TOC]</p>
-          <!--noindex-->
           
-            <div class="post-button text-center">
-              <a class="btn" href="/2018/12/04/《Refactoring》读书笔记（三）在对象之间搬移特性/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
+            <a id="more"></a>
+<h1 id="第七章-在对象之间搬移特性"><a href="#第七章-在对象之间搬移特性" class="headerlink" title="第七章 在对象之间搬移特性"></a>第七章 在对象之间搬移特性</h1><h2 id="7-1-Move-Method（搬移函数）"><a href="#7-1-Move-Method（搬移函数）" class="headerlink" title="7.1 Move Method（搬移函数）"></a>7.1 Move Method（搬移函数）</h2><h3 id="概要"><a href="#概要" class="headerlink" title="概要"></a>概要</h3><p>你的程序中，有个函数与其所驻类之外的另一个类进行更多交流：调用后者，或者被后者调用。</p>
+<p><strong>在该函数最常引用的类中建立一个有着类似行为的新函数。将旧函数变成一个单纯的委托函数，或是将旧函数完全移除。</strong></p>
+<h3 id="动机"><a href="#动机" class="headerlink" title="动机"></a>动机</h3><p>“搬移函数”是重构理论的支柱。通过这种手段，可以使系统中的类更简单，这些类最终也将更干净利落地实现系统交付的任务。</p>
+<h2 id="7-2-Move-Field（搬移字段）"><a href="#7-2-Move-Field（搬移字段）" class="headerlink" title="7.2 Move Field（搬移字段）"></a>7.2 Move Field（搬移字段）</h2><h3 id="概要-1"><a href="#概要-1" class="headerlink" title="概要"></a>概要</h3><p>在你的程序中，某个字段被其所驻类之外的另一个类更多地用到。</p>
+<p><strong>在目标类新建一个字段，修改源字段的所有用户，令它们改用新字段。</strong></p>
+<h2 id="7-3-Extract-Class（提炼类）"><a href="#7-3-Extract-Class（提炼类）" class="headerlink" title="7.3 Extract Class（提炼类）"></a>7.3 Extract Class（提炼类）</h2><h3 id="概要-2"><a href="#概要-2" class="headerlink" title="概要"></a>概要</h3><p>某个类做了应该由两个类做的事。</p>
+<p><strong>建立一个新类，将相关的字段和函数从旧类搬移到新类。</strong></p>
+<h2 id="7-4-Inline-Class（将类内联化）"><a href="#7-4-Inline-Class（将类内联化）" class="headerlink" title="7.4 Inline Class（将类内联化）"></a>7.4 Inline Class（将类内联化）</h2><p>某个类没有做太多事情。</p>
+<p><strong>将这个类的所有特性搬移到另一个类中，然后移除原类。</strong></p>
+<h2 id="7-5-Hide-Delegate（隐藏“委托关系”）"><a href="#7-5-Hide-Delegate（隐藏“委托关系”）" class="headerlink" title="7.5 Hide Delegate（隐藏“委托关系”）"></a>7.5 Hide Delegate（隐藏“委托关系”）</h2><h3 id="概要-3"><a href="#概要-3" class="headerlink" title="概要"></a>概要</h3><p>客户通过一个委托类来调用另一个对象。</p>
+<p><strong>在服务类上建立客户所需的所有函数，用以隐藏委托关系。</strong></p>
+<h3 id="动机-1"><a href="#动机-1" class="headerlink" title="动机"></a>动机</h3><p>即便将来发生委托关系上的变化，变化也将被限制在服务对象中，不会波及客户。</p>
+<h2 id="7-6-Remove-Middle-Man（移除中间人）"><a href="#7-6-Remove-Middle-Man（移除中间人）" class="headerlink" title="7.6 Remove Middle Man（移除中间人）"></a>7.6 Remove Middle Man（移除中间人）</h2><h3 id="概要-4"><a href="#概要-4" class="headerlink" title="概要"></a>概要</h3><p>某个类做了过多的简单委托动作。</p>
+<p><strong>让客户直接调用委托类。</strong></p>
+<h3 id="动机-2"><a href="#动机-2" class="headerlink" title="动机"></a>动机</h3><p>6个月前恰如其分的封装，现今可能就显得笨拙。重构的意义就在于：你永远不必说对不起——只要把出问题的地方修补好就行了。</p>
+<h2 id="7-7-Introduce-Foreign-Method（引入外加函数）"><a href="#7-7-Introduce-Foreign-Method（引入外加函数）" class="headerlink" title="7.7 Introduce Foreign Method（引入外加函数）"></a>7.7 Introduce Foreign Method（引入外加函数）</h2><h3 id="概要-5"><a href="#概要-5" class="headerlink" title="概要"></a>概要</h3><p>你需要为提供服务的类增加一个函数，但你无法修改这个类。</p>
+<p><strong>在客户类中建立一个函数，并以第一参数形式传入一个服务类实例。</strong></p>
+<h2 id="7-8-Introduce-Local-Extension（引入本地扩展）"><a href="#7-8-Introduce-Local-Extension（引入本地扩展）" class="headerlink" title="7.8 Introduce Local Extension（引入本地扩展）"></a>7.8 Introduce Local Extension（引入本地扩展）</h2><h3 id="概要-6"><a href="#概要-6" class="headerlink" title="概要"></a>概要</h3><p>你需要为服务类提供一些额外函数，但你无法修改这个类。</p>
+<p><strong>建立一个新类，使它包含这些额外函数。让这个扩展品成为源类的子类或包装类。</strong></p>
+
           
-          <!--/noindex-->
         
       
     </div>
@@ -1278,16 +1318,46 @@
 
       
         
-          <p>[TOC]</p>
-          <!--noindex-->
           
-            <div class="post-button text-center">
-              <a class="btn" href="/2018/11/28/《Refactoring》读书笔记（二）重新组织函数/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
+            <a id="more"></a>
+<h1 id="第六章-重新组织函数"><a href="#第六章-重新组织函数" class="headerlink" title="第六章 重新组织函数"></a>第六章 重新组织函数</h1><h2 id="6-1-Extract-Method（提炼函数）"><a href="#6-1-Extract-Method（提炼函数）" class="headerlink" title="6.1 Extract Method（提炼函数）"></a>6.1 Extract Method（提炼函数）</h2><h3 id="概要"><a href="#概要" class="headerlink" title="概要"></a>概要</h3><p>你有一段代码可以被组织在一起并独立出来。</p>
+<p><strong>将这段代码放进一个独立函数中，并让函数名称解释该函数的用途。</strong></p>
+<h3 id="动机"><a href="#动机" class="headerlink" title="动机"></a>动机</h3><p>复用机会大，覆写更容易，使高层函数读起来就像一系列注释。</p>
+<p>函数长度不是问题，关键在于函数名称和函数本体之间的语义距离。如果提炼可以强化代码的清晰度，那就去做，就算函数名称比提炼出来的代码还长也无所谓。</p>
+<p>难点在于局部变量，包括传进源函数的参数和源函数所声明的临时变量。</p>
+<p>可以先尝试运用 Replace Temp with Query（120）减少临时变量。如果仍困难重重，我就会动用 Replace Method with Method Object（135），这个重构手法不在乎代码中有多少临时变量，也不在乎你如何使用它们。</p>
+<h2 id="6-2-Inline-Method（内联函数）"><a href="#6-2-Inline-Method（内联函数）" class="headerlink" title="6.2 Inline Method（内联函数）"></a>6.2 Inline Method（内联函数）</h2><h3 id="概要-1"><a href="#概要-1" class="headerlink" title="概要"></a>概要</h3><p>一个函数的本体与名称同样清楚易懂。</p>
+<p><strong>在函数调用点插入函数本体，然后移除该函数。</strong></p>
+<h3 id="动机-1"><a href="#动机-1" class="headerlink" title="动机"></a>动机</h3><p>间接层有其价值，但不是所有间接层都有价值。</p>
+<p>另一种需要使用 Inline Method（117）的情况是，你手上有一群组织不甚合理的函数。你可以将它们都内联到一个大型函数中，再从中提炼出组织合理的小型函数。Kent Beck 发现，实施 Replace Method with Method Object（135）之前先这么做， 往往可以获得不错的效果。</p>
+<h3 id="做法"><a href="#做法" class="headerlink" title="做法"></a>做法</h3><ul>
+<li>检查函数，确定它不具多态性（如果子类继承了这个函数，就不要将此函数内联，因为子类无法覆写一个根本不存在的函数。）</li>
+<li>略</li>
+</ul>
+<p>难点：对于递归调用、多返回点、内联至另一个对象中而该对象并无提供访问函数……等等。如果遇到了这样的复杂情况，那么就不应该使用这个重构手法。</p>
+<h2 id="6-3-Inline-Temp（内联临时变量）"><a href="#6-3-Inline-Temp（内联临时变量）" class="headerlink" title="6.3 Inline Temp（内联临时变量）"></a>6.3 Inline Temp（内联临时变量）</h2><h3 id="概要-2"><a href="#概要-2" class="headerlink" title="概要"></a>概要</h3><p>你有一个临时变量，只被一个简单表达式赋值一次，而它妨碍了其它重构手法。</p>
+<p><strong>将所有对该变量的引用动作，替换为对它赋值的那个表达式本身。</strong></p>
+<h3 id="动机-2"><a href="#动机-2" class="headerlink" title="动机"></a>动机</h3><p>Inline Temp（119）多半是作为 Replace Temp with Query（120）的一部分使用的，所以真正的动机出现在后者那儿。</p>
+<h2 id="6-4-Replace-Temp-with-Query"><a href="#6-4-Replace-Temp-with-Query" class="headerlink" title="6.4 Replace Temp with Query"></a>6.4 Replace Temp with Query</h2><h3 id="概要-3"><a href="#概要-3" class="headerlink" title="概要"></a>概要</h3><p>你的程序以一个临时变量保存某一表达式的运算结果。</p>
+<p><strong>将这个表达式提炼到一个独立函数中。将这个临时变量的所有引用点替换为对新函数的调用。此后，新函数就可以被其它函数使用。</strong></p>
+<h3 id="动机-3"><a href="#动机-3" class="headerlink" title="动机"></a>动机</h3><p>由于临时变量只在所属函数内可见，所以它们会<strong>驱使你写出更长的函数，因为只有这样你才能访问到需要的临时变量。</strong></p>
+<h2 id="6-5-Introduce-Explaining-Variable（引入解释性变量）"><a href="#6-5-Introduce-Explaining-Variable（引入解释性变量）" class="headerlink" title="6.5 Introduce Explaining Variable（引入解释性变量）"></a>6.5 Introduce Explaining Variable（引入解释性变量）</h2><h3 id="概要-4"><a href="#概要-4" class="headerlink" title="概要"></a>概要</h3><p>你有一个复杂的表达式。</p>
+<p><strong>将该复杂表达式（或其中一部分）的结果放进一个临时变量，以此变量名称来解释表达式用途。</strong></p>
+<h2 id="6-6-Split-Temporary-Varibale（分解临时变量）"><a href="#6-6-Split-Temporary-Varibale（分解临时变量）" class="headerlink" title="6.6 Split Temporary Varibale（分解临时变量）"></a>6.6 Split Temporary Varibale（分解临时变量）</h2><h3 id="概要-5"><a href="#概要-5" class="headerlink" title="概要"></a>概要</h3><p>你的程序有某个临时变量被赋值超过一次，它既不是循环变量，也不被用于收集计算结果。</p>
+<p><strong>针对每次赋值，创造一个独立、对应的临时变量。</strong></p>
+<h3 id="动机-4"><a href="#动机-4" class="headerlink" title="动机"></a>动机</h3><p>同一个临时变量承担两件不同的事情，会令代码阅读者糊涂。</p>
+<blockquote>
+<p>我敢保证，这比吃苏格兰布丁强多了——你知道他们都在里面放了些什么东西吗？</p>
+<p>（苏格兰布丁：haggis，一种苏格兰菜，把羊心等内脏装在羊胃里煮成。由于它被羊胃包成一个球体，因此可以像球一样踢来踢去。）</p>
+</blockquote>
+<h2 id="6-7-Rmove-Assignments-to-Prarmeters（移除对参数的赋值）"><a href="#6-7-Rmove-Assignments-to-Prarmeters（移除对参数的赋值）" class="headerlink" title="6.7 Rmove Assignments to Prarmeters（移除对参数的赋值）"></a>6.7 Rmove Assignments to Prarmeters（移除对参数的赋值）</h2><h3 id="概要-6"><a href="#概要-6" class="headerlink" title="概要"></a>概要</h3><p>代码对一个参数进行赋值。</p>
+<p><strong>以一个临时变量取代该参数的位置。</strong></p>
+<h2 id="6-8-Replace-Method-with-Method-Object（以函数对象取代函数）"><a href="#6-8-Replace-Method-with-Method-Object（以函数对象取代函数）" class="headerlink" title="6.8 Replace Method with Method Object（以函数对象取代函数）"></a>6.8 Replace Method with Method Object（以函数对象取代函数）</h2><h3 id="概要-7"><a href="#概要-7" class="headerlink" title="概要"></a>概要</h3><p>你有一个大型函数，其中对局部变量的使用使你无法采用 Extract Method（110）。</p>
+<p><strong>将这个函数放进一个单独对象中，如此一来局部变量就成了对象内的字段。然后你可以在同一个对象中将这个大型函数分解为多个小型函数。</strong></p>
+<h2 id="6-9-Substitute-Algorithm（替换算法）"><a href="#6-9-Substitute-Algorithm（替换算法）" class="headerlink" title="6.9 Substitute Algorithm（替换算法）"></a>6.9 Substitute Algorithm（替换算法）</h2><h3 id="概要-8"><a href="#概要-8" class="headerlink" title="概要"></a>概要</h3><p>你想要把某个算法替换为另一个更清晰的算法。</p>
+<p><strong>将函数本体替换为另一个算法。</strong></p>
+
           
-          <!--/noindex-->
         
       
     </div>
@@ -1441,16 +1511,99 @@
 
       
         
-          <p>[TOC]</p>
-          <!--noindex-->
           
-            <div class="post-button text-center">
-              <a class="btn" href="/2018/11/21/《Refactoring》读书笔记（一）/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
+            <a id="more"></a>
+<h1 id="第一章-重构，第一个案例"><a href="#第一章-重构，第一个案例" class="headerlink" title="第一章 重构，第一个案例"></a>第一章 重构，第一个案例</h1><blockquote>
+<p>如果你发现自己需要为程序添加一个特效，而代码结构使你无法很方便地达成目的，那就先重构那个程序，使特性的添加比较容易进行，然后再添加特性。</p>
+</blockquote>
+<blockquote>
+<p>重构前，先检查自己是否有一套可靠的测试机制。这些测试必须有自我检验能力。</p>
+</blockquote>
+<blockquote>
+<p>任何一个傻瓜都能写出计算机可以理解的代码。唯有写出人类容易理解的代码，才是优秀的程序员。</p>
+</blockquote>
+<p><strong>重构时最好小步前进，如此一来犯错的几率最小。</strong></p>
+<p>（我司的重构一般都是对一个模块使用另一种模式如VIPER/MVP去写，所以都是直接重新写一个模块，然后两者做ABTest以确保无误。。。这种情况真是太难测试了。。。)</p>
+<blockquote>
+<p>这个例子给我们最大的启发是重构的节奏：测试、小修改、测试、小修改、测试、小修改。。。。。。正是这种节奏让重构得以快速而安全地前进。</p>
+</blockquote>
+<p>（Emmm。。。我司的方式好像不应该叫重构，而应该叫“重写”。。。）</p>
+<h1 id="第二章-重构原则"><a href="#第二章-重构原则" class="headerlink" title="第二章 重构原则"></a>第二章 重构原则</h1><h2 id="何谓重构-what"><a href="#何谓重构-what" class="headerlink" title="何谓重构 what"></a>何谓重构 what</h2><blockquote>
+<ul>
+<li>重构（名词）：对软件内部结构的一种调整，目的是在不改变软件可观察行为的前提下，提高其可理解性，降低其修改成本</li>
+<li>重构（动词）：使用一系列重构手法，在不改变软件可观察行为的前提下，调整其结构</li>
+</ul>
+</blockquote>
+<h3 id="两顶帽子"><a href="#两顶帽子" class="headerlink" title="两顶帽子"></a>两顶帽子</h3><p>使用重构技术开发软件时，你把自己的时间分配给两种截然不同的行为：添加新功能，以及重构。</p>
+<ul>
+<li>添加新功能时，你不应该修改既有代码，只管添加新功能。通过测试（并让测试正常运行），你可以衡量自己的工作进度。</li>
+<li>重构时你就不能再添加功能，只管改进程序结构。此时你不应该添加任何测试（除非发现有先前遗漏的东西），只在绝对必要（用以处理接口变化）时才修改测试。</li>
+</ul>
+<p>无论何时你都应该清楚自己戴的是哪一顶帽子。</p>
+<h2 id="为何重构-why"><a href="#为何重构-why" class="headerlink" title="为何重构 why"></a>为何重构 why</h2><ul>
+<li>重构改进软件设计。如果消除重复代码，就可以确定所有事物和行为在代码中只表述一次，这正是优秀设计的根本。</li>
+<li>重构使软件更容易理解。早期重构是“擦掉窗户上的污垢，使你看得更远”。</li>
+<li>重构帮助找到 bug。搞清楚程序结构的同时，也清楚了自己所做的一些假设，于是想不把 bug 揪出来都难。</li>
+<li>重构提高编程速度。良好设计是维持软件开发速度的根本。</li>
+</ul>
+<h2 id="何时重构-when"><a href="#何时重构-when" class="headerlink" title="何时重构 when"></a>何时重构 when</h2><p>反对专门拨出时间进行重构。重构应该随时随地进行，不应该为重构而重构，之所以重构，是因为你想做别的什么事，而重构可以帮助你把那些事做好。</p>
+<h3 id="三次法则"><a href="#三次法则" class="headerlink" title="三次法则"></a>三次法则</h3><p>第一次做某件事时只管去做；第二次做类似的事时会产生反感，但无论如何还是可以去做；第三次再做类似的事，你就应该重构。</p>
+<blockquote>
+<p>事不过三，三则重构。</p>
+</blockquote>
+<ul>
+<li>添加功能时重构。</li>
+<li>修补错误时重构。</li>
+<li>复审代码时重构。</li>
+</ul>
+<p>间接层的价值：</p>
+<ul>
+<li>允许逻辑共享</li>
+<li>分开解释意图和实现</li>
+<li>隔离变化</li>
+<li>封装条件逻辑</li>
+</ul>
+<h2 id="重构的难题"><a href="#重构的难题" class="headerlink" title="重构的难题"></a>重构的难题</h2><ul>
+<li>数据库</li>
+<li>修改接口</li>
+<li>难以通过重构手法完成的设计改动</li>
+<li>何时不该重构</li>
+</ul>
+<h2 id="重构与设计"><a href="#重构与设计" class="headerlink" title="重构与设计"></a>重构与设计</h2><p>重构肩负一项特殊使命：它和设计彼此互补。</p>
+<p>重构可以带来更简单的设计，同时又不损失灵活性，这也降低了设计过程的难度。</p>
+<blockquote>
+<p>哪怕你完全了解系统，也请实际度量它的性能，不要臆测。臆测会让你学到一些东西，但十有八九你是错的。</p>
+</blockquote>
+<h2 id="重构与性能"><a href="#重构与性能" class="headerlink" title="重构与性能"></a>重构与性能</h2><p>除了对性能有严格要求的实时系统，其他任何情况下“编写快速软件”的秘诀就是：首先写出可调的软件，然后调整它以求获得足够速度。</p>
+<h2 id="重构起源何处"><a href="#重构起源何处" class="headerlink" title="重构起源何处"></a>重构起源何处</h2><h1 id="第三章-代码的坏味道"><a href="#第三章-代码的坏味道" class="headerlink" title="第三章 代码的坏味道"></a>第三章 代码的坏味道</h1><blockquote>
+<p>P.S. 第三章内容比较多，将单独拎出来一节</p>
+</blockquote>
+<h1 id="第四章-构筑测试体系"><a href="#第四章-构筑测试体系" class="headerlink" title="第四章 构筑测试体系"></a>第四章 构筑测试体系</h1><h2 id="4-1-自测试代码的价值"><a href="#4-1-自测试代码的价值" class="headerlink" title="4.1 自测试代码的价值"></a>4.1 自测试代码的价值</h2><blockquote>
+<p>确保所有测试都完全自动化，让它们检查自己的测试结果。</p>
+<p>一套测试就是一个强大的bug侦测器，能够大大缩减查找bug所需要的时间。</p>
+</blockquote>
+<h2 id="4-2-JUnit-测试框架"><a href="#4-2-JUnit-测试框架" class="headerlink" title="4.2 JUnit 测试框架"></a>4.2 JUnit 测试框架</h2><blockquote>
+<p>频繁地运行测试。每次编译请把测试也考虑进去——每天至少执行每个测试一次。</p>
+</blockquote>
+<h3 id="单元测试（Unit-Test）和功能测试（Functional-Test）"><a href="#单元测试（Unit-Test）和功能测试（Functional-Test）" class="headerlink" title="单元测试（Unit Test）和功能测试（Functional Test）"></a>单元测试（Unit Test）和功能测试（Functional Test）</h3><blockquote>
+<p>每当你收到bug报告，请先写一个单元测试来暴露这个bug。</p>
+</blockquote>
+<h2 id="4-3-添加更多测试"><a href="#4-3-添加更多测试" class="headerlink" title="4.3 添加更多测试"></a>4.3 添加更多测试</h2><blockquote>
+<p>编写未臻完善的测试并实际运行，好过对完美测试的无尽等待。</p>
+<p>考虑可能出错的边界条件，把测试火力集中在那儿。</p>
+<p>当事情被认为应该会出错时，别忘了检查是否抛出了预期的异常。</p>
+<p>不要因为测试无法捕捉到所有 bug 就不写测试，因为测试的确可以捕捉到大多数 bug。</p>
+</blockquote>
+<h1 id="第五章-重构列表"><a href="#第五章-重构列表" class="headerlink" title="第五章 重构列表"></a>第五章 重构列表</h1><h2 id="5-1-重构的记录格式"><a href="#5-1-重构的记录格式" class="headerlink" title="5.1 重构的记录格式"></a>5.1 重构的记录格式</h2><ul>
+<li>名称（name）</li>
+<li>概要（summary）：适用场景，以及它所做的事情。</li>
+<li>动机（motivation）：为什么需要这个重构，以及什么情况下不该使用这个重构。</li>
+<li>做法（mechanics）</li>
+<li>范例（examples）</li>
+</ul>
+<h2 id="5-2-寻找引用点"><a href="#5-2-寻找引用点" class="headerlink" title="5.2 寻找引用点"></a>5.2 寻找引用点</h2><h2 id="5-3-这些重构手法有多成熟"><a href="#5-3-这些重构手法有多成熟" class="headerlink" title="5.3 这些重构手法有多成熟"></a>5.3 这些重构手法有多成熟</h2><p>设计模式为重构行为提供了目标。设计模式和重构之间有着一种与生俱来的关系。模式是你希望到达的目标，重构则是到达之路。</p>
+
           
-          <!--/noindex-->
         
       
     </div>
