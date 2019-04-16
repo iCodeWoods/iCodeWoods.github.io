@@ -5,7 +5,6 @@ categories:
 date: 2018-11-28 13:34:38
 tags: Books
 ---
-<!-- more -->
 
 # 第六章 重新组织函数
 
@@ -26,6 +25,8 @@ tags: Books
 难点在于局部变量，包括传进源函数的参数和源函数所声明的临时变量。
 
 可以先尝试运用 Replace Temp with Query（120）减少临时变量。如果仍困难重重，我就会动用 Replace Method with Method Object（135），这个重构手法不在乎代码中有多少临时变量，也不在乎你如何使用它们。
+
+<!-- more -->
 
 ## 6.2 Inline Method（内联函数）
 
