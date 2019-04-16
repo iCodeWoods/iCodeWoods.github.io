@@ -5,10 +5,6 @@ categories:
 date: 2018-11-21 13:20:26
 tags: Books
 ---
-[TOC]
-
-
-
 <!-- more -->
 
 # 第一章 重构，第一个案例

@@ -7,8 +7,6 @@ tags:
   - SpriteKit
   - Game
 ---
-[TOC]
-
 ## TL;DR
 
 SpriteKit 早在 iOS 7 就已推出，但由于我的精力/水平有限，直到最近才开始学习它。

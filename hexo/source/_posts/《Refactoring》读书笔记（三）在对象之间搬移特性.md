@@ -5,8 +5,6 @@ categories:
 date: 2018-12-04 13:39:35
 tags: Books
 ---
-[TOC]
-
 <!-- more -->
 
 # 第七章 在对象之间搬移特性

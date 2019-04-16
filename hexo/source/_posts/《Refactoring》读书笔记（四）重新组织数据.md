@@ -5,9 +5,6 @@ categories:
 date: 2018-12-10 13:37:18
 tags: Books
 ---
-
-[TOC]
-
 <!-- more -->
 
 # 第八章 重新组织数据

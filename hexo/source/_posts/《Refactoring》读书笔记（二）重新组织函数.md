@@ -5,8 +5,6 @@ categories:
 date: 2018-11-28 13:34:38
 tags: Books
 ---
-[TOC]
-
 <!-- more -->
 
 # 第六章 重新组织函数
