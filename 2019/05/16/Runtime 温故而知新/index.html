@@ -107,13 +107,13 @@
 
 
 
-  <meta name="description" content="Runtime本文基于 runtime 的最新版本 750，源码可以点这里下载，可编译版本可以点这里下载。 + load1234567891011121314151617181920// main.m#import &amp;lt;Foundation/Foundation.h&amp;gt;@interface XXObject : NSObject@end@implementation XXObject+ (">
+  <meta name="description" content="Runtime本文基于 runtime 的最新版本 750，源码可以点这里下载，可编译版本可以点这里下载。">
 <meta name="keywords" content="Runtime">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Runtime 温故而知新">
 <meta property="og:url" content="https://iCodeWoods.github.io/2019/05/16/Runtime 温故而知新/index.html">
 <meta property="og:site_name" content="iCodeWoods的小站">
-<meta property="og:description" content="Runtime本文基于 runtime 的最新版本 750，源码可以点这里下载，可编译版本可以点这里下载。 + load1234567891011121314151617181920// main.m#import &amp;lt;Foundation/Foundation.h&amp;gt;@interface XXObject : NSObject@end@implementation XXObject+ (">
+<meta property="og:description" content="Runtime本文基于 runtime 的最新版本 750，源码可以点这里下载，可编译版本可以点这里下载。">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="https://icodewoods.github.io/2019/05/16/Runtime%20温故而知新/Runtime_Breakpoint_Load.png">
 <meta property="og:image" content="https://icodewoods.github.io/2019/05/16/Runtime%20温故而知新/Runtime_Product_Exec.png">
@@ -122,10 +122,10 @@
 <meta property="og:image" content="https://icodewoods.github.io/2019/05/16/Runtime%20温故而知新/Runtime_Breakpoint_LoadImages.png">
 <meta property="og:image" content="https://icodewoods.github.io/2019/05/16/Runtime%20温故而知新/Runtime_PrintOption_PrintImageTimes.png">
 <meta property="og:image" content="https://icodewoods.github.io/2019/05/16/Runtime%20温故而知新/Runtime_Process.png">
-<meta property="og:updated_time" content="2019-10-09T02:22:53.331Z">
+<meta property="og:updated_time" content="2019-10-09T02:24:18.616Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Runtime 温故而知新">
-<meta name="twitter:description" content="Runtime本文基于 runtime 的最新版本 750，源码可以点这里下载，可编译版本可以点这里下载。 + load1234567891011121314151617181920// main.m#import &amp;lt;Foundation/Foundation.h&amp;gt;@interface XXObject : NSObject@end@implementation XXObject+ (">
+<meta name="twitter:description" content="Runtime本文基于 runtime 的最新版本 750，源码可以点这里下载，可编译版本可以点这里下载。">
 <meta name="twitter:image" content="https://icodewoods.github.io/2019/05/16/Runtime%20温故而知新/Runtime_Breakpoint_Load.png">
 
 
@@ -468,6 +468,7 @@
 
       
         <h1 id="Runtime"><a href="#Runtime" class="headerlink" title="Runtime"></a>Runtime</h1><p>本文基于 runtime 的最新版本 750，源码可以<a href="https://opensource.apple.com/tarballs/objc4/" target="_blank" rel="noopener">点这里</a>下载，可编译版本可以<a href="https://github.com/RetVal/objc-runtime" target="_blank" rel="noopener">点这里</a>下载。</p>
+<a id="more"></a>
 <h2 id="load"><a href="#load" class="headerlink" title="+ load"></a>+ load</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">// main.m</span><br><span class="line">#import &lt;Foundation/Foundation.h&gt;</span><br><span class="line"></span><br><span class="line">@interface XXObject : NSObject</span><br><span class="line">@end</span><br><span class="line"></span><br><span class="line">@implementation XXObject</span><br><span class="line"></span><br><span class="line">+ (void)load &#123;</span><br><span class="line">	NSLog(@&quot;XXObject load&quot;);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">@end</span><br><span class="line"></span><br><span class="line">int main(int argc, const char * argv[]) &#123;</span><br><span class="line">    @autoreleasepool &#123;</span><br><span class="line">        NSLog(@&quot;Hello, World!&quot;);</span><br><span class="line">    &#125;</span><br><span class="line">    return 0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>通过断点，我们可以看到如下调用栈：</p>
 <p><img src="/2019/05/16/Runtime 温故而知新/Runtime_Breakpoint_Load.png" alt="Runtime_Breakpoint_Load"></p>
