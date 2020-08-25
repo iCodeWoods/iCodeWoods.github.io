@@ -81,4 +81,3 @@ deploy:
   type: git
   repository: 
     github: git@github.com:iCodeWoods/iCodeWoods.github.io.git,master
-    coding: git@git.coding.net:iCodeWoods/iCodeWoods.git,master
